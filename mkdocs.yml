@@ -1,0 +1,23 @@
+site_name: LiHuaMao 的小站
+site_url: https://lihuamao.github.io/
+
+nav:
+  - Home: index.md
+  - Blog:
+     - blog/index.md
+  - 面经整理:
+     - interview/index.md
+     - interview/algorithm.md
+  - 关于我: about.md
+
+theme:
+  name: material
+  features:
+    - navigation.indexes
+    - navigation.tabs       # 启用顶部标签页
+    - navigation.sections   # 启用导航分组
+    - navigation.expand     # 展开导航项
+    - navigation.top        # 返回顶部按钮
+plugins:
+  - search
+  - blog
