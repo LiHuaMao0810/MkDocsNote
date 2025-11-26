@@ -1,0 +1,23 @@
+/* 自定义logo样式 - 圆形并放大 */
+.md-header__button.md-logo img,
+.md-nav__button.md-logo img {
+    width: 48px !important;        /* 放大logo尺寸 */
+    height: 48px !important;       /* 放大logo尺寸 */
+    border-radius: 50% !important; /* 设置为圆形 */
+    object-fit: cover !important;  /* 保持图片比例，裁剪多余部分 */
+    border: 2px solid rgba(255, 255, 255, 0.1) !important; /* 添加轻微边框 */
+    transition: transform 0.3s ease !important; /* 添加悬停动画效果 */
+}
+
+/* 悬停效果 */
+.md-header__button.md-logo img:hover,
+.md-nav__button.md-logo img:hover {
+    transform: scale(1.1) !important; /* 悬停时稍微放大 */
+}
+
+/* 确保logo容器有足够空间 */
+.md-header__button.md-logo,
+.md-nav__button.md-logo {
+    padding: 4px !important;
+    margin: 4px !important;
+}

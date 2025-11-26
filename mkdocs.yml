@@ -5,6 +5,10 @@ nav:
   - Home: index.md
   - Blog:
      - blog/index.md
+  - Flow Matching:
+     - FlowMatching/index.md
+     - FlowMatching/FlowMatching.md
+     - FlowMatching/ConsistencyModel.md
   - 面经整理:
      - interview/index.md
      - interview/algorithm.md
@@ -12,6 +16,26 @@ nav:
 
 theme:
   name: material
+  language: zh
+  custom_dir: overrides
+  logo: assets/logo.png
+  favicon: assets/logo.png
+  palette:
+    # Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Dark mode
+      primary: green
+      accent: deep purple
+
+    # Light Mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Light mode
+      primary: blue
+      accent: deep orange
   features:
     - navigation.indexes
     - navigation.tabs       # 启用顶部标签页
@@ -21,3 +45,6 @@ theme:
 plugins:
   - search
   - blog
+
+extra_css:
+  - stylesheets/extra.css
