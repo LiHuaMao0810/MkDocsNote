@@ -174,20 +174,8 @@ $$
 $$
 在已知条件速度场能生成条件路径的情况下，给出证明：
 
+![image-20251127170202673](./assets/image-20251127170202673.png)
 
-$$
-\begin{aligned}
-\frac{d}{dt} p_t(x)  
-&\overset{(i)}{=} 
-\int \frac{d}{dt} p_{t|Z}(x | z) p_Z(z) \, dz \\
-&\overset{(ii)}{=} 
-- \int \text{div}_x \left[ u_t(x | z) p_{t|Z}(x | z) \right] p_Z(z) \, dz \\
-&\overset{(i)}{=} 
-- \text{div}_x \int u_t(x | z) p_{t|Z}(x | z) p_Z(z) \, dz \\
-&\overset{(iii)}{=} 
-- \text{div}_x \left[ u_t(x) p_t(x) \right].
-\end{aligned}
-$$
 （i）由交换积分和微分顺序得到
 
 （ii）由条件概率和条件速度场满足连续性方程得到
