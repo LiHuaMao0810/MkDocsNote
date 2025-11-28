@@ -1,3 +1,6 @@
+---
+comments : true
+---
 # UML 统一建模语言
 
 !!! info "简介"
@@ -42,10 +45,14 @@ UML 提供了多种类型的图，主要分为两大类：
 
 本部分将逐步介绍 UML 的各种图表类型，帮助你掌握软件建模的基本技能：
 
-- [用例图（Use Case Diagram）](UseCaseDiagram.md)
+### 行为图
+
+- [用例图（Use Case Diagram）](UseCaseDiagram.md) - 展示系统功能和参与者的交互
+- [序列图（Sequence Diagram）](SequenceDiagram.md) - 展示对象间按时间顺序的交互
+- [通信图（Communication Diagram）](CommunicationDiagram.md) - 强调对象间的组织结构和协作关系
 
 ## 学习资源
 
-- [UML 官方网站](https://www.uml.org/)
+- [UML 官方网站](https://www.omg.org/uml/)
 - [YouTube UML 教程系列](https://www.youtube.com/playlist?list=PLJlDQmEdjHZYrtdwL0SHZseRSp_F0oOPN)
 
