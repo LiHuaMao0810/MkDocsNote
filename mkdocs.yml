@@ -12,6 +12,9 @@ nav:
   - 面经整理:
      - interview/index.md
      - interview/algorithm.md
+  - UML建模:
+     - UML/index.md
+     - UML/UseCaseDiagram.md
   - 关于我: about.md
 
 theme:
