@@ -1,4 +1,4 @@
-# Flow Matching 流匹配
+# [CFM] Flow Matching 流匹配
 
 !!! info "文档信息"
 
@@ -168,7 +168,7 @@ $$
 
 ### 3.2 证明边缘路径
 
-这里首先要给出一个引理：速度场 $u_t$ 能生成对应的概率路径 $p_t$ 等价于满足连续性方程（证明省略）：
+这里首先要给出一个引理：速度场 $u_t$ 能生成对应的概率路径 $p_t$ 等价于满足连续性方程（证明可以查看[Flow Matching For General Modeling](https://openreview.net/forum?id=PqvMRDCJT9t)）：
 $$
 \frac{d}{dt} p_t(x) + \text{div}(p_t u_t)(x) = 0,
 $$
