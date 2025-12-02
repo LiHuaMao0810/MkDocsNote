@@ -18,7 +18,19 @@
 
 
 
-## 公式证明
+## 核心公式
+
+$$
+u_t(z) = \mathbb{E}_{\epsilon \sim \mathcal{N}(0, I)} u_t(z \mid \epsilon) \frac{p_t(z \mid \epsilon)}{p_t(z)}
+$$
+
+构造了给定初始样本时，条件路径如何聚合得到边际路径
+
+> [!tip]
+>
+> 证明在文章最后
+
+## 推导过程
 
 首先做一些流匹配的常规假设：
 
@@ -43,8 +55,7 @@ $$
 
 ![image-20251130170454541](./assets/image-20251130170454541.png)
 
-
-**定义条件速度场如何生成边际速度场（构造的正确性证明在后面）：**
+**定义条件速度场如何生成边际速度场：**
 $$
 u_t(z) = \mathbb{E}_{\epsilon \sim \mathcal{N}(0, I)} u_t(z \mid \epsilon) \frac{p_t(z \mid \epsilon)}{p_t(z)}
 $$
@@ -94,12 +105,14 @@ $$
 
 
 
-!!! info "边际速度场构造合理性的证明"
-    根据lipman等人在[Flow Matching For General Modeling](https://openreview.net/forum?id=PqvMRDCJT9t)中证明的，边际速度场生成对应边际概率，等价于其满足连续性方程
+## 边际速度场构造合理性的证明
 
-    ![image-20251130170048835](./assets/image-20251130170048835.png)
-    
-    第二个等号成立是因为我们设计的条件速度场能生成对应条件路径，第三个等式是假设微分和期望能互换，然后由边际分布 $ p_t(z) $ 得到的
+> [!note]
+>     根据lipman等人在[Flow Matching For General Modeling](https://openreview.net/forum?id=PqvMRDCJT9t)中证明的，**边际速度场生成对应边际概率，等价于其满足连续性方程**
+>
+> ![image-20251130170048835](./assets/image-20251130170048835.png)
+>
+> 第二个等号成立是因为我们设计的条件速度场能生成对应条件路径，第三个等式是假设微分和期望能互换，然后由边际分布 $p_t(z)$ 得到的
 
-
+ 
 

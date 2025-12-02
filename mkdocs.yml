@@ -5,11 +5,11 @@ nav:
   - Home: index.md
   - Blog:
      - blog/index.md
-  - Flow Matching:
-     - FlowMatching/index.md
-     - FlowMatching/FlowMatching.md
-     - FlowMatching/ConsistencyModel.md
-     - FlowMatching/RectifiedFlow.md
+  - Diffusion Model:
+     - DiffusionModel/index.md
+     - DiffusionModel/FlowMatching.md
+     - DiffusionModel/ConsistencyModel.md
+     - DiffusionModel/RectifiedFlow.md
   - 面经整理:
      - interview/index.md
      - interview/algorithm.md
@@ -53,6 +53,8 @@ theme:
 plugins:
   - search
   - blog
+  - callouts
+
 
 markdown_extensions:
   - pymdownx.arithmatex:

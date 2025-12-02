@@ -1,5 +1,12 @@
 # Consistency Model 一致性模型
 
+!!! note
+    
+    
+
+
+
+
 $$
 \mathcal{L}_{\text{TCD}}^N(\theta, \theta^-; \phi) := \mathbb{E}\left[ \omega(t_n,t_m) \left\| f_\theta(x_{t_{n+k}}, t_{n+k},t_{m}) - f_{\theta^-}(\hat{x}_{t_n}^{\phi,k}, t_n,t_m) \right\|_2^2 \right]
 $$
@@ -20,7 +27,7 @@ $$
 \mathcal{L}_{\text{TCD}}^N(\theta; \phi) := \mathbb{E}\left[ \left\| f_\theta(x_{t_{n+k}}, t_{n+k},t_{m}) - f_{\theta}(\hat{x}_{t_n}^{\phi,k}, t_n,t_m) \right\|_2^2 \right]
 $$
 
-<img src="./assets/image-20251010142826278.png" alt="image-20251010142826278" style="zoom: 67%;" />
+![image-20251010142826278](./assets/image-20251010142826278.png)
 
 训练过程：
 
