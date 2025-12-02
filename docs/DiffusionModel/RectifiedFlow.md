@@ -1,10 +1,10 @@
 # [CFM] Rectified Flow 修正流
 
-!!! info "文档信息"
-
-    创建时间：2025-11-29 | 更新时间：2025-11-29
-    
-    本文基于**[Scaling Rectified Flow Transformers for High-Resolution Image Synthesis](https://arxiv.org/pdf/2506.23434v2)** 做笔记
+> [!INFO] 文档信息
+>
+> 创建时间：2025-11-29 | 更新时间：2025-11-29
+> 
+> 本文基于**[Scaling Rectified Flow Transformers for High-Resolution Image Synthesis](https://arxiv.org/pdf/2506.23434v2)** 做笔记
 
 
 
@@ -34,13 +34,15 @@ $$
 
 首先做一些流匹配的常规假设：
 
-!!! info "符号约定"
-    这个文章中，$x_0$ 是目标分布的干净样本，$\epsilon$ 是给定的条件，服从高斯分布的初始噪声样本
+> [!INFO] 符号约定
+>
+> 这个文章中，$x_0$ 是目标分布的干净样本，$\epsilon$ 是给定的条件，服从高斯分布的初始噪声样本
 
-!!! tips "结论前置"
-    证明的思路就是说明给定源分布样本作为条件，得到的条件速度场，加权得到的边际速度场也可以生成所需要的边际分布 $p_t(z)$ ， 然后对损失函数进行一些重参数化，将网络预测的速度场等价转换为预测源分布样本。
-
-    实际上在这个条件流匹配的背景下，源分布样本和速度场本来就是线性变换的关系。
+> [!TIP] 结论前置
+>
+> 证明的思路就是说明给定源分布样本作为条件，得到的条件速度场，加权得到的边际速度场也可以生成所需要的边际分布 $p_t(z)$ ， 然后对损失函数进行一些重参数化，将网络预测的速度场等价转换为预测源分布样本。
+>
+> 实际上在这个条件流匹配的背景下，源分布样本和速度场本来就是线性变换的关系。
 t时刻的隐状态，由给定的噪声 $X_0 $:
 $$
 z_t = a_t x_0 + b_t \epsilon \quad \text{where } \epsilon \sim \mathcal{N}(0, I).
@@ -107,8 +109,9 @@ $$
 
 ## 边际速度场构造合理性的证明
 
-> [!note]
->     根据lipman等人在[Flow Matching For General Modeling](https://openreview.net/forum?id=PqvMRDCJT9t)中证明的，**边际速度场生成对应边际概率，等价于其满足连续性方程**
+> [!note] 
+>
+> 根据lipman等人在[Flow Matching For General Modeling](https://openreview.net/forum?id=PqvMRDCJT9t)中证明的，**边际速度场生成对应边际概率，等价于其满足连续性方程**
 >
 > ![image-20251130170048835](./assets/image-20251130170048835.png)
 >

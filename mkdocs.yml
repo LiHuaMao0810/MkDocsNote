@@ -10,6 +10,7 @@ nav:
      - DiffusionModel/FlowMatching.md
      - DiffusionModel/ConsistencyModel.md
      - DiffusionModel/RectifiedFlow.md
+     - DiffusionModel/DistributionMatching.md
   - 面经整理:
      - interview/index.md
      - interview/algorithm.md
