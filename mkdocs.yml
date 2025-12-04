@@ -14,6 +14,7 @@ nav:
   - 经验贴整理:
      - experience/index.md
      - experience/algorithm.md
+     - experience/cc98.md
   - UML建模:
      - UML/index.md
      - UML/UseCaseDiagram.md
