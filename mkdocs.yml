@@ -11,9 +11,9 @@ nav:
      - DiffusionModel/ConsistencyModel.md
      - DiffusionModel/RectifiedFlow.md
      - DiffusionModel/DistributionMatching.md
-  - 面经整理:
-     - interview/index.md
-     - interview/algorithm.md
+  - 经验贴整理:
+     - experience/index.md
+     - experience/algorithm.md
   - UML建模:
      - UML/index.md
      - UML/UseCaseDiagram.md

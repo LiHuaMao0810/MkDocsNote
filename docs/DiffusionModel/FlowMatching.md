@@ -1,8 +1,8 @@
-# [CFM] Flow Matching 流匹配
+# [CFM Overviw] Flow Matching 流匹配
 
 > [!INFO] 文档信息
 >
-> 创建时间：2025-11-26 | 更新时间：2025-11-27
+> 创建时间：2025-11-26 | 更新时间：2025-12-3
 > 
 > 本文基于**[Flow Matching Guide and Code](https://arxiv.org/abs/2412.06264)** 做笔记
 

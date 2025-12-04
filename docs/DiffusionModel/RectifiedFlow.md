@@ -1,4 +1,4 @@
-# [CFM] Rectified Flow 修正流
+# **[CFM] Rectified Flow 修正流**
 
 > [!INFO] 文档信息
 >
@@ -8,9 +8,9 @@
 
 
 
-## 主要贡献
+## **主要贡献**
 
-证明了Conditional Flow Matching 在 given 初始样本 $X_0 $ 的情况下也能正确工作
+证明了Conditional Flow Matching 在 given 初始样本 $X_0$ 的情况下也能正确工作
 
 剩余部分提出了一些不同的前向过程，其实就是不同调度器？小巧思。
 
@@ -18,7 +18,7 @@
 
 
 
-## 核心公式
+## **核心公式**
 
 $$
 u_t(z) = \mathbb{E}_{\epsilon \sim \mathcal{N}(0, I)} u_t(z \mid \epsilon) \frac{p_t(z \mid \epsilon)}{p_t(z)}
@@ -30,7 +30,7 @@ $$
 >
 > 证明在文章最后
 
-## 推导过程
+## **推导过程**
 
 首先做一些流匹配的常规假设：
 
@@ -105,9 +105,9 @@ $$
 
 其中定义 $\epsilon_\theta := \frac{-2}{\lambda_t' b_t} \bigg( v_\theta - \frac{a_t'}{a_t} z \bigg).$
 
+于是网络预测就从速度场等价变为原样本了
 
-
-## 边际速度场构造合理性的证明
+## **边际速度场构造合理性的证明**
 
 > [!note] 
 >
