@@ -1,8 +1,14 @@
+---
+tags:
+  - 分数匹配
+  - 蒸馏
+---
+
 # **[DMD] Distribution Matching Distillation 分布匹配蒸馏**
 
 > [!info]
 >
-> 创建时间：2025-11-29 | 更新时间：2025-12-3
+> 创建时间：2025-11-29 | 更新时间：2025-12-4
 >
 > 本文基于**[One-step Diffusion with Distribution Matching Distillation](https://arxiv.org/abs/2311.18828)** 做笔记
 
@@ -14,7 +20,7 @@
 
 因为最终的图片也可以称作是目标数据分布，所以叫做分布匹配蒸馏？
 
-通过最小化一个近似的 KL 散度来强制单步图像生成器在分布层面上与扩散模型匹配。该近似 KL 散度的梯度可以表示为两个评分函数之差，其中一个评分函数对应于目标分布，另一个评分函数对应于我们单步生成器生成的合成分布。
+通过最小化单步生成器和扩散模型生成分布的KL散度来优化生成器。而该 KL 散度的梯度可以表示为两个评分函数之差，其中一个评分函数对应于目标分布，另一个评分函数对应于我们单步生成器生成的合成分布。
 
 
 
@@ -41,13 +47,22 @@ $$
 
 其中 $\mu_{base}$ 是学习到真实分布的基座模型， $\mu_{fake}^{\phi}$ 是我们训练的学生模型，$\alpha_t , \sigma_t$ 都是噪声调度器的参数
 
+> [!note]
+>
+> 这个建模公式来源于[Score-Based Generative Modeling through Stochastic Differential Equations](https://arxiv.org/abs/2011.13456) 可惜我看不懂这个数学
+
+## **Tricks**
+
+在训练期间，因为我们单步生成器的合成分布一直在变化，我们需要通过最小化标准的去噪目标来更新 $\phi$ 
 
 
-## **推导过程**
+$$
+\mathcal{L}_{\text{denoise}}^\phi = \|\mu_{\text{fake}}^\phi(x_t, t) - x_0\|_2^2,
+$$
 
 
-
-
-
-
+且对于少量噪声的情况，$p_{real}(x_t,t)$ 趋向于0， 所以 $s_{real}(x_t,t)$ 的值不稳定，训练容易崩溃，为此需要引入额外的回归损失，这里取图像块相似性（LPIPS）
+$$
+\mathcal{L}_{\text{reg}} = \mathbb{E}_{(z, y) \sim \mathcal{D}} \ell(G_\theta(z), y).
+$$
 

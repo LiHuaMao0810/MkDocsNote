@@ -1,3 +1,9 @@
+---
+tags:
+  - 流匹配	
+  - 条件流匹配	
+---
+
 # [CFM Overviw] Flow Matching 流匹配
 
 > [!INFO] 文档信息
