@@ -2,6 +2,7 @@
 tags:
   - 分数匹配
   - 蒸馏
+  - 扩散模型
 ---
 
 # **[DMD] Distribution Matching Distillation 分布匹配蒸馏**
@@ -60,8 +61,9 @@ $$
 \mathcal{L}_{\text{denoise}}^\phi = \|\mu_{\text{fake}}^\phi(x_t, t) - x_0\|_2^2,
 $$
 
-
 且对于少量噪声的情况，$p_{real}(x_t,t)$ 趋向于0， 所以 $s_{real}(x_t,t)$ 的值不稳定，训练容易崩溃，为此需要引入额外的回归损失，这里取图像块相似性（LPIPS）
+
+​	
 $$
 \mathcal{L}_{\text{reg}} = \mathbb{E}_{(z, y) \sim \mathcal{D}} \ell(G_\theta(z), y).
 $$

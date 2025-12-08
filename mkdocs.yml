@@ -2,7 +2,9 @@ site_name: LiHuaMao 的小站
 site_url: https://lihuamao.github.io/
 
 nav:
-  - Home: index.md
+  - Home: 
+     - index.md
+     - tags.md
   - Blog:
      - blog/index.md
   - Diffusion Model:
@@ -11,10 +13,14 @@ nav:
      - DiffusionModel/ConsistencyModel.md
      - DiffusionModel/RectifiedFlow.md
      - DiffusionModel/DistributionMatching.md
+     - DiffusionModel/UnderstandingDiffusionModels.md
   - 经验贴整理:
      - experience/index.md
      - experience/algorithm.md
      - experience/cc98.md
+     - experience/softwareEngineer.md
+     - experience/resources.md
+     - experience/others.md
   - UML建模:
      - UML/index.md
      - UML/UseCaseDiagram.md
