@@ -23,6 +23,8 @@ nav:
      - experience/softwareEngineer.md
      - experience/resources.md
      - experience/others.md
+  - 模型后训练:
+     - PostTraining/RLHF.md
   - UML建模:
      - UML/index.md
      - UML/UseCaseDiagram.md
