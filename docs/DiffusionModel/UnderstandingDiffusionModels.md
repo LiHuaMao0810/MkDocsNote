@@ -5,7 +5,7 @@ tags:
   - VAE
 ---
 
-# [Diffusion] Understanding Diffusion Models: A Unified Perspective
+# Understanding Diffusion Models: A Unified Perspective
 
 > [!INFO] 文档信息
 >

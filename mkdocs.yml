@@ -14,6 +14,8 @@ nav:
      - DiffusionModel/RectifiedFlow.md
      - DiffusionModel/DistributionMatching.md
      - DiffusionModel/UnderstandingDiffusionModels.md
+     - DiffusionModel/Diff-Instruct.md
+     - DiffusionModel/DreamDiffusion.md
   - 经验贴整理:
      - experience/index.md
      - experience/algorithm.md

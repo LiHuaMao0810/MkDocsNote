@@ -5,11 +5,11 @@ tags:
   - 扩散模型
 ---
 
-# **[DMD] Distribution Matching Distillation 分布匹配蒸馏**
+# **Distribution Matching Distillation 分布匹配蒸馏**
 
 > [!info]
 >
-> 创建时间：2025-11-29 | 更新时间：2025-12-4
+> 创建时间：2025-11-29 | 更新时间：2025-12-16
 >
 > 本文基于**[One-step Diffusion with Distribution Matching Distillation](https://arxiv.org/abs/2311.18828)** 做笔记
 
@@ -50,7 +50,7 @@ $$
 
 > [!note]
 >
-> 这个建模公式来源于[Score-Based Generative Modeling through Stochastic Differential Equations](https://arxiv.org/abs/2011.13456) 可惜我看不懂这个数学
+> 这个建模公式来源于[Score-Based Generative Modeling through Stochastic Differential Equations](https://arxiv.org/abs/2011.13456) ，在[Understanding Diffusion Model](./UnderstandingDiffusionModels.md)笔记中也记录了分数和噪声预测的关系。
 
 ## **Tricks**
 

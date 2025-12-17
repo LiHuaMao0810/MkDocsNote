@@ -5,13 +5,13 @@ tags:
   - 蒸馏
 ---
 
-# **[CFM] Rectified Flow 修正流**
+# **Rectified Flow 修正流**
 
 > [!INFO] 文档信息
 >
 > 创建时间：2025-11-29 | 更新时间：2025-11-29
 > 
-> 本文基于**[Scaling Rectified Flow Transformers for High-Resolution Image Synthesis](https://arxiv.org/pdf/2506.23434v2)** 做笔记
+> 本文基于**[Scaling Rectified Flow Transformers for High-Resolution Image Synthesis](https://arxiv.org/abs/2403.03206)** 做笔记
 
 
 
