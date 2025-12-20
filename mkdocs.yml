@@ -16,6 +16,8 @@ nav:
      - DiffusionModel/UnderstandingDiffusionModels.md
      - DiffusionModel/Diff-Instruct.md
      - DiffusionModel/DreamDiffusion.md
+     - DiffusionModel/MeanFlow.md
+     - DiffusionModel/SelfDistillation.md
   - 经验贴整理:
      - experience/index.md
      - experience/algorithm.md
