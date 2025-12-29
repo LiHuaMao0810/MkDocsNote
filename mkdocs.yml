@@ -35,6 +35,8 @@ nav:
       - UML/CommunicationDiagram.md
     - 计算机系统原理:
       - ComputerOrganization/chapter1.md
+      - ComputerOrganization/chapter2.md
+      - ComputerOrganization/chapter3.md
   - 关于我: about.md
 
 theme:
