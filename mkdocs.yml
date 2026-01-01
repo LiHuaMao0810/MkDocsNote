@@ -37,6 +37,7 @@ nav:
       - ComputerOrganization/chapter1.md
       - ComputerOrganization/chapter2.md
       - ComputerOrganization/chapter3.md
+      - ComputerOrganization/chapter4.md
   - 关于我: about.md
 
 theme:
