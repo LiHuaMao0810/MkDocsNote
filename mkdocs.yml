@@ -39,6 +39,8 @@ nav:
       - ComputerOrganization/chapter3.md
       - ComputerOrganization/chapter4.md
       - ComputerOrganization/chapter5.md
+    - 软件测试与质量保证:
+      - SoftwareTest/index.md
   - 关于我: about.md
 
 theme:
