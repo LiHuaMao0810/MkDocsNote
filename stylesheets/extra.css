@@ -1,0 +1,64 @@
+/* 自定义logo样式 - 圆形并放大 */
+.md-header__button.md-logo img,
+.md-nav__button.md-logo img {
+    width: 48px !important;        /* 放大logo尺寸 */
+    height: 48px !important;       /* 放大logo尺寸 */
+    border-radius: 50% !important; /* 设置为圆形 */
+    object-fit: cover !important;  /* 保持图片比例，裁剪多余部分 */
+    border: 2px solid rgba(255, 255, 255, 0.1) !important; /* 添加轻微边框 */
+    transition: transform 0.3s ease !important; /* 添加悬停动画效果 */
+}
+
+/* 悬停效果 */
+.md-header__button.md-logo img:hover,
+.md-nav__button.md-logo img:hover {
+    transform: scale(1.1) !important; /* 悬停时稍微放大 */
+}
+
+/* 确保logo容器有足够空间 */
+.md-header__button.md-logo,
+.md-nav__button.md-logo {
+    padding: 4px !important;
+    margin: 4px !important;
+}
+
+/* 相关链接样式 */
+.related-links {
+    background: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.2rem;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.related-links h3 {
+    margin-top: 0;
+    color: var(--md-primary-fg-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.related-links ul {
+    margin: 0.5rem 0;
+    padding-left: 1rem;
+}
+
+.related-links li {
+    margin: 0.3rem 0;
+}
+
+.related-links a {
+    text-decoration: none;
+    color: var(--md-accent-fg-color);
+    font-weight: 500;
+}
+
+.related-links a:hover {
+    text-decoration: underline;
+}
+
+/* 链接图标样式 */
+.link-icon {
+    margin-right: 0.3rem;
+    font-size: 0.9rem;
+}
