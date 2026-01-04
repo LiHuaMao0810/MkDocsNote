@@ -41,6 +41,9 @@ nav:
       - ComputerOrganization/chapter5.md
     - 软件测试与质量保证:
       - SoftwareTest/index.md
+      - SoftwareTest/TestPlan.md
+      - SoftwareTest/TestCase.md
+      - SoftwareTest/TestExcute.md
   - 关于我: about.md
 
 theme:
