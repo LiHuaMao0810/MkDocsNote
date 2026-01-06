@@ -1,0 +1,2462 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lihuamao0810.github.io/MkDocsNote/SoftwareTest/TestPlan/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../TestCase/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>测试计划 - LiHuaMao 的小站</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="LiHuaMao 的小站" class="md-header__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LiHuaMao 的小站
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              测试计划
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../DiffusionModel/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Diffusion Model
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../experience/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  经验贴整理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PostTraining/RLHF/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  模型后训练
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../UML/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程笔记
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  关于我
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LiHuaMao 的小站" class="md-nav__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    LiHuaMao 的小站
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    归档
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../DiffusionModel/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diffusion Model
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diffusion Model
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/FlowMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [CFM Overviw] Flow Matching 流匹配
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/ConsistencyModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistency Model 一致性模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/RectifiedFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rectified Flow 修正流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/DistributionMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Matching Distillation 分布匹配蒸馏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/UnderstandingDiffusionModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding Diffusion Models: A Unified Perspective
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/Diff-Instruct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diff-Instruct Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/DreamDiffusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ProlificDream &amp; DreamDiffusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/MeanFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mean Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/SelfDistillation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learnig Flow Map via Self Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../experience/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经验贴整理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    经验贴整理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法岗面经
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/cc98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    校内资源贴整理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/softwareEngineer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程经验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐学习资源
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型后训练
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型后训练
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostTraining/RLHF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reforcement Learning from Human Feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../UML/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML建模
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1" id="__nav_6_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UML建模
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/UseCaseDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 用例图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/SequenceDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 序列图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/CommunicationDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 通信图（协作图）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机系统原理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机系统原理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter2 计算机的算数运算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 RISC-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chapter4 处理器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter5 Cache/Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试与质量保证
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_3" id="__nav_6_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件测试与质量保证
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试计划
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设定范围
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设定路径
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        组织资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        软件度量
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TestCase/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试用例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TestExcute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试执行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关于我
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设定范围
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        设定路径
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        组织资源
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        软件度量
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">测试计划</h1>
+<p>这个 PPT 实际上把测试计划拆解成了：<strong>明确目标、找对路径、攒齐资源、设定指标</strong>。</p>
+<p><strong>三大支柱 (S.S.R)</strong>：</p>
+<ul>
+<li><strong>Scope（范围）</strong>：解决“测什么”和“不测什么”的问题。</li>
+<li><strong>Schedule（路径）</strong>：设定时间线，解决“什么时候测”的问题。</li>
+<li><strong>reSource（资源）</strong>：解决“谁来测、用什么测”的问题。</li>
+</ul>
+<hr />
+<h3 id="_2">设定范围</h3>
+<p><strong>需求工程</strong>：所谓需求，就是为开发或阶段制定的目标。需求分析是为了解决“不同的人对同一句话理解不同”的问题。</p>
+<p><strong>QA 的核心任务</strong>：</p>
+<ul>
+<li>检查每个功能是否都有合适的<strong>测试方法/策略</strong>。</li>
+<li>确保团队对需求的理解在同一个<strong>基准线 (Baseline)</strong> 上。</li>
+<li>编写<strong>测试用例大纲 (Test Case Inventory)</strong>。</li>
+</ul>
+<p>在测试计划中，<strong>确定范围（Scope）</strong> 绝不仅仅是划定一个测试边界，它是一个<strong>目标</strong>与<strong>条件</strong>不断博弈和迭代的过程 。</p>
+<hr />
+<p><strong>明确“目标”与“条件”的因果关系</strong></p>
+<p>PPT 提出了一个非常深刻的观点：范围是由你拥有的<strong>初始条件</strong>和你想要达到的<strong>最终目标</strong>共同决定的。</p>
+<p><strong>设定条件（你手里有什么）</strong>：</p>
+<ul>
+<li><strong>商业与需求</strong>：商业模式、总体的功能需求与非功能需求（性能、质量等）。</li>
+<li><strong>资源储备</strong>：现有的人力资源、基础设施（服务器、测试设备）、技术储备以及预算金额。</li>
+<li><strong>时间</strong>：项目的开始时间。</li>
+<li><strong>核心逻辑</strong>：你需要好好看看手上已经有什么，还缺什么。</li>
+</ul>
+<p><strong>设定目标（你想要什么）</strong>：</p>
+<ul>
+<li><strong>愿景与功能</strong>：你希望实现的核心理念、功能模块和技术指标。</li>
+<li><strong>能力与成本</strong>：团队的组织能力、运维的可靠性、技术的先进性以及最终的结束时间。</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong>初始条件</strong>：老板只给了 3 个人，两周时间，预算 5 万块。</p>
+<p><strong>目标</strong>：要做一个能点餐、能付钱、能送货的外卖 APP。</p>
+<p><strong>博弈结果（确定范围）</strong>：因为人少时间紧，我们的<strong>范围</strong>定为：只测“下单流程”和“微信支付”。至于“会员积分”、“评价系统”，虽然也是需求，但这次<strong>不在测试范围</strong>内。</p>
+</div>
+<hr />
+<p><strong>应对需求变更（目标偏离）</strong></p>
+<p>在实际操作中，计划往往赶不上变化。PPT 指出，范围是会发生偏离的：</p>
+<ul>
+<li><strong>目标变更</strong>：当实现的目标与计划目标出现差异时，就发生了变更。</li>
+<li><strong>条件变更</strong>：当现实条件（如预算缩水或人员离职）与假设条件不同时，范围也必须调整。</li>
+<li><strong>核心结论</strong>：<strong>需求变更本质上就是目标的变更</strong>。测试范围必须随之动态调整，否则测试目标就会失效。</li>
+</ul>
+<hr />
+<p><strong>QA 在需求分析阶段的“三问”</strong></p>
+<p>为了确保范围设定的科学性，QA 在需求阶段需要通过以下三个关键问题来卡点 ：</p>
+<p><strong>可测性（Testability）：能不能测？怎么测？</strong></p>
+<p>检查需求是否具体到可以被验证，并提前想好招数 。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong>反面例子：</strong> 需求文档写着“APP 支付响应要快” 。</p>
+<p><strong>QA 的挑战：</strong> “快”是多少？没法测！</p>
+<p><strong>正面改进：</strong> 需求改为“从点击支付到跳转成功页面，耗时不得超过 2 秒” 。</p>
+<p><strong>QA 的动作：</strong></p>
+<p><strong>策略：</strong> 我们要用自动化脚本模拟 100 个人同时支付，看响应时间 。</p>
+<p><strong>用例大纲（Test Case Inventory）：</strong> 提前列出清单：1. 正常支付；2. 余额不足支付；3. 断网支付 。</p>
+</div>
+<p><strong>基准线（Baseline）：大家想的是不是一回事？</strong></p>
+<p>确保产品经理（需求方）、开发（实现方）和测试（验证方）对同一个功能的认知是完全同步的 。</p>
+<div class="admonition example">
+<p class="admonition-title">关于“取消订单”功能。</p>
+<p><strong>产品经理：</strong> 觉得用户随时都能取消订单 。</p>
+<p><strong>开发：</strong> 觉得只要商家没接单，用户就能取消订单 。</p>
+<p><strong>测试（QA）：</strong> 问：“如果商家已经做好了菜，但还没骑手取餐，能不能取消？如果取消，钱退多少？” 。</p>
+<p><strong>QA 的目的：</strong> 就像那个“秋千图”，QA 的作用是把所有人拉到会议室，定死规则：订单支付 5 分钟内且商家未接单可全额退款。这个确定的规则就是 <strong>Baseline</strong> 。</p>
+</div>
+<p><strong>度量标准：测到什么程度能“放行”？</strong></p>
+<p>提前设定好评估方法和通过的门槛（阈值），这就是<strong>准出标准（Exit Criteria, EC）</strong> 。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong>评估方法：</strong> 我们不仅看 Bug 数量，还要看“代码覆盖率”和“缺陷密度” 。</p>
+<p><strong>阈值（门槛）设定：</strong></p>
+<ol>
+<li><strong>Bug 要求：</strong> P0（闪退、无法支付）级别的 Bug 必须为 0 。</li>
+<li><strong>代码要求：</strong> 核心支付代码的<strong>圈复杂度</strong>不能超过 10（即逻辑不能太乱） 。</li>
+<li><strong>覆盖率要求：</strong> 测试用例必须 100% 全部跑完 。</li>
+</ol>
+<p><strong>QA 的动作：</strong> 如果最后测试完，发现还有一个不痛不痒的文字错别字（P3 级 Bug），按照预设的阈值，这是允许通过的，APP 可以上线 。</p>
+</div>
+<hr />
+<h3 id="_3">设定路径</h3>
+<ul>
+<li><strong>准备期工作</strong>：包括商业模型建立、环境搭建（运行环境、执行环境、基础设施环境）。</li>
+<li><strong>逐步细化</strong>：制定计划是一个“悖论”，因为计划本身就是计划的一部分，需要随着需求的清晰不断细化。</li>
+<li><strong>迭代筹划</strong>：在 Sprint（冲刺）开始前，QA 需参与筹划，确定评估方法和阈值。</li>
+</ul>
+<p>在搞定了“范围”之后，接下来的核心任务是<strong>设定路径（Schedule）</strong>。这不仅仅是画一个时间轴，更是要定下一套可落地的<strong>软件开发流程（SDP）</strong>。</p>
+<hr />
+<p><strong>准备期的“基建”三要素</strong></p>
+<p>在正式开始测之前，路径的起点是环境搭建。PPT 强调了三个必须搞定的环境：</p>
+<ul>
+<li><strong>运行环境（OP）</strong>：软件最终运行在哪里？</li>
+<li><strong>执行环境（SA）</strong>：测试代码和脚本在哪里跑？</li>
+<li><strong>支持环境（Infra）</strong>：底层的基础设施是否稳固？</li>
+<li><strong>核心逻辑</strong>：路径的第一步不是写代码，而是先把这三个环境攒齐。</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p><strong>环境准备</strong>：测试前，你得先找老板要几台 iPhone 和安卓手机（运行环境），还得在公司服务器上装好自动化脚本工具（执行环境）。</p>
+<p><strong>准入标准（AC）</strong>：开发说写完了，测试说：“等一下！代码必须通过自动化扫描，且没有严重 Bug 才能提测。”</p>
+<p><strong>准出标准（EC）</strong>：测试测完了，说：“所有核心流程（点单支付）通过率 100%，剩下的轻微 Bug 不影响使用，可以发布了。”</p>
+</div>
+<hr />
+<p><strong>计划的两个“悖论”</strong></p>
+<p>这两个悖论解释了为什么你的预估总是准不了，因为<strong>“未知”</strong>是项目的常态。</p>
+<p><strong>悖论 1：制定计划也是计划的一部分</strong></p>
+<p>你不需要等到所有细节都完美了才开始。计划是一个“动态调整”的过程，随着工作的推进，模糊的地方会变得清晰。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>你打算花 2 天写“支付功能测试计划”。但你不能这两天啥都不干只写文档。你得先花半天了解微信支付的接口（动工），在了解过程中你才发现“原来退款流程很复杂”，于是你把原本预估的 5 天测试时间改成了 8 天。<strong>这就是在执行中细化计划。</strong></p>
+</div>
+<p><strong>悖论 2：先需求分析还是先计划？</strong></p>
+<p>两者是互为因果的“鸡生蛋”关系，通常是同步进行的。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>老板问你点单功能要测多久。你现在只有一句话需求（模糊需求），你凭经验说“大概 3 天”（初步计划）。然后你开始研究具体的退单逻辑（需求分析），发现逻辑非常绕，你立刻修正计划说：“不行，得测 5 天”（修正计划）。<strong>你不能等分析完才做计划，因为老板等不及；你也不能只抱死第一版计划，因为那不科学。</strong></p>
+</div>
+<hr />
+<p><strong>敏捷路径下的 Sprint 筹划</strong></p>
+<p>针对预估不准的“痼疾”，敏捷开发用一种“小步快跑”的策略来对冲风险。</p>
+<p><strong>平行世界：开发和测试在 Sprint 中是平行的</strong></p>
+<p>测试不是等开发全部写完才开始的“最后一棒”，而是在同一个周期内同时进行的。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>在这个 2 周的 Sprint 里，第 1-3 天开发在写支付代码，测试也没闲着，在写测试脚本和准备测试数据；第 4 天开发写好一个模块，测试马上就测一个模块。<strong>大家在同一个时空里跑，而不是开发跑完一万米再把棒交给测试。</strong></p>
+</div>
+<p><strong>需求分析阶段的 QA 介入：提前排雷</strong></p>
+<p>在需求还没动笔写代码前，QA 就得进去看这个功能“能不能测”。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>产品经理说要做一个“AI 智能推荐菜品”。QA 马上问：“我怎么验证它是‘智能’的？推荐标准是什么？有没有对应的日志可以查？”如果产品经理答不上来，说明这个功能不可测，<strong>QA 这时介入就避免了开发白写代码，减少了无效的预估。</strong></p>
+</div>
+<p><strong>基准线（Baseline）对齐：确保大家在一个频道上</strong></p>
+<p>通过快速反馈，随时检查大家想的是不是一回事。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>Sprint 第 3 天，开发做出了一个初步界面。</p>
+<p>QA 过去一看：“不对啊，我们要的是‘一键下单’，你这怎么还得点三次确认？”</p>
+<p>开发说：“我以为确认更安全。”QA 马上纠正：“不行，需求 Baseline 是简洁，改回来。”</p>
+<p><strong>这种快速反馈防止了项目跑偏，让预估的时间不至于因为做错而浪费。</strong></p>
+</div>
+<hr />
+<p><strong>设定评估阈值</strong></p>
+<p>在路径的每一个关键节点，都要有明确的卡点：</p>
+<ul>
+<li><strong>准入准出标准（AC/EC）</strong>：明确什么时候可以开始测试，什么时候可以结束测试。</li>
+<li><strong>度量与反馈</strong>：在路径中通过数据（如缺陷密度、进度偏差）来监控实际路径是否偏离了计划路径。</li>
+</ul>
+<hr />
+<h3 id="_4">组织资源</h3>
+<p>在测试计划中，<strong>组织资源（reSource）</strong> 不仅仅是数人头，而是要确保你在正确的时间拥有正确的能力和工具。PPT 将资源分为五个维度，每个维度都决定了测试能不能跑通。</p>
+<p><strong>人力与组织资源：建立“全功能”团队</strong></p>
+<p>测试不应该是孤立的，需要建立一个涵盖各种角色、能独立交付功能的团队。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>如果你要测试“外卖配送追踪”功能，你的团队里不能只有测试员（QA）。你还得能随时拉到开发员（DEV）修复地图跳转的 Bug，拉到需求分析师（BA）确认配送员状态的逻辑。如果缺了其中一个，测试发现问题后只能挂在那里，进度就卡死了。</p>
+</div>
+<p><strong>物理资源：获得足够的基础设施</strong></p>
+<p>指测试执行所需的硬性软硬件环境。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>你要测试 APP 在不同手机上的表现。你手里得有真实的 iPhone 15、华为手机、各种版本的安卓系统（运行环境）；同时，你还需要公司提供一套性能不错的服务器和数据库（支持环境），让你能模拟几千个订单同时生成的压力。没有这些硬件，测试只能靠脑补。</p>
+</div>
+<p><strong>知识资源：获得技术支持和储备</strong></p>
+<p>团队是否具备解决特定技术问题的能力或文档支持。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>外卖 APP 要接入“数字人民币”支付。如果团队里没人懂数字人民币的加密接口协议，你连测试用例都写不出来。这时你需要获得技术储备，比如查阅官方开发文档，或者请公司里的架构师来做一次技术培训。</p>
+</div>
+<p><strong>业务资源：多接触最终用户（End User）</strong></p>
+<p>跳出代码逻辑，从真实的业务场景去理解产品。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>QA 亲自去大街上跟着外卖骑手跑一天。你会发现，骑手在烈日下看不清手机屏幕、戴着手套很难点中“确认送达”按钮。这种“业务资源”能让你发现那些关在办公室里永远测不出来的交互 Bug，从而改进测试用例。</p>
+</div>
+<p><strong>管理资源：获得老板的重视</strong></p>
+<p>确保质量工作在公司层面有话语权和资源倾斜。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>项目临近上线，开发进度延期，项目经理说：“测试别测太细了，先上线再说。”这时候，如果你拥有“管理资源”（比如老板支持“质量第一”），你就有底气说：“不行，核心支付流程还没跑通，必须延期上线修复。”老板的重视就是你卡住质量标准的腰杆。</p>
+</div>
+<p>在实际的迭代中，这些资源是交织在一起的。QA 在写文档、测功能的同时，也在帮运维（OP）部署、帮 PM 跟踪进度、帮 BA 完善需求。这就是 PPT 提到的“正常向”提交团队的常态。</p>
+<hr />
+<h3 id="_5">软件度量</h3>
+<p>软件度量与指标是软件工程中用于量化开发过程和产品质量的方法，旨在通过数据改进流程并辅助决策。</p>
+<p><strong>产品规模度量：代码行数（LOC）与功能点（FP）</strong></p>
+<p>通过统计源代码的总行数或根据用户功能需求评估软件大小，以此作为衡量工作量和复杂度的基础。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>在外卖 APP 迭代中，本月新增了“红包雨”功能。通过度量发现该功能新增了 2000 行代码（LOC），涉及 5 个功能点（FP）。如果下个月要开发类似的“转盘抽奖”，管理者就可以参考这个数据，预估也需要投入相应的人力和时间，而不是拍脑袋决定。</p>
+</div>
+<p><strong>质量度量：缺陷密度（Defect Density）</strong></p>
+<p>指每千行代码（KLOC）或每个功能点中发现的缺陷数量，用于评估软件的可靠性。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>支付模块有 1000 行代码，发现了 10 个 Bug；而个人中心模块有 1000 行代码，只发现了 2 个 Bug。这意味着支付模块的缺陷密度更高，说明该部分代码质量较差或逻辑太复杂，测试人员后续需要重点对支付模块进行回归测试。</p>
+</div>
+<p><strong>过程度量：进度偏差（Schedule Variance）</strong></p>
+<p>通过实际进度与计划进度的差异，衡量项目是否按时推进。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>测试计划原本预定在周三完成“商家入驻”流程的测试，但到了周五还没测完。这种 2 天的进度偏差提醒项目经理：可能是需求太复杂，或者是测试环境老是崩掉。这时候就需要调整路径，或者临时增加人手。</p>
+</div>
+<p><strong>代码实现指标：圈复杂度（Cyclomatic Complexity）</strong></p>
+<p>衡量程序内部控制流的复杂程度（独立路径的数量）。复杂度越高，代码越难理解，出 Bug 的概率越大。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>程序员写了一个判断“配送费”的函数，里面嵌套了十几层 if-else（如果雨天、如果是会员、如果距离超过 5 公里、如果深夜...）。计算发现圈复杂度达到了 30。QA 看到这个指标后会要求重构，因为逻辑太乱，测试用例很难覆盖全，极其容易漏掉某些特殊情况下的 Bug。</p>
+</div>
+<p><strong>测试度量：需求可追溯性（Traceability）</strong></p>
+<p>确保每一个需求点都有对应的测试用例支撑，形成从需求到用例的金字塔映射关系。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>客户要求“支持数字人民币支付”。QA 在 Traceability 矩阵中检查发现，这个需求对应了 5 个测试用例。如果这 5 个用例都测过了，就说明这个需求点被覆盖到了；如果发现某个需求没对应任何用例，那就说明漏测了。</p>
+</div>
+<p><strong>测试指标：缺陷分布（瑞利分布）</strong></p>
+<p>利用数学模型描述缺陷随时间产生的趋势。理想状态下，Bug 应该随测试推进先增加后减少，呈现特定的曲线。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>在外卖 APP 开启测试的前 3 天，每天发现 20 个 Bug（上升期）；到了第 10 天，每天只能发现 1-2 个 Bug（下降期）。这符合瑞利分布。但如果到了要上线的前一天，Bug 数突然又爆发式增长，这就说明代码质量严重失控，或者引入了新的大问题，此时绝对不能放行上线。</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+    
+  </body>
+</html>

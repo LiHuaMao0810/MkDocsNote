@@ -1,0 +1,3558 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lihuamao0810.github.io/MkDocsNote/ComputerOrganization/chapter2/">
+      
+      
+        <link rel="prev" href="../chapter1/">
+      
+      
+        <link rel="next" href="../chapter3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Chapter2 计算机的算数运算 - LiHuaMao 的小站</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter2" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="LiHuaMao 的小站" class="md-header__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LiHuaMao 的小站
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter2 计算机的算数运算
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../DiffusionModel/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Diffusion Model
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../experience/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  经验贴整理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PostTraining/RLHF/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  模型后训练
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../UML/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程笔记
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  关于我
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LiHuaMao 的小站" class="md-nav__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    LiHuaMao 的小站
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    归档
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../DiffusionModel/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diffusion Model
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diffusion Model
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/FlowMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [CFM Overviw] Flow Matching 流匹配
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/ConsistencyModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistency Model 一致性模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/RectifiedFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rectified Flow 修正流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/DistributionMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Matching Distillation 分布匹配蒸馏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/UnderstandingDiffusionModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding Diffusion Models: A Unified Perspective
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/Diff-Instruct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diff-Instruct Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/DreamDiffusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ProlificDream &amp; DreamDiffusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/MeanFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mean Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/SelfDistillation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learnig Flow Map via Self Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../experience/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经验贴整理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    经验贴整理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法岗面经
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/cc98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    校内资源贴整理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/softwareEngineer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程经验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐学习资源
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型后训练
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型后训练
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostTraining/RLHF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reforcement Learning from Human Feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../UML/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML建模
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1" id="__nav_6_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UML建模
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/UseCaseDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 用例图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/SequenceDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 序列图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/CommunicationDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 通信图（协作图）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机系统原理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机系统原理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter2 计算机的算数运算
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter2 计算机的算数运算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 整数的存储编码
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 整数的存储编码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sign-magnitude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原码 (Sign-Magnitude)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ones-complement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反码 (Ones' Complement)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#twos-complement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        补码 (Two's Complement) —— 计算机的核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excessbiased" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        移码 (Excess/Biased)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算补码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ieee-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. IEEE 754 浮点数表示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. IEEE 754 浮点数表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#32-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结构组成（以 32 位单精度 float 为例）：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特殊数值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非规格数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数的完整分类表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ieee-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. IEEE 754 浮点数运算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. IEEE 754 浮点数运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮点数加法：必须先“对齐”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 浮点数乘法：简单但“宽”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 为什么乘法有时比加法“快”？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 舍入模式控制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-alu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ALU 原理 加法器部分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ALU 原理 加法器部分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-adder-fa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全加器 (Full Adder, FA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ripple-carry-adder-rca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        串行进位加法器 (Ripple Carry Adder, RCA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clu-carry-look-ahead-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLU (Carry Look-ahead Unit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#carry-look-ahead-adder-cla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先行进位加法器 (Carry Look-ahead Adder, CLA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        处理Overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-alu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ALU原理 乘法器部分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ALU原理 乘法器部分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基础乘法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化版乘法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-alu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ALU 原理 除法器部分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. ALU 原理 除法器部分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoring-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        恢复余数除法（Restoring Division）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化版除法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有符号除法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 符号的基本准则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 有符号除法的处理步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 RISC-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chapter4 处理器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter5 Cache/Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SoftwareTest/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试与质量保证
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_3" id="__nav_6_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件测试与质量保证
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestPlan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestCase/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试用例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestExcute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试执行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关于我
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 整数的存储编码
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 整数的存储编码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sign-magnitude" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        原码 (Sign-Magnitude)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ones-complement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反码 (Ones' Complement)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#twos-complement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        补码 (Two's Complement) —— 计算机的核心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#excessbiased" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        移码 (Excess/Biased)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        计算补码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ieee-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. IEEE 754 浮点数表示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. IEEE 754 浮点数表示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#32-float" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结构组成（以 32 位单精度 float 为例）：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        特殊数值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        非规格数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        浮点数的完整分类表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ieee-754" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. IEEE 754 浮点数运算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. IEEE 754 浮点数运算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浮点数加法：必须先“对齐”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 浮点数乘法：简单但“宽”
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 为什么乘法有时比加法“快”？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 舍入模式控制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-alu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ALU 原理 加法器部分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ALU 原理 加法器部分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-adder-fa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        全加器 (Full Adder, FA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ripple-carry-adder-rca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        串行进位加法器 (Ripple Carry Adder, RCA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clu-carry-look-ahead-unit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CLU (Carry Look-ahead Unit)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#carry-look-ahead-adder-cla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        先行进位加法器 (Carry Look-ahead Adder, CLA)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        处理Overflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-alu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ALU原理 乘法器部分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ALU原理 乘法器部分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        基础乘法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化版乘法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-alu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. ALU 原理 除法器部分
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. ALU 原理 除法器部分">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoring-division" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        恢复余数除法（Restoring Division）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        优化版除法器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        有符号除法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 符号的基本准则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 有符号除法的处理步骤
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter2">Chapter2 计算机的算数运算</h1>
+<p>要理解计算机如何进行算术运算，首先要明白计算机是个“一根筋”的机器：它<strong>只会做加法</strong>，且<strong>存储空间有限</strong>。为了用加法代替减法，并处理正负号，人类设计了一套精妙的编码系统。</p>
+<hr />
+<h2 id="1">1. 整数的存储编码</h2>
+<h3 id="sign-magnitude">原码 (Sign-Magnitude)</h3>
+<ul>
+<li><strong>规则</strong>：最高位为符号位（0正1负），其余位表示数值的绝对值。</li>
+<li><strong>例子</strong>（以 8 位为例）：</li>
+<li><span class="arithmatex">\(+1 = [0000 0001]\)</span></li>
+<li><span class="arithmatex">\(-1 = [1000 0001]\)</span></li>
+<li><strong>缺点</strong>：<strong>0 有两种表示</strong>（<span class="arithmatex">\(+0\)</span> 和 <span class="arithmatex">\(-0\)</span>），且加减法运算逻辑不统一，硬件设计极其复杂。</li>
+</ul>
+<h3 id="ones-complement">反码 (Ones' Complement)</h3>
+<ul>
+<li><strong>规则</strong>：正数与原码相同；负数符号位不变，数值位逐位取反。</li>
+<li><strong>例子</strong>：</li>
+<li><span class="arithmatex">\(-1\)</span> 的反码 = <span class="arithmatex">\([1111 1110]\)</span></li>
+<li><strong>意义</strong>：它是原码转补码的中间状态，目前极少直接用于存储。</li>
+</ul>
+<h3 id="twos-complement">补码 (Two's Complement) —— <strong>计算机的核心</strong></h3>
+<ul>
+<li><strong>规则</strong>：正数与原码相同；负数在反码的基础上 <strong>+1</strong>。</li>
+<li><strong>例子</strong>：</li>
+<li><span class="arithmatex">\(-1\)</span>: 原码 <code>10000001</code> <span class="arithmatex">\(\to\)</span> 反码 <code>11111110</code> <span class="arithmatex">\(\to\)</span> 补码 <code>11111111</code></li>
+<li><strong>为什么要用补码？</strong></li>
+<li><strong>统一加减法</strong>：<span class="arithmatex">\(A - B\)</span> 可以看作 <span class="arithmatex">\(A + (2^n -B) \mod 2^n\)</span>。使用补码运算，符号位直接参与计算，结果依然正确。</li>
+<li><strong>消灭了 <span class="arithmatex">\(-0\)</span></strong>：<span class="arithmatex">\(0\)</span> 只有一种表示 <code>0000 0000</code>。</li>
+<li><strong>多出一个数</strong>：8位补码可以表示 <span class="arithmatex">\(-128\)</span> 到 <span class="arithmatex">\(127\)</span>（比原码多表示一个 <span class="arithmatex">\(-128\)</span>）。</li>
+</ul>
+<h3 id="excessbiased">移码 (Excess/Biased)</h3>
+<ul>
+<li><strong>规则</strong>：在数值上加上一个固定的“偏置常数”（Bias）。通常用于表示浮点数的<strong>阶码</strong>。</li>
+<li><strong>例子</strong>：8 位移码偏置 127，则 <span class="arithmatex">\(0\)</span> 表示为 <code>0111 1111</code>（即 <span class="arithmatex">\(0+127\)</span>）。</li>
+<li><strong>好处</strong>：保持了数轴的线性顺序，<strong>全 0 为最小值，全 1 为最大值</strong>，方便硬件直接比较大小。</li>
+</ul>
+<h3 id="_1">计算补码</h3>
+<p><strong>“绝对值按位取反 + 1”</strong> 确实是计算补码最通用、最不会出错的方法，它背后的本质正是<strong>同余（取模）</strong>。</p>
+<p>在数学上，按位取反（逻辑非）操作其实是用全 <span class="arithmatex">\(1\)</span> 的数减去原数。</p>
+<p>对于 <span class="arithmatex">\(n\)</span> 位二进制数，全 <span class="arithmatex">\(1\)</span> 的数就是 <span class="arithmatex">\(2^n - 1\)</span>。</p>
+<p>当你把绝对值 <span class="arithmatex">\(X\)</span> 按位取反时，你实际上是在计算：</p>
+<div class="arithmatex">\[\text{反码} = (2^n - 1) - X\]</div>
+<p>当你再 <span class="arithmatex">\(+1\)</span> 时：</p>
+<div class="arithmatex">\[\text{补码} = (2^n - 1) - X + 1 = \mathbf{2^n - X}\]</div>
+<p>这正是取模的定义！ 在 <span class="arithmatex">\(2^n\)</span> 的模系统中，<span class="arithmatex">\(-X\)</span> 的等价正数就是 <span class="arithmatex">\(2^n - X\)</span>。</p>
+<p>比如在时钟（模 12）上，倒拨 3 小时（<span class="arithmatex">\(-3\)</span>）和顺拨 9 小时（<span class="arithmatex">\(12 - 3 = 9\)</span>）效果是一样的。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>分享一个比“取反加一”更快的<strong>眼神观察法</strong>，它不需要你真的去做加法。</p>
+<p><strong>规则：从右往左看，找到第一个“1”，保持这个“1”和它右边的“0”不变，把这个“1”左边的所有位全部取反。</strong></p>
+<ul>
+<li><strong>例子：计算 -8 (8位二进制)</strong></li>
+<li>8 的原码：<code>0000 1000</code></li>
+<li>从右往左看，第一个 <code>1</code> 在第四位。</li>
+<li>保持右边的 <code>1000</code> 不变。</li>
+<li>把左边的 <code>0000</code> 全部取反，变成 <code>1111</code>。</li>
+<li>结果：<code>1111 1000</code>（这就是 -8 的补码）。</li>
+</ul>
+<p>这个方法其实就是“按位取反 + 1”在逻辑上的合并，非常适合手动草稿。</p>
+<p>学过数逻的同学可能知道，数逻里面补码电路就可以这么设计</p>
+</div>
+<hr />
+<h2 id="2-ieee-754">2. IEEE 754 浮点数表示</h2>
+<p>如果说补码是为了解决整数的正负问题，IEEE 754 就是为了解决“天文数字”和“微观数字”的存储问题。它类似<strong>科学计数法</strong>。</p>
+<p>一个浮点数被拆分为三部分：</p>
+<div class="arithmatex">\[V = (-1)^S \times M \times 2^E\]</div>
+<h3 id="32-float">结构组成（以 32 位单精度 float 为例）：</h3>
+<ol>
+<li><strong>符号位 (Sign, 1 bit)</strong>：0 代表正，1 代表负。</li>
+<li><strong>阶码 (Exponent, 8 bits)</strong>：</li>
+<li>使用<strong>移码</strong>存储。偏置值（Bias）为 <strong>127</strong>。</li>
+<li>如果你看到的阶码二进制值是 128，实际指数 <span class="arithmatex">\(E = 128 - 127 = 1\)</span>。</li>
+<li><strong>尾数 (Fraction/Mantissa, 23 bits)</strong>：</li>
+<li>采用规格化表示，即隐藏开头的“1.”。例如 <span class="arithmatex">\(1.011...\)</span> 只存储 <span class="arithmatex">\(011...\)</span>。</li>
+<li>这样可以多省出 1 位的精度。</li>
+</ol>
+<div class="admonition example">
+<p class="admonition-title">将 <span class="arithmatex">\(5.0\)</span> 转换为浮点数</p>
+<ol>
+<li><strong>转二进制</strong>：<span class="arithmatex">\(5.0 = 101_2\)</span></li>
+<li><strong>规格化</strong>：<span class="arithmatex">\(1.01 \times 2^2\)</span></li>
+<li><strong>确定参数</strong>：</li>
+<li>符号 <span class="arithmatex">\(S = 0\)</span></li>
+<li>指数 <span class="arithmatex">\(E = 2\)</span>，存储值 = <span class="arithmatex">\(2 + 127 = 129\)</span> (<code>1000 0001</code>)</li>
+<li>尾数 <span class="arithmatex">\(M = 01\)</span>（后面补 0）</li>
+<li><strong>最终存储</strong>：<code>0 | 10000001 | 01000000000000000000000</code></li>
+</ol>
+</div>
+<hr />
+<h3 id="_2"><strong>特殊数值</strong></h3>
+<p>IEEE 754 还规定了一些特殊情况，方便程序处理错误：</p>
+<ul>
+<li><strong>阶码全 0，尾数全 0</strong>：表示 <span class="arithmatex">\(\pm 0\)</span>。</li>
+<li><strong>阶码全 1，尾数全 0</strong>：表示 <span class="arithmatex">\(\pm \infty\)</span> (无穷大)。</li>
+<li><strong>阶码全 1，尾数非 0</strong>：表示 <strong>NaN</strong> (Not a Number，如 <span class="arithmatex">\(0 \div 0\)</span> 的结果)。</li>
+</ul>
+<hr />
+<h3 id="_3"><strong>非规格数</strong></h3>
+<p>在 IEEE 754 标准中，<strong>非规格化数（Denormalized numbers / Subnormal numbers）</strong> 的引入是为了解决一个致命的问题：<strong>渐进式下溢（Gradual Underflow）</strong>。</p>
+<p>如果没有非规格化数，浮点数在靠近 <span class="arithmatex">\(0\)</span> 的时候会突然“跳水”，导致巨大的计算误差。</p>
+<p><img alt="image-20251230171309306" src="../assets/image-20251230171309306.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>为什么需要非规格化数？（填补“零点真空”）</p>
+<p>在<strong>规格化数</strong>（Standard Normalized numbers）的规定下：</p>
+<ul>
+<li>尾数前面必须隐含一个 <code>1.</code>。</li>
+<li>指数位（阶码）不能全为 <span class="arithmatex">\(0\)</span>。</li>
+</ul>
+<p>这会导致一个现象：<strong>最小的规格化正数</strong>是多少？</p>
+<ul>
+<li>阶码存储值为 <code>1</code>（即实际指数为 <span class="arithmatex">\(1-127 = -126\)</span>）。</li>
+<li>尾数全为 <span class="arithmatex">\(0\)</span>（隐含 <span class="arithmatex">\(1.0\)</span>）。</li>
+<li>数值为：<span class="arithmatex">\(1.0 \times 2^{-126}\)</span>。</li>
+</ul>
+<p><strong>问题来了</strong>：在 <span class="arithmatex">\(0\)</span> 和 <span class="arithmatex">\(1.0 \times 2^{-126}\)</span> 之间，存在一个巨大的“真空地带”。如果两个很小的数相减，结果落在这个区间，硬件只能将其强制转为 <span class="arithmatex">\(0\)</span>。这种“突然变成 <span class="arithmatex">\(0\)</span>”的情况会引发严重的数学错误。</p>
+</div>
+<p>当<strong>阶码（Exponent）全为 0</strong> 时，这个数就进入了“非规格化”模式。它的规则发生了两个关键变化：</p>
+<ol>
+<li><strong>隐含位由 <code>1.</code> 变为 <code>0.</code></strong>：尾数不再是 <span class="arithmatex">\(1.f...\)</span>，而是 <span class="arithmatex">\(0.f...\)</span>。</li>
+<li><strong>指数固定为 <span class="arithmatex">\(-126\)</span>（对于单精度）</strong>：注意！虽然阶码存储值是 <span class="arithmatex">\(0\)</span>，但它的实际指数<strong>不是</strong> <span class="arithmatex">\(0 - 127 = -127\)</span>，而是强制规定为 <strong><span class="arithmatex">\(-126\)</span></strong>。</li>
+</ol>
+<hr />
+<p>为什么要强制规定指数为 <span class="arithmatex">\(-126\)</span>？</p>
+<p>这是为了实现从规格化数到非规格化数的<strong>平滑平移</strong>。</p>
+<p>我们可以对比一下：</p>
+<ul>
+<li><strong>最小的规格化数</strong>：<span class="arithmatex">\(1.000... \times 2^{-126}\)</span></li>
+<li><strong>最大的非规格化数</strong>：<span class="arithmatex">\(0.111... \times 2^{-126}\)</span>（尾数全为 <span class="arithmatex">\(1\)</span>）</li>
+</ul>
+<p>你看，它们的指数都是 <span class="arithmatex">\(-126\)</span>！</p>
+<p>通过这种设计，非规格化数就像是一把“接力棒”，在数值小于 <span class="arithmatex">\(1.0 \times 2^{-126}\)</span> 时，通过减小尾数开头的 <span class="arithmatex">\(0.\)</span> 后面的有效位，一点点地靠近 <span class="arithmatex">\(0\)</span>。</p>
+<hr />
+<h3 id="_4">浮点数的完整分类表</h3>
+<p>现在我们可以总结出 IEEE 754 的全貌了：</p>
+<table>
+<thead>
+<tr>
+<th><strong>阶码 (E)</strong></th>
+<th><strong>尾数 (M)</strong></th>
+<th><strong>表示含义</strong></th>
+<th><strong>数值计算公式</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>00...0</code></td>
+<td><code>00...0</code></td>
+<td><strong>真 0</strong></td>
+<td><span class="arithmatex">\(\pm 0\)</span></td>
+</tr>
+<tr>
+<td><code>00...0</code></td>
+<td><strong>非全 0</strong></td>
+<td><strong>非规格化数</strong></td>
+<td><span class="arithmatex">\((-1)^S \times (0.M) \times 2^{-126}\)</span></td>
+</tr>
+<tr>
+<td><code>01..01</code> 到 <code>11..10</code></td>
+<td>任意</td>
+<td><strong>规格化数</strong></td>
+<td><span class="arithmatex">\((-1)^S \times (1.M) \times 2^{E-127}\)</span></td>
+</tr>
+<tr>
+<td><code>11...1</code></td>
+<td><code>00...0</code></td>
+<td><strong>无穷大</strong></td>
+<td><span class="arithmatex">\(\pm \infty\)</span></td>
+</tr>
+<tr>
+<td><code>11...1</code></td>
+<td><strong>非全 0</strong></td>
+<td><strong>NaN</strong></td>
+<td>不是一个数字（无效运算）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>代价是什么？</p>
+<p>虽然非规格化数在数学上很完美，但在早期计算机硬件中，处理非规格化数的逻辑非常复杂，速度通常比普通浮点运算<strong>慢几十甚至上百倍</strong>。</p>
+<p>因此，在一些对性能要求极高的领域（如 3D 游戏渲染、深度学习），程序员有时会开启一个叫 <strong>Flush-to-Zero (FTZ)</strong> 的模式，直接把非规格化数当 <span class="arithmatex">\(0\)</span> 处理，牺牲一点点精度来换取巨大的速度提升。</p>
+</div>
+<p><strong>总结一下：</strong></p>
+<ul>
+<li><strong>规格化数</strong>：<span class="arithmatex">\(1.xxxxx \times 2^{Exp}\)</span>，用于处理常规数值。</li>
+<li><strong>非规格化数</strong>：<span class="arithmatex">\(0.xxxxx \times 2^{-126}\)</span>，用于在靠近 <span class="arithmatex">\(0\)</span> 的极小区间内提供“缓冲”，避免计算结果突然崩塌。</li>
+</ul>
+<hr />
+<h2 id="3-ieee-754">3. IEEE 754 浮点数运算</h2>
+<p>浮点数的运算比整数复杂得多，因为整数的权值是固定的，而浮点数就像是带了“缩放比例”的数字。在进行加法或乘法时，硬件必须像拆解零件一样，先处理指数，再处理尾数。</p>
+<hr />
+<h3 id="1_1">1. 浮点数加法：必须先“对齐”</h3>
+<p>浮点数加法最麻烦的地方在于：<strong>指数不同，尾数不能直接相加</strong>。这就像你不能直接把 <span class="arithmatex">\(1.2 \times 10^2\)</span> 和 <span class="arithmatex">\(3.4 \times 10^3\)</span> 的尾数相加（<span class="arithmatex">\(1.2+3.4\)</span>）一样，必须先统一指数。</p>
+<p><strong>步骤一：对阶 (Alignment)</strong></p>
+<ul>
+<li><strong>原则</strong>：<strong>小阶向大阶看齐</strong>。</li>
+<li><strong>原因</strong>：右移尾数会导致低位丢失（精度下降），而左移尾数会导致高位溢出，所以只能选择右移。</li>
+<li><strong>操作</strong>：计算指数差 <span class="arithmatex">\(\Delta E = E_1 - E_2\)</span>。将指数较小的数的尾数向右移 <span class="arithmatex">\(\Delta E\)</span> 位，指数加 <span class="arithmatex">\(\Delta E\)</span>。</li>
+</ul>
+<p><strong>步骤二：尾数求和 (Addition)</strong></p>
+<ul>
+<li>将对齐后的两个尾数（记得算上隐含的“1”）按整数补码方式相加。</li>
+</ul>
+<p><strong>步骤三：规格化 (Normalization)</strong></p>
+<ul>
+<li>如果结果不是 <span class="arithmatex">\(1.x...\)</span> 的形式，需要调整。</li>
+<li><strong>右规</strong>：如果求和导致进位（如变成 <span class="arithmatex">\(10.x...\)</span>），尾数右移，指数加 1。</li>
+<li><strong>左规</strong>：如果相减导致高位变 0（如变成 <span class="arithmatex">\(0.001...\)</span>），尾数左移，指数相应减小。</li>
+</ul>
+<p><strong>步骤四：舍入 (Rounding)</strong></p>
+<ul>
+<li>移位过程中掉出去的位，需要根据 IEEE 754 规定的模式（如“向最接近的值舍入”）进行补偿。</li>
+</ul>
+<p><strong>步骤五：溢出检测</strong></p>
+<ul>
+<li>检查最终指数是否超出了 8 位阶码能表示的范围（上溢到 <span class="arithmatex">\(\infty\)</span> 或下溢到 <span class="arithmatex">\(0\)</span>）。</li>
+</ul>
+<p><img alt="image-20251230171949293" src="../assets/image-20251230171949293.png" /></p>
+<hr />
+<h3 id="2">2. 浮点数乘法：简单但“宽”</h3>
+<p>相比加法，乘法反而不需要对阶，因为它遵循指数相加、尾数相乘的逻辑。</p>
+<p><strong>步骤一：计算符号位</strong></p>
+<ul>
+<li>使用异或运算：<span class="arithmatex">\(S_{res} = S_1 \oplus S_2\)</span>（同号得正，异号得负）。</li>
+</ul>
+<p><strong>步骤二：指数相加</strong></p>
+<ul>
+<li><strong>注意</strong>：由于指数是移码存储（带 Bias），直接相加会重复计算偏移量。</li>
+<li><strong>公式</strong>：<span class="arithmatex">\(E_{res} = (E_1 - 127) + (E_2 - 127) + 127 = E_1 + E_2 - 127\)</span>。</li>
+</ul>
+<p><strong>步骤三：尾数相乘</strong></p>
+<ul>
+<li>两个 24 位（含隐含位）的尾数相乘，得到一个 48 位的积。</li>
+<li>这是硬件中最耗资源的部分，通常需要大量的乘法阵列。</li>
+</ul>
+<p><strong>步骤四：规格化、舍入与溢出检测</strong></p>
+<ul>
+<li><strong>规格化</strong>：由于 <span class="arithmatex">\(1.x \times 1.y\)</span> 的结果范围在 <span class="arithmatex">\([1.0, 4.0)\)</span> 之间，结果最多只需要右规一次（如果积 <span class="arithmatex">\(\ge 2.0\)</span>）。</li>
+<li><strong>舍入</strong>：将 48 位的中间结果截断回 23 位。</li>
+</ul>
+<hr />
+<h3 id="3">3. 为什么乘法有时比加法“快”？</h3>
+<p>在现代 CPU 中，你可能会发现浮点乘法的延迟并不比加法高多少，甚至在某些架构下吞吐量更高。原因有二：</p>
+<ol>
+<li><strong>无需对阶</strong>：乘法省去了“比较指数-循环移位”的繁琐预处理。</li>
+<li><strong>FMA 指令 (Fused Multiply-Accumulate)</strong>：现代处理器通常支持 <span class="arithmatex">\(A \times B + C\)</span> 一次性完成，只进行一次舍入。这不仅提高了速度，还减少了精度损失。</li>
+</ol>
+<hr />
+<h3 id="4">4. 舍入模式控制</h3>
+<p>在 IEEE 754 标准中，舍入（Rounding）是连接“无限精度的数学运算”与“有限位数的计算机存储”之间的桥梁。当浮点运算产生的结果位数（如乘法产生的 48 位尾数）超过了寄存器能定义的位数（如 23 位）时，就必须进行舍入。</p>
+<p>IEEE 754 定义了五种主要的舍入模式，分为<strong>常用模式</strong>和<strong>定向模式</strong>两类。</p>
+<hr />
+<p><strong>常用模式（最近舍入）</strong></p>
+<p>这是大多数编程语言（如 C, Python, Java）默认采用的模式。</p>
+<p>① 就近舍入，向偶数舍入 (Round to Nearest, Ties to Even)</p>
+<p>这是 IEEE 754 的<strong>默认模式</strong>，也常被称为“银行家舍入”。</p>
+<ul>
+<li><strong>规则</strong>：舍入到最接近的数值。</li>
+<li><strong>关键点（Ties）</strong>：如果结果正好处于两个数值的正中间（例如想保留整数，结果是 1.5 或 2.5）：</li>
+<li>向<strong>偶数</strong>方向舍入。</li>
+<li><code>1.5</code> <span class="arithmatex">\(\rightarrow\)</span> <code>2</code></li>
+<li><code>2.5</code> <span class="arithmatex">\(\rightarrow\)</span> <code>2</code></li>
+<li><strong>为什么要这么做？</strong> 如果一律“四舍五入”（0.5 总是向上），在处理海量数据加法时，结果会产生明显的正向偏差（统计漂移）。向偶数舍入使 0.5 有一半概率向上，一半概率向下，从而抵消误差。</li>
+</ul>
+<p>② 就近舍入，向远离 0 舍入 (Round to Nearest, Ties to Away from Zero)</p>
+<ul>
+<li><strong>规则</strong>：舍入到最接近的数值。</li>
+<li><strong>关键点</strong>：如果正好在中间，选择绝对值更大的那个（即传统的“四舍五入”）。</li>
+<li><code>1.5</code> <span class="arithmatex">\(\rightarrow\)</span> <code>2</code></li>
+<li><code>-1.5</code> <span class="arithmatex">\(\rightarrow\)</span> <code>-2</code></li>
+</ul>
+<hr />
+<p><strong>定向模式 (Directed Rounding)</strong></p>
+<p>这些模式通常用于区间算术（Interval Arithmetic），通过确定结果的上界和下界来控制计算误差。</p>
+<p>③ 向零舍入 (Round toward Zero / Truncate)</p>
+<ul>
+<li><strong>规则</strong>：直接截断多余的位数，不看大小。</li>
+<li><strong>效果</strong>：正数向下变小，负数向上变大（绝对值都在变小）。</li>
+<li><code>1.9</code> <span class="arithmatex">\(\rightarrow\)</span> <code>1</code></li>
+<li><code>-1.9</code> <span class="arithmatex">\(\rightarrow\)</span> <code>-1</code></li>
+</ul>
+<p>④ 向正无穷舍入 (Round toward <span class="arithmatex">\(+\infty\)</span> / Ceiling)</p>
+<ul>
+<li><strong>规则</strong>：结果向数轴右侧靠拢。</li>
+<li><strong>效果</strong>：</li>
+<li><code>1.1</code> <span class="arithmatex">\(\rightarrow\)</span> <code>2</code></li>
+<li><code>-1.9</code> <span class="arithmatex">\(\rightarrow\)</span> <code>-1</code></li>
+</ul>
+<p>⑤ 向负无穷舍入 (Round toward <span class="arithmatex">\(-\infty\)</span> / Floor)</p>
+<ul>
+<li><strong>规则</strong>：结果向数轴左侧靠拢。</li>
+<li><strong>效果</strong>：</li>
+<li><code>1.9</code> <span class="arithmatex">\(\rightarrow\)</span> <code>1</code></li>
+<li><code>-1.1</code> <span class="arithmatex">\(\rightarrow\)</span> <code>-2</code></li>
+</ul>
+<hr />
+<p><strong>舍入过程中的三个关键位</strong></p>
+<p>为了实现精准的舍入，硬件在运算时会额外保留 3 位信息，被称为 <strong>GRS 位</strong>：</p>
+<ol>
+<li><strong>G (Guard bit)</strong>：保护位，紧跟在有效数位之后。</li>
+<li><strong>R (Round bit)</strong>：舍入位，在 G 之后。</li>
+<li><strong>S (Sticky bit)</strong>：粘滞位。只要 R 之后有任何一位是 1，S 就被置为 1。</li>
+</ol>
+<p>这三位的作用：</p>
+<p>它们帮助硬件判断中间结果是“刚好 0.5”、“小于 0.5”还是“大于 0.5”。</p>
+<ul>
+<li>如果 <span class="arithmatex">\(GRS = 100\)</span>：说明恰好在中间（Ties）。</li>
+<li>如果 <span class="arithmatex">\(GRS &gt; 100\)</span>：说明大于中间值，应进位。</li>
+<li>如果 <span class="arithmatex">\(GRS &lt; 100\)</span>：说明小于中间值，应舍弃。</li>
+</ul>
+<hr />
+<h2 id="4-alu">4. ALU 原理 加法器部分</h2>
+<p>要理解 ALU（算术逻辑单元）的工作原理，加法器是绝对的核心。计算机中的所有算术（减、乘、除）最终都会转化为加法运算。</p>
+<p>我们从最基本的“零件”开始，逐步构建到高性能的架构。</p>
+<hr />
+<h3 id="full-adder-fa">全加器 (Full Adder, FA)</h3>
+<p>全加器是构建加法器的最小逻辑单位。</p>
+<p>与半加器（只加两个位）不同，全加器能处理“低位传过来的进位”。</p>
+<ul>
+<li><strong>输入</strong>：<span class="arithmatex">\(A\)</span>（操作数1）、<span class="arithmatex">\(B\)</span>（操作数2）、<span class="arithmatex">\(C_{in}\)</span>（低位进位）。</li>
+<li><strong>输出</strong>：<span class="arithmatex">\(S\)</span>（和 Sum）、<span class="arithmatex">\(C_{out}\)</span>（向高位进位）。</li>
+<li><strong>逻辑关系</strong>：</li>
+<li><span class="arithmatex">\(S = A \oplus B \oplus C_{in}\)</span></li>
+<li><span class="arithmatex">\(C_{out} = (A \cdot B) + (C_{in} \cdot (A \oplus B)) = A \cdot B + A \cdot C_{in} + C_{in} \cdot B\)</span> </li>
+</ul>
+<p><img alt="image-20251230235514078" src="../assets/image-20251230235514078.png" /></p>
+<hr />
+<h3 id="ripple-carry-adder-rca">串行进位加法器 (Ripple Carry Adder, RCA)</h3>
+<p>如果你想做一个 4 位或 32 位的加法，最简单的方法就是把全加器“排成一排”。</p>
+<ul>
+<li><strong>原理</strong>：将前一个全加器的 <span class="arithmatex">\(C_{out}\)</span> 连接到下一个全加器的 <span class="arithmatex">\(C_{in}\)</span>。</li>
+<li><strong>缺点：延迟 (Latency)</strong>。</li>
+<li>就像多米诺骨牌，第 32 位的计算必须等待第 31 位产生进位，第 31 位又要等第 30 位……</li>
+<li><strong>关键瓶颈</strong>：进位链（Carry Chain）太长，电路速度非常慢。</li>
+</ul>
+<p><img alt="image-20251230235526775" src="../assets/image-20251230235526775.png" /></p>
+<hr />
+<h3 id="clu-carry-look-ahead-unit">CLU (Carry Look-ahead Unit)</h3>
+<p><strong>CLU（进位产生单元）</strong> 是先行进位加法器中的核心硬件模块。</p>
+<ul>
+<li>
+<p><strong>CLU 的作用</strong>：它专门接收每一位的 <span class="arithmatex">\(G_i\)</span> 和 <span class="arithmatex">\(P_i\)</span>，然后瞬间输出所有的进位 <span class="arithmatex">\(C_i\)</span> 给加法器。</p>
+</li>
+<li>
+<p>多级 CLA：</p>
+</li>
+</ul>
+<p>在 64 位 CPU 中，如果直接展开 <span class="arithmatex">\(C_{64}\)</span> 的逻辑式，电路会复杂到无法实现。因此，工程师通常采用分层设计：</p>
+<ul>
+<li>每 4 位组成一个小 CLA。</li>
+<li>然后再用一个“组间 CLU”去预测这 4 位组与组之间的进位。</li>
+</ul>
+<p><img alt="image-20251231001759875" src="../assets/image-20251231001759875.png" /></p>
+<hr />
+<h3 id="carry-look-ahead-adder-cla">先行进位加法器 (Carry Look-ahead Adder, CLA)</h3>
+<p>为了解决 RCA 的延迟问题，科学家提出了“先行进位”的思想：<strong>能不能不等低位算出来，直接通过逻辑电路预测出进位？</strong></p>
+<p>它引入了两个关键概念：</p>
+<ol>
+<li><strong>生成信号 (Generate, <span class="arithmatex">\(G\)</span>)</strong>：<span class="arithmatex">\(G = A \cdot B\)</span>。如果 <span class="arithmatex">\(A, B\)</span> 都是 1，那么无论低位进位是什么，本位<strong>一定会产生</strong>进位。</li>
+<li><strong>传递信号 (Propagate, <span class="arithmatex">\(P\)</span>)</strong>：<span class="arithmatex">\(P = A \oplus B\)</span>。如果 <span class="arithmatex">\(A, B\)</span> 中有一个是 1，那么<strong>低位的进位会通过本位传递</strong>到更高位。</li>
+</ol>
+<p>通过这两个信号，我们不需要等待实际的加法完成，就可以列出进位的布尔表达式：</p>
+<ul>
+<li><span class="arithmatex">\(C_1 = G_0 + P_0 \cdot C_0\)</span></li>
+<li><span class="arithmatex">\(C_2 = G_1 + P_1 \cdot G_0 + P_1 \cdot P_0 \cdot C_0\)</span></li>
+<li>...（以此类推，<span class="arithmatex">\(C_{31}\)</span> 也可以直接用 <span class="arithmatex">\(A, B\)</span> 的初值算出）</li>
+</ul>
+<p><img alt="image-20251231001817342" src="../assets/image-20251231001817342.png" /></p>
+<p><strong>为什么是六级门延迟？</strong></p>
+<p>第一阶段：产生 <span class="arithmatex">\(P_i\)</span> 和 <span class="arithmatex">\(G_i\)</span>（1级延迟）</p>
+<ul>
+<li><strong>逻辑</strong>：从输入 <span class="arithmatex">\(X_i, Y_i\)</span> 到产生 <span class="arithmatex">\(P_i\)</span> 和 <span class="arithmatex">\(G_i\)</span>。</li>
+<li><strong>门电路</strong>：</li>
+<li><span class="arithmatex">\(G_i = X_i \cdot Y_i\)</span>（与门）</li>
+<li><span class="arithmatex">\(P_i = X_i \oplus Y_i\)</span>（异或门）</li>
+<li><strong>耗时</strong>：这两个信号是并行的，所以计为 <strong>1 级门延迟</strong>。</li>
+</ul>
+<p>第二阶段：CLU 产生进位 <span class="arithmatex">\(C_i\)</span>（2级延迟）</p>
+<p>这是 CLU 内部最精妙的地方。虽然公式很长（如 <span class="arithmatex">\(C_4 = G_3 + P_3G_2 + \dots\)</span>），但如果用<strong>与或式（AND-OR）</strong>实现，它只需要两层：</p>
+<ol>
+<li><strong>与门层</strong>：计算像 <span class="arithmatex">\(P_3G_2\)</span> 这种组合项（<strong>第 2 级</strong>）。</li>
+<li>
+<p><strong>或门层</strong>：将所有项加（OR）在一起，输出 <span class="arithmatex">\(C_i\)</span>（<strong>第 3 级</strong>）。</p>
+</li>
+<li>
+<p><strong>耗时</strong>：无论 <span class="arithmatex">\(C_1\)</span> 还是 <span class="arithmatex">\(C_4\)</span>，在 CLU 内部都是经过这两级门后<strong>同时</strong>产生的。</p>
+</li>
+</ol>
+<p>第三阶段：产生最终的和 <span class="arithmatex">\(F_i\)</span>（3级延迟）</p>
+<ul>
+<li><strong>逻辑</strong>：<span class="arithmatex">\(F_i = X_i \oplus Y_i \oplus C_{i-1}\)</span>。</li>
+<li><strong>注意点</strong>：图中公式写的是 <span class="arithmatex">\(X_i \oplus Y_i \oplus C_{i-1}\)</span>。实际上，<span class="arithmatex">\(X_i \oplus Y_i\)</span> 就是第一阶段算出来的 <span class="arithmatex">\(P_i\)</span>。</li>
+<li><strong>门电路</strong>：</li>
+<li><span class="arithmatex">\(F_i = P_i \oplus C_{i-1}\)</span>。</li>
+<li>在标准的逻辑实现中，一个异或门（XOR）通常被视为 <strong>3 级门延迟</strong>（因为它由多个与/非/或门组成）。</li>
+<li><em>注：有些教材将异或门简记为 1 级，但严谨的考研或硬件教材通常将其拆解。按照“6级”的说法，这里计算 <span class="arithmatex">\(F_i\)</span> 的异或操作被计为了 </em><em>3 级门延迟</em><em>。</em></li>
+</ul>
+<hr />
+<h3 id="overflow">处理Overflow</h3>
+<p><strong>核心判断逻辑：异或法</strong></p>
+<p>在硬件电路中，判断溢出最经典、最高效的方法是观察<strong>最高位的进位情况</strong>。</p>
+<p>我们需要关注两个进位信号：</p>
+<ul>
+<li><strong><span class="arithmatex">\(C_n\)</span></strong>：最高位产生的进位（即传给外部的 Carry-out）。</li>
+<li><strong><span class="arithmatex">\(C_{n-1}\)</span></strong>：次高位传给最高位的进位。</li>
+</ul>
+<p>溢出判断公式：</p>
+<div class="arithmatex">\[Overflow = C_n \oplus C_{n-1}\]</div>
+<ul>
+<li><strong>没有溢出</strong>：如果 <span class="arithmatex">\(C_n\)</span> 和 <span class="arithmatex">\(C_{n-1}\)</span> 相同（同为 0 或同为 1），则没有溢出。</li>
+<li><strong>发生溢出</strong>：如果 <span class="arithmatex">\(C_n\)</span> 和 <span class="arithmatex">\(C_{n-1}\)</span> 不同，说明发生了溢出。</li>
+</ul>
+<hr />
+<p><strong>为什么这个逻辑是正确的？</strong></p>
+<p>我们可以通过正负号的变化来直观理解：</p>
+<ul>
+<li>正 + 正 = 负（溢出）：</li>
+</ul>
+<p>两个正数相加，最高位（符号位）原本都是 0。如果次高位有进位（<span class="arithmatex">\(C_{n-1}=1\)</span>）进来，符号位变成了 1（结果变负），此时最高位本身不会产生进位（<span class="arithmatex">\(C_n=0\)</span>）。<span class="arithmatex">\(0 \oplus 1 = 1\)</span>，判定溢出。</p>
+<ul>
+<li>负 + 负 = 正（溢出）：</li>
+</ul>
+<p>两个负数相加，符号位原本都是 1。如果次高位没有进位（<span class="arithmatex">\(C_{n-1}=0\)</span>）进来，符号位相加 <span class="arithmatex">\(1+1=0\)</span>（结果变正），此时最高位产生了一个进位（<span class="arithmatex">\(C_n=1\)</span>）。<span class="arithmatex">\(1 \oplus 0 = 1\)</span>，判定溢出。</p>
+<ul>
+<li>一正一负相加：</li>
+</ul>
+<p>绝对不可能发生溢出，因为结果的绝对值一定比原先的数小。此时硬件产生的 <span class="arithmatex">\(C_n\)</span> 和 <span class="arithmatex">\(C_{n-1}\)</span> 总是相等的。</p>
+<h2 id="5-alu">5. ALU原理 乘法器部分</h2>
+<h3 id="_5">基础乘法器</h3>
+<p>在硬件图中，有三个关键的存储单元：</p>
+<ul>
+<li><strong>Multiplier (乘数寄存器)</strong>：初始存放乘数（例如 64 位）。每一轮循环，我们会观察它的<strong>最低位（Multiplier0）</strong>。</li>
+<li><strong>Multiplicand (被乘数寄存器)</strong>：初始存放被乘数。为了防止移位时溢出，这个寄存器的宽度通常是双倍的（例如 128 位）。</li>
+<li><strong>Product (乘积寄存器)</strong>：初始值为 <strong>0</strong>。它就像一块黑板，用来累加每一轮产生的中间结果。</li>
+</ul>
+<p><img alt="image-20251231003546638" src="../assets/image-20251231003546638.png" /></p>
+<hr />
+<p><strong>工作流程</strong></p>
+<p>每一轮乘法运算包含三个核心步骤：</p>
+<p>第一步：测试与加法 (Test &amp; Add)</p>
+<ul>
+<li><strong>动作</strong>：检查乘数的最低位 <code>Multiplier0</code>。</li>
+<li><strong>逻辑</strong>：</li>
+<li>如果 <code>Multiplier0 == 1</code>：说明这一位对应一个“有效”的被乘数，硬件将 <code>Multiplicand</code> 与当前 <code>Product</code> 的值相加，并写回 <code>Product</code>。</li>
+<li>如果 <code>Multiplier0 == 0</code>：说明这一位对应的是 0，不进行加法操作（直接跳过）。</li>
+</ul>
+<p>第二步：被乘数左移 (Shift Multiplicand Left)</p>
+<ul>
+<li><strong>动作</strong>：将 <code>Multiplicand</code> 寄存器向左移动 1 位。</li>
+<li><strong>目的</strong>：这模拟了我们在纸上算乘法时，第二行要比第一行<strong>向左缩进一位</strong>的操作。每左移一次，相当于将该数乘以 2。</li>
+</ul>
+<p>第三步：乘数右移 (Shift Multiplier Right)</p>
+<ul>
+<li><strong>动作</strong>：将 <code>Multiplier</code> 寄存器向右移动 1 位。</li>
+<li><strong>目的</strong>：为了在下一轮循环中，让原来的“次低位”变成新的“最低位”，以便再次进行 <code>Multiplier0</code> 的测试。</li>
+</ul>
+<p><img alt="image-20251231003600661" src="../assets/image-20251231003600661.png" /></p>
+<hr />
+<p><strong>循环停止条件</strong></p>
+<ul>
+<li><strong>重复次数</strong>：对于 64 位的乘法，这个循环需要精确执行 <strong>64 次</strong>。</li>
+<li><strong>结果</strong>：当 64 轮结束，<code>Multiplier</code> 中的所有位都被测试完毕，<code>Product</code> 寄存器中存放的就是最终的 128 位乘积。</li>
+</ul>
+<hr />
+<h3 id="_6">优化版乘法器</h3>
+<p><strong>核心改进：寄存器的合并与共用</strong></p>
+<p>在优化后的架构中，最巧妙的设计是将 <strong>乘积寄存器（P）</strong> 和 <strong>乘数寄存器（Y）</strong> 拼接成了一个统一的 <strong>128 位移位寄存器</strong>。</p>
+<ul>
+<li><strong>初始状态</strong>：</li>
+<li><strong>高 64 位（P）</strong>：初始化为 0，用于存放部分积（Partial Product）。</li>
+<li><strong>低 64 位（Y）</strong>：存入初始的乘数。</li>
+<li><strong>这种设计的逻辑</strong>： 随着乘法循环的进行，乘数由于不断“右移”而失效的位，正好腾出了空间来存放乘积不断增长的低位。</li>
+</ul>
+<p><img alt="image-20251231005226448" src="../assets/image-20251231005226448.png" /></p>
+<hr />
+<p><strong>工作原理与流程</strong></p>
+<p>第一步：检查最低位</p>
+<p>控制逻辑测试 <strong>乘数寄存器 Y 的最低位</strong>。</p>
+<p>第二步：条件加法（并行操作）</p>
+<ul>
+<li>如果最低位为 1，则将被乘数寄存器 X 的内容与 <strong>乘积寄存器 P（高 64 位）</strong> 相加。</li>
+<li>相加产生的<strong>进位信号</strong>保存在进位触发器 <strong>C</strong> 中。</li>
+</ul>
+<p>第三步：同步右移（核心提速步）</p>
+<p>每一轮循环不再分多次移位，而是实现 <strong>C、P、Y 三者的同步右移</strong>：</p>
+<ul>
+<li><strong>C 移入 P 的最高位</strong>：保证加法进位不丢失。</li>
+<li><strong>P 的最低位移入 Y 的最高位</strong>：部分积向下传递。</li>
+<li><strong>Y 的最低位移出</strong>：丢弃已经处理过的乘数位。</li>
+</ul>
+<p><img alt="image-20251231005304401" src="../assets/image-20251231005304401.png" /></p>
+<h2 id="6-alu">6. ALU 原理 除法器部分</h2>
+<h3 id="restoring-division"><strong>恢复余数除法（Restoring Division）</strong></h3>
+<p>这个除法器的工作原理模拟了我们手动进行<strong>长除法（Long Division）</strong>的过程。它通过一系列的“减法”和“移位”操作，来确定商（Quotient）的每一位以及最终的余数（Remainder）。</p>
+<hr />
+<p><strong>核心寄存器的初始状态</strong></p>
+<p>在除法开始前，硬件会自动进行以下初始化：</p>
+<ul>
+<li><strong>Divisor (除数寄存器)</strong>：初始时，64位的除数放在这个128位寄存器的<strong>左半部分</strong>。</li>
+<li><strong>Remainder (余数寄存器)</strong>：初始值直接存入<strong>被除数</strong>。</li>
+<li><strong>Quotient (商寄存器)</strong>：全部清零。</li>
+</ul>
+<p><img alt="image-20251231132348156" src="../assets/image-20251231132348156.png" /></p>
+<hr />
+<p><strong>详细工作流程（循环体）</strong></p>
+<p>除法运算是一个不断“试减”的过程，每一轮循环包含以下三个关键步骤：</p>
+<p><strong>第一步：试减 (Subtract)</strong></p>
+<ul>
+<li>从 <code>Remainder</code>（当前余数/被除数）中减去 <code>Divisor</code>（除数），并将结果写回 <code>Remainder</code>。</li>
+<li><strong>目的</strong>：测试当前的余数是否“够减”一个除数。</li>
+</ul>
+<p><strong>第二步：测试与商位确定 (Test Remainder)</strong></p>
+<p>硬件会检查减法后的 <code>Remainder</code> 符号：</p>
+<ul>
+<li><strong>如果 Remainder <span class="arithmatex">\(\ge\)</span> 0</strong>（够减）：</li>
+<li><strong>上商 1</strong>：将 <code>Quotient</code> 寄存器左移 1 位，最低位补 <strong>1</strong>。</li>
+<li><strong>如果 Remainder <span class="arithmatex">\(&lt;\)</span> 0</strong>（不够减）：</li>
+<li><strong>上商 0</strong>：将 <code>Quotient</code> 寄存器左移 1 位，最低位补 <strong>0</strong>。</li>
+<li><strong>恢复余数 (Restore)</strong>：将被减掉的 <code>Divisor</code> <strong>加回到</strong> <code>Remainder</code> 中，使其恢复到减法之前的状态。</li>
+</ul>
+<p><strong>第三步：除数右移 (Shift Divisor Right)</strong></p>
+<ul>
+<li>将 <code>Divisor</code> 寄存器<strong>向右移动 1 位</strong>。</li>
+<li><strong>目的</strong>：这相当于在长除法中，把除数往后挪一位，准备在下一轮对比被除数的更低位。</li>
+</ul>
+<hr />
+<p><strong>循环与结束</strong></p>
+<ul>
+<li><strong>重复次数</strong>：对于64位除法，这个过程通常需要执行 <strong>65次</strong> 循环（多出的一次是为了处理对齐和最终余数的修正）。</li>
+<li><strong>最终结果</strong>：</li>
+<li><code>Quotient</code> 寄存器中存放的就是计算出的<strong>商</strong>。</li>
+<li><code>Remainder</code> 寄存器中存放的就是计算出的<strong>余数</strong>。</li>
+</ul>
+<p><img alt="image-20251231132403499" src="../assets/image-20251231132403499.png" /></p>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li><strong>为什么叫“恢复余数”？</strong> 因为这种算法比较“鲁棒”，它先假设能减去，如果减完发现不够（结果变负），就必须通过加法把余数还原。</li>
+<li><strong>有符号除法</strong>：上述逻辑是针对无符号数的。如果是<strong>有符号除法</strong>，通常的做法是先取操作数的<strong>绝对值</strong>进行运算，最后根据“同号得正，异号得负”的原则调整商的符号，并使余数的符号与被除数一致。</li>
+<li><strong>0除检查</strong>：在硬件开始工作前，必须先检查除数是否为0，如果是0，硬件会直接报错（Divide by zero error）。</li>
+</ul>
+</div>
+<h3 id="_7">优化版除法器</h3>
+<p><img alt="image-20251231132444513" src="../assets/image-20251231132444513.png" /></p>
+<p>这个优化后的除法器（Optimized Divider）与优化乘法器的思路非常相似，其核心目标是<strong>减少寄存器的浪费</strong>并<strong>缩小 ALU 的位宽</strong>。通过将“余数”和“商”合并存储，硬件资源得到了极大的简化。</p>
+<p>以下是该优化除法器的具体工作机制：</p>
+<p><strong>寄存器结构的优化</strong></p>
+<p>在基础版除法器中，我们需要 128 位的余数寄存器和 128 位的除数寄存器。优化版将其改造为：</p>
+<ul>
+<li><strong>除数寄存器 Y</strong>：仅需 <strong>64 位</strong>，存放固定不变的除数。</li>
+<li><strong>余数/商合并寄存器 (R+Q)</strong>：这是一个 <strong>128 位</strong> 的移位寄存器。</li>
+<li><strong>高 64 位 (R)</strong>：初始存放被除数的高位，运算结束时存放最终的<strong>余数</strong>。</li>
+<li><strong>低 64 位 (Q)</strong>：初始存放被除数的低位，随着运算进行，商位从右侧逐位移入，结束时存放 <strong>64 位商</strong>。</li>
+</ul>
+<p><strong>工作原理：左移与试减</strong></p>
+<p>优化后的除法器采用的是<strong>左移</strong>逻辑（与优化乘法器的右移相反），每一步都在模拟手工长除法“向后借位”的过程：</p>
+<ol>
+<li><strong>同步左移</strong>：寄存器 R 和 Q 同时向左移动一位。这时，Q 的最高位移入 R 的最低位，而 Q 的最低位空出了一个位置。</li>
+<li><strong>试减运算</strong>：ALU 将 <strong>R (高 64 位)</strong> 减去 <strong>Y (除数)</strong>。</li>
+<li><strong>上商决策</strong>：控制逻辑根据减法的结果决定商的值：</li>
+<li><strong>如果结果 <span class="arithmatex">\(\ge 0\)</span> (减成功)</strong>：说明够减，将结果写回 R，并在 Q 的空出的最低位<strong>上商 1</strong>。</li>
+<li><strong>如果结果 <span class="arithmatex">\(&lt; 0\)</span> (减失败)</strong>：说明不够减，不写回结果（或执行“加法”以<strong>恢复余数</strong>），并在 Q 的最低位<strong>上商 0</strong>。</li>
+</ol>
+<p><strong>为什么它更高效？</strong></p>
+<ul>
+<li><strong>ALU 减小</strong>：从 128 位精简到了 <strong>64 位</strong>，因为每一步只需要对当前“部分余数”进行计算。</li>
+<li><strong>资源合并</strong>：被除数、余数和商共用一个 128 位空间。随着被除数被逐渐处理（移出），腾出的空间刚好用来存放新生成的商位。</li>
+</ul>
+<hr />
+<h3 id="_8">有符号除法</h3>
+<p>有符号除法比无符号除法复杂，因为硬件不仅要计算数值，还要严格遵循数学上关于<strong>符号</strong>的规定。</p>
+<p>在计算机组成原理中，有符号除法通常遵循以下核心原则和处理流程：</p>
+<h3 id="1_2">1. 符号的基本准则</h3>
+<p>根据数学定义和 IEEE 754 等标准，有符号除法的运算结果需满足：</p>
+<ul>
+<li><strong>商的符号</strong>：遵循“同号得正，异号得负”的原则。</li>
+<li>即：<span class="arithmatex">\(Sign(商) = Sign(被除数) \oplus Sign(除数)\)</span>。</li>
+<li><strong>余数的符号</strong>：在大多数现代计算机架构（包括 RISC-V 和 x86）中，<strong>余数的符号必须与被除数保持一致</strong>。</li>
+<li>例如：<span class="arithmatex">\(-7 \div 2 = -3 \dots -1\)</span>（余数 <span class="arithmatex">\(-1\)</span> 与被除数 <span class="arithmatex">\(-7\)</span> 同号）。</li>
+<li>例如：<span class="arithmatex">\(7 \div -2 = -3 \dots 1\)</span>（余数 <span class="arithmatex">\(1\)</span> 与被除数 <span class="arithmatex">\(7\)</span> 同号）。</li>
+</ul>
+<hr />
+<h3 id="2_1">2. 有符号除法的处理步骤</h3>
+<p>由于直接对补码进行除法逻辑（试减、移位）非常复杂，硬件通常采用“<strong>取绝对值运算</strong>”的策略：</p>
+<ol>
+<li><strong>预处理（取绝对值）</strong>：</li>
+<li>检查被除数和除数的符号位。</li>
+<li>如果是负数，通过求补操作（取反加1）将其转换为正数（绝对值）。</li>
+<li>记录原始符号，用于后续判断。</li>
+<li><strong>核心运算（无符号除法）</strong>：</li>
+<li>使用你之前看到的<strong>优化除法器</strong>逻辑（左移、减法、试商）对绝对值进行运算。</li>
+<li>得到无符号的商和余数。</li>
+<li><strong>后处理（符号还原）</strong>：</li>
+<li><strong>商的还原</strong>：如果被除数与除数异号，将商的结果取反加 1（转回负数补码）。</li>
+<li><strong>余数的还原</strong>：如果原始被除数是负数，则将余数的结果取反加 1。</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+    data-repo="LiHuaMao0810/MkDocsNote"
+    data-repo-id="R_kgDOQP2iHw"
+    data-category="Q&A"
+    data-category-id="DIC_kwDOQP2iH84CxfBk"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+    
+  </body>
+</html>

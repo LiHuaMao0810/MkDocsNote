@@ -1,0 +1,4457 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lihuamao0810.github.io/MkDocsNote/ComputerOrganization/chapter3/">
+      
+      
+        <link rel="prev" href="../chapter2/">
+      
+      
+        <link rel="next" href="../chapter4/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Chapter 3 RISC-V - LiHuaMao 的小站</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-3-risc-v" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="LiHuaMao 的小站" class="md-header__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LiHuaMao 的小站
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 3 RISC-V
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../DiffusionModel/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Diffusion Model
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../experience/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  经验贴整理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PostTraining/RLHF/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  模型后训练
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../UML/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程笔记
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  关于我
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LiHuaMao 的小站" class="md-nav__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    LiHuaMao 的小站
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    归档
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../DiffusionModel/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diffusion Model
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diffusion Model
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/FlowMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [CFM Overviw] Flow Matching 流匹配
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/ConsistencyModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistency Model 一致性模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/RectifiedFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rectified Flow 修正流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/DistributionMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Matching Distillation 分布匹配蒸馏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/UnderstandingDiffusionModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding Diffusion Models: A Unified Perspective
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/Diff-Instruct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diff-Instruct Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/DreamDiffusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ProlificDream &amp; DreamDiffusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/MeanFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mean Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/SelfDistillation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learnig Flow Map via Self Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../experience/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经验贴整理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    经验贴整理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法岗面经
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/cc98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    校内资源贴整理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/softwareEngineer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程经验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐学习资源
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型后训练
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型后训练
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostTraining/RLHF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reforcement Learning from Human Feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../UML/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML建模
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1" id="__nav_6_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UML建模
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/UseCaseDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 用例图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/SequenceDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 序列图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/CommunicationDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 通信图（协作图）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机系统原理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机系统原理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter2 计算机的算数运算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 RISC-V
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 RISC-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0 基础知识
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0 基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 内存寻址基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 内存寻址基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        边界对齐 (Alignment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 大端序 vs 小端序
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 大端序 vs 小端序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#little-endian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小端序 (Little-Endian)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#big-endian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        大端序 (Big-Endian)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 精简指令集与复杂指令集
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1 精简指令集与复杂指令集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 指令集的两大分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-risc-v-risc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 为什么 RISC-V 属于 RISC？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 通用寄存器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 通用寄存器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#risc-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RISC-V 通用寄存器一览表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三个最重要的角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        谁负责保存
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-risc-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 RISC-V 六大基础指令类型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 RISC-V 六大基础指令类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-r-type-register-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. R-type (Register) - 寄存器型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-i-type-immediate-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. I-type (Immediate) - 立即数型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-s-type-store-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. S-type (Store) - 存储型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-b-type-branch-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. B-type (Branch) - 分支跳转型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-u-type-upper-immediate-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. U-type (Upper Immediate) - 高位立即数型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-j-type-jump-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. J-type (Jump) - 无条件跳转型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么设计这么多类型？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        快速总结对比表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 伪指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 伪指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-risc-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 什么是 RISC-V 伪指令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 常见的伪指令分类
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 常见的伪指令分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. 数据传输与加载
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. 条件跳转
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. 无条件跳转与函数调用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-x0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 为什么需要 x0
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 指令32位具体如何分配
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 指令32位具体如何分配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 核心布局图示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 六种类型的详细位分配
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 六种类型的详细位分配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-type-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R-type (寄存器-寄存器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-type-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I-type (寄存器-立即数 / Load)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-type-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-type (Store 存储)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-type-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-type (Branch 分支)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-type-upper-immediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        U-type (Upper Immediate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#j-type-jump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        J-type (Jump)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么这么分
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 编写汇编
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 编写汇编">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 数组取数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 条件分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.从数组循环取数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 使用栈来保护和恢复
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 递归
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 为什么用栈保存的时候要用16的倍数？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 其他细节
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7 其他细节">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lui-addi-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lui 和 addi 加载32位立即数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        符号扩展
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算术右移和逻辑右移
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chapter4 处理器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter5 Cache/Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SoftwareTest/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试与质量保证
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_3" id="__nav_6_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件测试与质量保证
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestPlan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestCase/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试用例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestExcute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试执行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关于我
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0 基础知识
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="0 基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 内存寻址基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 内存寻址基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        边界对齐 (Alignment)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 大端序 vs 小端序
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 大端序 vs 小端序">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#little-endian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        小端序 (Little-Endian)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#big-endian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        大端序 (Big-Endian)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 精简指令集与复杂指令集
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1 精简指令集与复杂指令集">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 指令集的两大分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-risc-v-risc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 为什么 RISC-V 属于 RISC？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 通用寄存器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 通用寄存器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#risc-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RISC-V 通用寄存器一览表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三个最重要的角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        谁负责保存
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-risc-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 RISC-V 六大基础指令类型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 RISC-V 六大基础指令类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-r-type-register-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. R-type (Register) - 寄存器型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-i-type-immediate-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. I-type (Immediate) - 立即数型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-s-type-store-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. S-type (Store) - 存储型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-b-type-branch-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. B-type (Branch) - 分支跳转型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-u-type-upper-immediate-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. U-type (Upper Immediate) - 高位立即数型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-j-type-jump-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. J-type (Jump) - 无条件跳转型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么设计这么多类型？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        快速总结对比表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4 伪指令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4 伪指令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-risc-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 什么是 RISC-V 伪指令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 常见的伪指令分类
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 常见的伪指令分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. 数据传输与加载
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. 条件跳转
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. 无条件跳转与函数调用
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-x0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 为什么需要 x0
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 指令32位具体如何分配
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5 指令32位具体如何分配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 核心布局图示
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 六种类型的详细位分配
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 六种类型的详细位分配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-type-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R-type (寄存器-寄存器)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-type-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I-type (寄存器-立即数 / Load)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-type-store" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-type (Store 存储)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-type-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-type (Branch 分支)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-type-upper-immediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        U-type (Upper Immediate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#j-type-jump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        J-type (Jump)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么这么分
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6 编写汇编
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6 编写汇编">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 数组取数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 条件分支
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 循环
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.从数组循环取数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 使用栈来保护和恢复
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 递归
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 为什么用栈保存的时候要用16的倍数？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7 其他细节
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7 其他细节">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lui-addi-32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        lui 和 addi 加载32位立即数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        符号扩展
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        算术右移和逻辑右移
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-3-risc-v">Chapter 3 RISC-V</h1>
+<p>这一章主要是讲riscv汇编的内容，汇编做的事情很简单，从Memory读入数据到寄存器，在内部进行计算，写回Memory，因此我们需要以下知识：</p>
+<ul>
+<li>内存是什么</li>
+<li>寄存器是什么</li>
+<li>读写指令有哪些</li>
+<li>计算指令有哪些</li>
+<li>指令的每一位是怎么控制cpu的</li>
+<li>怎么写汇编语言</li>
+<li>怎么把高级语言转换为机器看得懂的指令</li>
+</ul>
+<h2 id="0"><strong>0 基础知识</strong></h2>
+<p><img alt="image-20251230005900883" src="../assets/image-20251230005900883.png" /></p>
+<h3 id="1">1. 内存寻址基础</h3>
+<p>在 RISC-V 中，内存就像一排排整齐的储物柜，每个柜子都有一个唯一的<strong>地址</strong>。</p>
+<ul>
+<li><strong>最小单位：</strong> 每个地址对应 <strong>1 字节 (8 bits)</strong>。</li>
+<li><strong>字长 (Word)：</strong> 在 RV32（32 位版本）中，一个“字”是 <strong>32 位（4 字节）</strong>。</li>
+<li><strong>寻址方式：</strong> RISC-V 使用 <strong>Load/Store 架构</strong>。这意味着：</li>
+<li>CPU 不能直接对内存里的数做加法。</li>
+<li>必须先用 <code>lw</code> (Load Word) 把数据从内存搬到寄存器。</li>
+<li>算完后再用 <code>sw</code> (Store Word) 把结果搬回内存。</li>
+</ul>
+<h4 id="alignment">边界对齐 (Alignment)</h4>
+<p>虽然 RISC-V 支持非对齐访问（比如从地址 1 开始读 4 字节），但<strong>对齐访问</strong>（地址能被 4 整除）的速度要快得多。如果地址没对齐，硬件可能需要跑两趟才能把数据取完整。</p>
+<hr />
+<h3 id="2-vs">2. 大端序 vs 小端序</h3>
+<p>当你往内存里存一个超过 1 字节的数据（比如一个 32 位的整数 <code>0x12345678</code>）时，问题来了：这 4 个字节在内存的 4 个格子房里该<strong>怎么排队</strong>？</p>
+<h4 id="little-endian"><strong>小端序 (Little-Endian)</strong></h4>
+<ul>
+<li><strong>规则：</strong> 低位字节存在低地址（左侧），高位字节存在高地址。</li>
+<li><strong>记忆法：</strong> “小端在前”。</li>
+<li><strong>例子：</strong> 存储 <code>0x12345678</code></li>
+<li>地址 <code>N</code>   : <code>0x78</code> (最低位字节)</li>
+<li>地址 <code>N+1</code> : <code>0x56</code></li>
+<li>地址 <code>N+2</code> : <code>0x34</code></li>
+<li>地址 <code>N+3</code> : <code>0x12</code> (最高位字节)</li>
+<li><strong>特点：</strong> 现代主流架构（x86, ARM, RISC-V）默认都偏向小端序，因为它在处理类型转换（如 32 位转 8 位）时逻辑更简单。</li>
+</ul>
+<h4 id="big-endian"><strong>大端序 (Big-Endian)</strong></h4>
+<ul>
+<li><strong>规则：</strong> 高位字节存在低地址，就像我们平时写字的习惯。</li>
+<li><strong>例子：</strong> 存储 <code>0x12345678</code></li>
+<li>地址 <code>N</code>   : <code>0x12</code> (最高位字节)</li>
+<li>地址 <code>N+1</code> : <code>0x34</code></li>
+<li>...</li>
+<li><strong>特点：</strong> 常见于网络协议（如 TCP/IP）和一些老的架构（如 PowerPC）。</li>
+</ul>
+<h2 id="1_1"><strong>1 精简指令集与复杂指令集</strong></h2>
+<p>指令集架构（ISA）在历史上主要分为两大阵营分别被称为 <strong>RISC</strong> 和 <strong>CISC</strong>。</p>
+<hr />
+<h3 id="1_2">1. 指令集的两大分类</h3>
+<table>
+<thead>
+<tr>
+<th><strong>类别</strong></th>
+<th><strong>全称</strong></th>
+<th><strong>核心理念</strong></th>
+<th><strong>代表作</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RISC</strong></td>
+<td><strong>Reduced</strong> Instruction Set Computer (精简指令集)</td>
+<td>指令<strong>简单且长度固定</strong>。每条指令只做一件小事，通过多条指令组合完成复杂任务。</td>
+<td><strong>RISC-V</strong>、ARM (手机芯片)、MIPS</td>
+</tr>
+<tr>
+<td><strong>CISC</strong></td>
+<td><strong>Complex</strong> Instruction Set Computer (复杂指令集)</td>
+<td>指令<strong>丰富且长度不固定</strong>。一条指令可以完成非常复杂的任务（比如直接把内存里的两个数相加）。</td>
+<td>x86 (Intel, AMD 电脑处理器)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2-risc-v-risc">2. 为什么 RISC-V 属于 RISC？</h3>
+<p>名字里的 <strong>RISC</strong> 已经揭示了它的身份。RISC-V 的设计目标就是<strong>极简</strong>。</p>
+<ul>
+<li><strong>定长指令：</strong> 在 RISC-V 中，基础指令通常都是 32 位长。这让 CPU 处理起来非常快，就像在标准化的流水线上组装零件。</li>
+<li><strong>Load/Store 架构：</strong> 这是一个非常关键的特征。在 RISC-V 中，你不能直接对内存里的数据进行加减法。你必须：</li>
+<li>把数据从内存<strong>加载</strong>（Load）到寄存器。</li>
+<li>在寄存器里进行<strong>运算</strong>。</li>
+<li>把结果<strong>存储</strong>（Store）回内存。</li>
+<li><strong>模块化：</strong> 这是 RISC-V 最独特的地方。它有一个很小的“基础指令集”（只有几十条指令），如果你需要更强的功能（比如浮点运算、乘法），可以像搭积木一样加上对应的扩展模块。</li>
+</ul>
+<p><img alt="image-20251230003846491" src="../assets/image-20251230003846491.png" /></p>
+<p>可以参考cs61c的架构介绍</p>
+<p>这个计算机模型的图非常重要。如果学过数逻的同学可能有一些印象。</p>
+<p>左侧是数据加工部分，包括；</p>
+<ul>
+<li>组合电路控制信号</li>
+<li>PC记录下一条指令的地址</li>
+<li>通用寄存器</li>
+<li>ALU计算单元</li>
+</ul>
+<p>右侧是存放数据的内存</p>
+<p>大概的交互流程是，左侧的控制模块读入指令，组合电路根据指令计算一些控制信号，然后计算地址，用于去内存中对应的单元读回数据到寄存器，接着在ALU中完成计算，然后如果需要的话，再次写回内存。</p>
+<hr />
+<h2 id="2"><strong>2 通用寄存器</strong></h2>
+<p>在 RISC-V 架构中，不管是 32 位（RV32）还是 64 位（RV64），最核心的就是那 <strong>32 个通用寄存器</strong>。</p>
+<p>为了方便记忆和编程，每一个寄存器都有两个名字：</p>
+<ol>
+<li><strong>硬件名（x0 - x31）：</strong> 物理上的编号，CPU 只认这个。</li>
+<li><strong>ABI 别名（如 zero, ra, sp）：</strong> 方便程序员理解其用途的“外号”。</li>
+</ol>
+<hr />
+<h3 id="risc-v">RISC-V 通用寄存器一览表</h3>
+<table>
+<thead>
+<tr>
+<th><strong>硬件名</strong></th>
+<th><strong>别名</strong></th>
+<th><strong>用途描述</strong></th>
+<th><strong>谁负责保存</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>x0</strong></td>
+<td><strong>zero</strong></td>
+<td><strong>硬连线 0</strong>：读永远是 0，写会被忽略。非常常用！</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>x1</strong></td>
+<td><strong>ra</strong></td>
+<td><strong>返回地址</strong> (Return Address)：保存函数结束要跳回哪。</td>
+<td>调用者</td>
+</tr>
+<tr>
+<td><strong>x2</strong></td>
+<td><strong>sp</strong></td>
+<td><strong>栈指针</strong> (Stack Pointer)：管理内存里的栈空间。</td>
+<td>被调用者</td>
+</tr>
+<tr>
+<td><strong>x3</strong></td>
+<td><strong>gp</strong></td>
+<td>全局指针 (Global Pointer)：加速全局变量访问。</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>x4</strong></td>
+<td><strong>tp</strong></td>
+<td>线程指针 (Thread Pointer)：用于多线程数据。</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>x5</strong></td>
+<td><strong>t0</strong></td>
+<td>临时寄存器 (Temporary)：随便用，不用保存。</td>
+<td>调用者</td>
+</tr>
+<tr>
+<td><strong>x6-x7</strong></td>
+<td><strong>t1-t2</strong></td>
+<td>临时寄存器。</td>
+<td>调用者</td>
+</tr>
+<tr>
+<td><strong>x8</strong></td>
+<td><strong>s0 / fp</strong></td>
+<td><strong>保存寄存器 / 帧指针</strong>：函数内必须保护好的数据。</td>
+<td>被调用者</td>
+</tr>
+<tr>
+<td><strong>x9</strong></td>
+<td><strong>s1</strong></td>
+<td>保存寄存器。</td>
+<td>被调用者</td>
+</tr>
+<tr>
+<td><strong>x10-x11</strong></td>
+<td><strong>a0-a1</strong></td>
+<td><strong>参数/返回值</strong>：传参给函数，也带回返回值。</td>
+<td>调用者</td>
+</tr>
+<tr>
+<td><strong>x12-x17</strong></td>
+<td><strong>a2-a7</strong></td>
+<td><strong>函数参数</strong>：用于传递第 3 到 第 8 个参数。</td>
+<td>调用者</td>
+</tr>
+<tr>
+<td><strong>x18-x27</strong></td>
+<td><strong>s2-s11</strong></td>
+<td>保存寄存器 (Saved)：长期存放需要跨函数保存的数据。</td>
+<td>被调用者</td>
+</tr>
+<tr>
+<td><strong>x28-x31</strong></td>
+<td><strong>t3-t6</strong></td>
+<td>临时寄存器。</td>
+<td>调用者</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="_1">三个最重要的角色</h3>
+<p>可以先重点记住这三个寄存器：</p>
+<ol>
+<li><strong><code>x0 (zero)</code>：它的存在让指令集变得极简。</strong></li>
+<li>比如 RISC-V 没有专门的“复制”指令（MOV）。</li>
+<li>如果你想把 <code>x1</code> 的值给 <code>x2</code>，就用加法：<code>add x2, x1, x0</code>（即 <span class="arithmatex">\(x2 = x1 + 0\)</span>）。</li>
+<li><strong><code>x1 (return address)</code>：函数的“回迁地址”。</strong></li>
+<li>当程序跳进一个子函数时，它会偷偷记下当前位置到 <code>ra</code>。等函数跑完了，执行 <code>ret</code> 指令，其实就是跳回 <code>ra</code> 指向的地方。</li>
+<li><strong><code>x2 (stack pointer)</code>：程序运行的“地基”。</strong></li>
+<li>所有的局部变量、函数调用的嵌套全靠 <code>sp</code> 指向的内存栈来维护。</li>
+</ol>
+<h3 id="_2">谁负责保存</h3>
+<ul>
+<li><strong>调用者保存 (Caller-saved, t0-t6)：</strong> 就像你借别人的车，还回去前不用洗车，对方默认你会弄脏。如果你（调用者）还要用里面的旧数据，得自己先备份。因为顾名思义，这几个寄存器里面存的是临时值，如果你要调用其他函数，这些函数可能会破坏寄存器里的值。</li>
+<li><strong>被调用者保存 (Callee-saved, s0-s11)：</strong> 就像你租别人的房子，走的时候必须打扫干净（还原寄存器原值）。这几个寄存器里的是saved，保存的变量，默认不会更改。所以被调用的函数如果要借用寄存器进行运算，需要先把原来的值存到栈上，退出时恢复。</li>
+</ul>
+<hr />
+<h2 id="3-risc-v"><strong>3 RISC-V 六大基础指令类型</strong></h2>
+<p>在 RISC-V 中，指令格式的设计非常优雅且规整。为了让硬件解码（Decoding）尽可能简单，所有的基础指令长度都是 <strong>32 位</strong>，并根据功能需求划分为 <strong>6 种核心类型</strong>。</p>
+<p>这些类型的命名非常直观，主要取决于指令需要多少个<strong>寄存器</strong>或<strong>立即数</strong>（即指令中直接嵌入的常数）。</p>
+<h4 id="1-r-type-register-">1. R-type (Register) - 寄存器型</h4>
+<ul>
+<li><strong>用途：</strong> 纯粹的寄存器与寄存器之间的运算。</li>
+<li><strong>特点：</strong> 需要 3 个寄存器（2 个源寄存器 <code>rs1</code>, <code>rs2</code> 和 1 个目标寄存器 <code>rd</code>）。</li>
+<li><strong>例子：</strong> <code>add rd, rs1, rs2</code> (<span class="arithmatex">\(rd = rs1 + rs2\)</span>)。</li>
+</ul>
+<h4 id="2-i-type-immediate-">2. I-type (Immediate) - 立即数型</h4>
+<ul>
+<li><strong>用途：</strong> 寄存器与<strong>常数</strong>（立即数）的运算，或者从内存<strong>读取</strong>数据（Load）。</li>
+<li><strong>特点：</strong> 包含一个 12 位的立即数。</li>
+<li><strong>例子：</strong> * <code>addi rd, rs1, 10</code> (<span class="arithmatex">\(rd = rs1 + 10\)</span>)。</li>
+<li><code>lw rd, offset(rs1)</code> (从内存装载数据到寄存器)。</li>
+</ul>
+<h4 id="3-s-type-store-">3. S-type (Store) - 存储型</h4>
+<ul>
+<li><strong>用途：</strong> 将寄存器的数据<strong>写入</strong>内存（Store）。</li>
+<li><strong>特点：</strong> 没有目标寄存器（因为是写内存），它的 12 位立即数被拆成了两部分，分散在指令中（为了保持硬件解码时 <code>rs1</code> 和 <code>rs2</code> 的位置固定）。</li>
+<li><strong>例子：</strong> <code>sw rs2, offset(rs1)</code> (将 <code>rs2</code> 的值存入内存)。</li>
+</ul>
+<h4 id="4-b-type-branch-">4. B-type (Branch) - 分支跳转型</h4>
+<ul>
+<li><strong>用途：</strong> 条件判断跳转（如果...就跳到...）。</li>
+<li><strong>特点：</strong> 比较两个寄存器，如果条件成立，根据 12 位立即数（表示偏移量）进行跳转。</li>
+<li><strong>例子：</strong> <code>beq rs1, rs2, label</code> (如果 <code>rs1 == rs2</code>，跳到 label)。</li>
+</ul>
+<h4 id="5-u-type-upper-immediate-">5. U-type (Upper Immediate) - 高位立即数型</h4>
+<ul>
+<li><strong>用途：</strong> 用于处理<strong>大常数</strong>（32 位中的高 20 位）。</li>
+<li><strong>特点：</strong> 包含一个 20 位的立即数，直接加载到目标寄存器的高位。</li>
+<li><strong>例子：</strong> <code>lui rd, 0x12345</code> (Load Upper Immediate)。</li>
+</ul>
+<h4 id="6-j-type-jump-">6. J-type (Jump) - 无条件跳转型</h4>
+<ul>
+<li><strong>用途：</strong> 函数调用或直接跳转。</li>
+<li><strong>特点：</strong> 包含一个 20 位的立即数作为跳转目标。</li>
+<li><strong>例子：</strong> <code>jal rd, label</code> (Jump and Link，跳转并将返回地址存入 <code>rd</code>)。</li>
+</ul>
+<hr />
+<h3 id="_3">为什么设计这么多类型？</h3>
+<p>RISC-V 这样设计的精妙之处在于：<strong>所有指令的 <code>rs1</code>, <code>rs2</code> 和 <code>rd</code> 都在固定的位置。</strong></p>
+<ul>
+<li><strong>对硬件友好：</strong> CPU 的解码器不需要复杂的逻辑去寻找“谁是源寄存器”，它永远看那几个固定的位（Bits）就行了。</li>
+<li><strong>节省功耗：</strong> 这种一致性降低了电路的复杂度和运行时的功耗。</li>
+</ul>
+<hr />
+<h3 id="_4">快速总结对比表</h3>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>主要用途</strong></th>
+<th><strong>关键操作数</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>R</strong></td>
+<td>算术逻辑运算</td>
+<td><code>rs1</code>, <code>rs2</code>, <code>rd</code></td>
+</tr>
+<tr>
+<td><strong>I</strong></td>
+<td>加常数、Load、系统调用</td>
+<td><code>rs1</code>, <code>rd</code>, <code>imm</code></td>
+</tr>
+<tr>
+<td><strong>S</strong></td>
+<td>写内存 (Store)</td>
+<td><code>rs1</code>, <code>rs2</code>, <code>imm</code></td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>判断跳转 (Branch)</td>
+<td><code>rs1</code>, <code>rs2</code>, <code>imm</code></td>
+</tr>
+<tr>
+<td><strong>U</strong></td>
+<td>加载大常数</td>
+<td><code>rd</code>, <code>imm</code></td>
+</tr>
+<tr>
+<td><strong>J</strong></td>
+<td>直接跳转 (Jump)</td>
+<td><code>rd</code>, <code>imm</code></td>
+</tr>
+</tbody>
+</table>
+<p>课本上介绍的 RISC-V 指令（ <code>lr.d</code> ,  <code>sc.d</code> 被省略了）列表如下：</p>
+<p><img alt="1.png" src="../assets/1654864713202-23520b16-be27-484e-8f08-39aa863679ba.png" /></p>
+<blockquote>
+<p>在 RISC 指令集中，只有 load 系列和 store 系列指令能够访问内存。</p>
+</blockquote>
+<p>RISC-V 的跳转指令的 offset 是基于当前指令的地址的偏移；这不同于其他一些汇编是基于下一条指令的偏移的。即如果是跳转语句 <code>PC</code> 就不 +4 了，而是直接 +offset。</p>
+<p><code>lw</code> ,  <code>lwu</code> 等操作都会清零高位。</p>
+<h2 id="4">4 伪指令</h2>
+<h3 id="1-risc-v">1. 什么是 RISC-V 伪指令</h3>
+<p>RISC-V 设计哲学是 <strong>精简 (RISC)</strong>。为了保持硬件简洁，RISC-V 的基础指令集非常小。但为了让程序员写代码更方便，汇编器提供了一系列“伪指令”。</p>
+<ul>
+<li><strong>本质</strong>：伪指令并不存在于硬件的指令解码器中。</li>
+<li><strong>转化</strong>：当你写下一条伪指令时，汇编器（如 GCC）会自动将其翻译成一条或多条<strong>基础指令</strong>。</li>
+</ul>
+<hr />
+<h3 id="2_1">2. 常见的伪指令分类</h3>
+<h4 id="a">A. 数据传输与加载</h4>
+<p>这是最常用的部分，用来简化内存地址的操作。</p>
+<table>
+<thead>
+<tr>
+<th><strong>伪指令</strong></th>
+<th><strong>含义</strong></th>
+<th><strong>等效的基础指令</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>li rd, imm</code></td>
+<td>Load Immediate</td>
+<td><code>addi rd, x0, imm</code></td>
+<td>加载立即数到寄存器</td>
+</tr>
+<tr>
+<td><code>la rd, symbol</code></td>
+<td>Load Address</td>
+<td><code>auipc</code> + <code>addi</code></td>
+<td>加载全局变量的地址</td>
+</tr>
+<tr>
+<td><code>mv rd, rs</code></td>
+<td>Move</td>
+<td><code>addi rd, rs, 0</code></td>
+<td>寄存器间数值复制</td>
+</tr>
+</tbody>
+</table>
+<h4 id="b">B. 条件跳转</h4>
+<p>RISC-V 基础指令只提供“大于等于”、“小于”等基本比较。</p>
+<table>
+<thead>
+<tr>
+<th><strong>伪指令</strong></th>
+<th><strong>含义</strong></th>
+<th><strong>等效的基础指令</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>beqz rs, label</code></td>
+<td>Branch if Equal Zero</td>
+<td><code>beq rs, x0, label</code></td>
+</tr>
+<tr>
+<td><code>bnez rs, label</code></td>
+<td>Branch if Not Equal Zero</td>
+<td><code>bne rs, x0, label</code></td>
+</tr>
+<tr>
+<td><code>ble rs, rt, label</code></td>
+<td>Branch if <span class="arithmatex">\(\le\)</span></td>
+<td><code>bge rt, rs, label</code> (交换操作数)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="c">C. 无条件跳转与函数调用</h4>
+<table>
+<thead>
+<tr>
+<th><strong>伪指令</strong></th>
+<th><strong>含义</strong></th>
+<th><strong>等效的基础指令</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>j label</code></td>
+<td>Jump</td>
+<td><code>jal x0, label</code></td>
+<td>无条件跳转，不保存返回地址</td>
+</tr>
+<tr>
+<td><code>jr rs</code></td>
+<td>Jump Register</td>
+<td><code>jalr x0, 0(rs)</code></td>
+<td>跳转到寄存器指向的地址</td>
+</tr>
+<tr>
+<td><code>ret</code></td>
+<td>Return</td>
+<td><code>jalr x0, 0(ra)</code></td>
+<td>从子程序返回</td>
+</tr>
+<tr>
+<td><code>call symbol</code></td>
+<td>Call</td>
+<td><code>auipc</code> + <code>jalr</code></td>
+<td>调用远程函数</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="3-x0">3. 为什么需要 <code>x0</code></h3>
+<p>在 RISC-V 中，很多伪指令能够实现，全靠 x0 寄存器（其值恒为 0）。</p>
+<p>例如，RISC-V 没有专门的 NOT (取反) 指令，它是通过 XORI 实现的：</p>
+<blockquote>
+<p>伪指令：not rd, rs</p>
+<p>翻译后：xori rd, rs, -1</p>
+</blockquote>
+<p>再比如清零操作：</p>
+<blockquote>
+<p><strong>伪指令</strong>：<code>fcvt.s.w fa0, x0</code> (将整数0转为浮点0)</p>
+</blockquote>
+<hr />
+<h2 id="5-32"><strong>5 指令32位具体如何分配</strong></h2>
+<p>这是一个非常核心的问题。RISC-V 的设计师们在分配这 32 位（Bit）时，展现了极高的“强迫症”——<strong>为了让硬件电路连线最简单，他们尽可能让相同功能的位出现在固定的位置。</strong></p>
+<hr />
+<h3 id="1_3">1. 核心布局图示</h3>
+<p>在看具体分配前，先记住这个规则：<strong>Opcode（操作码）永远在最低的 7 位。</strong></p>
+<hr />
+<h3 id="2_2">2. 六种类型的详细位分配</h3>
+<p>我们将 32 位从高到低编号为 <code>[31]</code> 到 <code>[0]</code>。</p>
+<h4 id="r-type-"><strong>R-type (寄存器-寄存器)</strong></h4>
+<p>用于 <code>add</code>, <code>sub</code>, <code>and</code> 等运算。</p>
+<ul>
+<li><code>[31:25]</code> (7位): <strong>funct7</strong> —— 辅助操作码（比如区分加法和减法）。</li>
+<li><code>[24:20]</code> (5位): <strong>rs2</strong> —— 第二个源寄存器编号。</li>
+<li><code>[19:15]</code> (5位): <strong>rs1</strong> —— 第一个源寄存器编号。</li>
+<li><code>[14:12]</code> (3位): <strong>funct3</strong> —— 辅助操作码（区分不同类型的运算）。</li>
+<li><code>[11:7]</code>  (5位): <strong>rd</strong> —— 目标寄存器编号（运算结果存哪）。</li>
+<li><code>[6:0]</code>   (7位): <strong>opcode</strong> —— 基本操作码。</li>
+</ul>
+<p><img alt="image-20251230011116393" src="../assets/image-20251230011116393.png" /></p>
+<h4 id="i-type-load"><strong>I-type (寄存器-立即数 / Load)</strong></h4>
+<p>用于 <code>addi</code>, <code>lw</code>, <code>jalr</code> 等。</p>
+<ul>
+<li><code>[31:20]</code> (12位): <strong>imm[11:0]</strong> —— 一个 12 位的立即数（常数）。</li>
+<li><code>[19:15]</code> (5位): <strong>rs1</strong> —— 源寄存器。</li>
+<li><code>[14:12]</code> (3位): <strong>funct3</strong>。</li>
+<li><code>[11:7]</code>  (5位): <strong>rd</strong> —— 目标寄存器。</li>
+<li><code>[6:0]</code>   (7位): <strong>opcode</strong>。</li>
+</ul>
+<p><img alt="image-20251230012815543" src="../assets/image-20251230012815543.png" /></p>
+<p>其中 <code>I</code> 型指令有两个条目；这是因为立即数移位操作 <code>slli</code> , <code>srli</code> , <code>srai</code> 并不可能对一个 64 位寄存器进行大于 63 位的移位操作，因此 12 位 imm 中只有后 6 位能实际被用到，因此前面 6 位被用来作为一个额外的操作码字段，如上图中第二个 <code>I</code> 条目那样。其他 <code>I</code> 型指令适用第一个 <code>I</code> 条目。</p>
+<h4 id="s-type-store"><strong>S-type (Store 存储)</strong></h4>
+<p>用于 <code>sw</code>, <code>sb</code>（存入内存）。</p>
+<ul>
+<li><code>[31:25]</code> (7位): <strong>imm[11:5]</strong> —— 立即数的高 7 位。</li>
+<li><code>[24:20]</code> (5位): <strong>rs2</strong> —— 要存入内存的那个数据源。</li>
+<li><code>[19:15]</code> (5位): <strong>rs1</strong> —— 内存地址的基址寄存器。</li>
+<li><code>[14:12]</code> (3位): <strong>funct3</strong>。</li>
+<li><code>[11:7]</code>  (5位): <strong>imm[4:0]</strong> —— 立即数的低 5 位。</li>
+<li><code>[6:0]</code>   (7位): <strong>opcode</strong>。</li>
+</ul>
+<blockquote>
+<p><strong>注意：</strong> S-type 把立即数拆开了！这是为了让 <code>rs1</code> 和 <code>rs2</code> 的位置和 R-type 保持一致。</p>
+</blockquote>
+<p><img alt="image-20251230011345500" src="../assets/image-20251230011345500.png" /></p>
+<hr />
+<h4 id="b-type-branch"><strong>B-type (Branch 分支)</strong></h4>
+<p>用于 <code>beq</code>, <code>bne</code>（条件跳转）。</p>
+<ul>
+<li>布局与 S-type 类似，但 12 位立即数经过了打乱重组（为了处理跳转地址的特殊性，比如地址总是 2 字节对齐，所以不存最低位的 0）。</li>
+</ul>
+<p><img alt="image-20251230011554742" src="../assets/image-20251230011554742.png" /></p>
+<p>B-type（分支指令）之所以把立即数（Immediate）搞得像乱码一样，是为了<strong>压榨硬件效率</strong>。</p>
+<hr />
+<div class="admonition question">
+<p class="admonition-title"><strong>为什么忽略最低位？</strong></p>
+</div>
+<p>B-type指令是<strong>PC Relative</strong> PC相关的，也就是说，相对于当前的指令，向前或者向后跳转多少条指令。而RISC-V中每条指令都是32位，也就是4字节的，那么我们是不是可以忽略最后两位，来记录跳转了k * 4B的地址呢？然而实际上，B-type仅忽略了最低位。</p>
+<p>如果是 4 字节对齐，地址应该永远能被 4 整除（即最后两位二进制是 <code>00</code>）。但 RISC-V 的设计者在这里做了一个折中：</p>
+<ul>
+<li><strong>支持压缩指令集 (C 扩展)：</strong> RISC-V 有一个可选的扩展叫 <strong>RVC</strong>，它允许指令长度为 <strong>16 位</strong>（2 字节）。</li>
+<li><strong>半字对齐：</strong> 为了兼容这种 16 位的指令，所有的跳转目标地址（包括分支指令）必须至少是 <strong>2 字节（半字）对齐</strong>的。</li>
+<li><strong>多出一倍范围：</strong> 如果地址是 2 字节对齐，那么地址的最后一位二进制 <strong>永远是 0</strong>。既然永远是 0，那我在指令的 32 位代码里就不存这个 0，而是把剩下的位数往左挪一位。</li>
+<li><strong>结果：</strong> 原本 12 位的立即数，通过省掉最后那个 0，实际上可以表示 13 位的范围（<span class="arithmatex">\(-4096\)</span> 到 <span class="arithmatex">\(+4094\)</span> 字节）。这让跳转范围扩大了一倍。</li>
+</ul>
+<p><strong>纠正一个误解：</strong> 即使 RISC-V 基础指令是 32 位（4 字节），但跳转的目标地址并不一定要跳到 4 的倍数上（为了兼容 16 位指令），所以它只敢忽略<strong>最后 1 位</strong>，而不是 2 位。</p>
+<hr />
+<div class="admonition question">
+<p class="admonition-title"><strong>为什么立即数要“乱序重组”？</strong></p>
+</div>
+<p>如果你看 B-type 的立即数分布，会发现它非常凌乱，位（bit）的顺序是：<code>[12][10:5]</code> 和 <code>[4:1][11]</code>。</p>
+<p>这看起来像是个灾难，但对电路设计者来说却是福音。请对比 <strong>S-type (Store)</strong> 和 <strong>B-type (Branch)</strong>：</p>
+<table>
+<thead>
+<tr>
+<th><strong>类型</strong></th>
+<th><strong>31位 (最高位)</strong></th>
+<th><strong>30:25位</strong></th>
+<th><strong>24:21位</strong></th>
+<th><strong>11:8位</strong></th>
+<th><strong>7位</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>S-type</strong></td>
+<td>imm[11]</td>
+<td>imm[10:5]</td>
+<td>imm[4:1]</td>
+<td>imm[4:1] 里的后半部</td>
+<td>imm[0]</td>
+</tr>
+<tr>
+<td><strong>B-type</strong></td>
+<td><strong>imm[12]</strong></td>
+<td><strong>imm[10:5]</strong></td>
+<td><strong>imm[4:1]</strong></td>
+<td><strong>imm[4:1]</strong></td>
+<td><strong>imm[11]</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>原因只有两个字：对齐。</strong></p>
+<ol>
+<li><strong>符号位对齐：</strong> 无论什么类型的指令，立即数的<strong>最高位（符号位）永远在指令的第 31 位</strong>。这样硬件在做符号扩展时，只需要从第 31 位拉一根电线就行，不需要判断指令类型。</li>
+<li><strong>大部分位固定：</strong> 你注意看，<code>imm[10:5]</code> 和 <code>imm[4:1]</code> 在 S-type 和 B-type 中的位置是<strong>完全一样</strong>的。</li>
+<li><strong>减少硬件选择器（Mux）：</strong> 如果为了让立即数在指令里看起来“顺眼”而打乱位置，那么 CPU 硬件就需要增加很多“多路选择器”来决定要把哪一位送到哪。RISC-V 宁愿让软件编写者（汇编器/编译器）麻烦一点，也要让硬件电路简单到极致。</li>
+</ol>
+<hr />
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>把指令从内存读进 CPU 时，硬件就像一个流水线工人：</p>
+<ul>
+<li><strong>工人 A：</strong> 负责从固定的 <code>[31]</code> 位取符号。</li>
+<li><strong>工人 B：</strong> 负责从固定的 <code>[24:21]</code> 位取立即数的中段。</li>
+<li><strong>工人 C：</strong> 只有在极少数位（比如 B-type 的第 7 位和第 11 位）需要根据指令类型稍微调换一下手里的线。</li>
+</ul>
+<p>这种设计让 RISC-V 的<strong>译码器（Decoder）</strong>异常简单，从而实现更高的主频和更低的功耗。</p>
+</div>
+<hr />
+<h4 id="u-type-upper-immediate"><strong>U-type (Upper Immediate)</strong></h4>
+<p>用于 <code>lui</code>, <code>auipc</code>（大立即数）。</p>
+<ul>
+<li><code>[31:12]</code> (20位): <strong>imm[31:12]</strong> —— 20 位的大常数。</li>
+<li><code>[11:7]</code>  (5位): <strong>rd</strong> —— 目标寄存器。</li>
+<li><code>[6:0]</code>   (7位): <strong>opcode</strong>。</li>
+</ul>
+<p><img alt="image-20251230013037037" src="../assets/image-20251230013037037.png" /></p>
+<h4 id="j-type-jump"><strong>J-type (Jump)</strong></h4>
+<p>用于 <code>jal</code>（无条件跳转）。</p>
+<ul>
+<li><code>[31:12]</code> (20位): 立即数的打乱组合。</li>
+<li><code>[11:7]</code>  (5位): <strong>rd</strong>（保存返回地址）。</li>
+<li><code>[6:0]</code>   (7位): <strong>opcode</strong>。</li>
+</ul>
+<p><img alt="image-20251230013154120" src="../assets/image-20251230013154120.png" /></p>
+<hr />
+<h3 id="_5">为什么这么分</h3>
+<p>你可以发现几个非常有意思的共同点，这就是 RISC-V 的美学所在：</p>
+<ol>
+<li><strong>寄存器位置固定：</strong></li>
+<li><code>rs1</code> 永远在 <code>15-19</code> 位。</li>
+<li><code>rs2</code> 永远在 <code>20-24</code> 位。</li>
+<li><code>rd</code>  永远在 <code>7-11</code> 位。</li>
+<li><strong>好处：</strong> CPU 硬件可以在还没弄清楚指令到底要干嘛时，就开始并行读取寄存器堆的数据了。</li>
+<li><strong>立即数符号位固定：</strong></li>
+<li>所有类型的立即数，其最高位（符号位）永远在指令的第 <strong>31 位</strong>。</li>
+<li><strong>好处：</strong> 硬件做符号扩展（Sign-extension）极其简单，一根电线直接连过去就行。</li>
+<li><strong>Opcode 固定：</strong></li>
+<li>低 7 位永远是主意图识别区。</li>
+</ol>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>举个例子：<code>addi x5, x6, 10</code> (I-type)</p>
+<p>如果我们要把这条指令转换成二进制：</p>
+<ul>
+<li><strong>opcode:</strong> I-type 的算术运算通常是 <code>0010011</code>。</li>
+<li><strong>rd:</strong> <code>x5</code> <span class="arithmatex">\(\rightarrow\)</span> <code>00101</code>。</li>
+<li><strong>funct3:</strong> <code>addi</code> 对应 <code>000</code>。</li>
+<li><strong>rs1:</strong> <code>x6</code> <span class="arithmatex">\(\rightarrow\)</span> <code>01110</code>。</li>
+<li><strong>imm:</strong> <code>10</code> <span class="arithmatex">\(\rightarrow\)</span> <code>000000001010</code>。</li>
+</ul>
+<p>组合起来就是：<code>000000001010 01110 000 00101 0010011</code>。</p>
+</div>
+<h2 id="6"><strong>6 编写汇编</strong></h2>
+<p>学习 RISC-V 汇编最快的方法是理解 <strong>寄存器是如何传递数据</strong> 的。我们从最基础的数组操作开始，一步步进阶到递归。</p>
+<hr />
+<h3 id="1_4">1. 数组取数</h3>
+<p>假设我们要取数组 <code>A[3]</code> 的值。已知数组首地址在 <code>x10</code>，结果存入 <code>x11</code>。</p>
+<ul>
+<li><strong>核心逻辑：</strong> 地址 = 基址 + (索引 × 元素大小)。</li>
+<li><strong>注意：</strong> 32位整数占 4 字节，所以 <code>A[3]</code> 的偏移量是 <span class="arithmatex">\(3 \times 4 = 12\)</span>。</li>
+</ul>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># x10 存放数组首地址
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>lw x11, 12(x10)    # x11 = Memory[x10 + 12]
+</span></code></pre></div>
+<hr />
+<h3 id="2_3">2. 条件分支</h3>
+<p>实现逻辑：if (a == b) { a = a + 1; } else { a = a - 1; }</p>
+<p>假设 a 在 x10，b 在 x11。</p>
+<p>一般条件分支和你写的if是相反的条件，因为相反的时候才会跳转，不然就顺着执行，记得执行完之后要跳转到结束，不然会把else的部分再执行一遍。</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    bne x10, x11, else_part  # 如果 x10 != x11，跳转到 else_part
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    addi x10, x10, 1         # if部分: a = a + 1
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    j end_if                 # 跳过 else 部分
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>else_part:
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    addi x10, x10, -1        # else部分: a = a - 1
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>end_if:
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    # 继续执行...
+</span></code></pre></div>
+<hr />
+<h3 id="3">3. 循环</h3>
+<p>实现逻辑：计算 <span class="arithmatex">\(1+2+...+10\)</span> 的和。</p>
+<p>使用 x10 存结果（sum），x11 存计数器（i）。</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    li x10, 0        # sum = 0
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    li x11, 1        # i = 1
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    li x12, 10       # 上限 = 10
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>loop:
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    add x10, x10, x11      # sum = sum + i
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    addi x11, x11, 1       # i = i + 1
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    ble x11, x12, loop     # 如果 i &lt;= 10，跳回 loop
+</span></code></pre></div>
+<hr />
+<h3 id="4_1">4.从数组循环取数</h3>
+<p>尝试从数组中循环去数字，假定数组元素为long long int，在 RISC-V 中，<code>long long int</code>（通常是 64 位，即 8 字节）的数组操作会比 32 位整数（4 字节）稍微复杂一点点，主要体现在<strong>地址偏移量</strong>和<strong>指令选择</strong>上。</p>
+<p>为了让例子更具代表性，我们假设是在 <strong>RV64</strong> 指令集下（64 位架构），因为这是处理 <code>long long</code> 最自然的场景。</p>
+<hr />
+<p><strong>核心逻辑分析</strong></p>
+<ul>
+<li><strong>元素大小：</strong> 每个 <code>long long</code> 占 <strong>8 字节</strong>。</li>
+<li><strong>指令：</strong> * 读取数据使用 <code>ld</code> (Load Double-word，加载 64 位)。</li>
+<li>如果是 32 位机器（RV32）处理 64 位数，则需要用两条 <code>lw</code> 分两次读。</li>
+<li><strong>指针移动：</strong> 每次循环，数组指针需要 <strong>+8</strong>。</li>
+</ul>
+<hr />
+<p><strong>汇编代码：数组求和</strong></p>
+<p>假设：</p>
+<ul>
+<li>数组首地址存放在 <code>a0</code>。</li>
+<li>数组长度存放在 <code>a1</code>。</li>
+<li>我们要计算总和，结果存放在 <code>a2</code>。</li>
+</ul>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># 输入: a0 = 数组首地址, a1 = 数组长度(n)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># 输出: a2 = 累加和
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>array_sum_long:
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    li  a2, 0               # 初始化 sum = 0
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    li  t0, 0               # 初始化 计数器 i = 0
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>loop:
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    # 1. 检查循环条件：if (i &gt;= n) 退出
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    bge t0, a1, end_loop
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    # 2. 计算当前元素的地址：addr = base + (i * 8)
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    # 在 RISC-V 中，可以用位移指令实现快速乘法 (i &lt;&lt; 3 等于 i * 8)
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    slli t1, t0, 3          # t1 = t0 * 8 (左移3位)
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    add  t2, a0, t1          # t2 = 数组首地址 + 偏移量
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    # 3. 取出数据
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    ld   t3, 0(t2)          # 从内存加载 8 字节到 t3 (Load Double-word)
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    # 4. 累加并更新计数器
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    add  a2, a2, t3         # sum += t3
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    addi t0, t0, 1          # i++
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>    # 5. 跳回循环开头
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>    j    loop
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>end_loop:
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>    ret                     # 返回，结果在 a2 中
+</span></code></pre></div>
+<hr />
+<p><strong>这里的关键细节</strong></p>
+<p><strong>(1) 为什么是 <code>slli t1, t0, 3</code>？</strong></p>
+<p>在底层编程中，我们很少用 <code>mul</code> 指令来算地址，因为乘法比较慢。</p>
+<ul>
+<li><code>int</code> (4字节) <span class="arithmatex">\(\rightarrow\)</span> 左移 2 位 (<span class="arithmatex">\(2^2 = 4\)</span>)</li>
+<li><code>long long</code> (8字节) <span class="arithmatex">\(\rightarrow\)</span> 左移 3 位 (<span class="arithmatex">\(2^3 = 8\)</span>)</li>
+</ul>
+<p><strong>(2) 关于 <code>ld</code> 指令</strong></p>
+<ul>
+<li>如果你是在 <strong>RV32</strong>（32位系统）上运行，是没有 <code>ld</code> 指令的。你必须用两条 <code>lw</code> 分别读取低 32 位和高 32 位，然后用 <code>add</code> 指令处理进位（carry）。</li>
+<li>但在 <strong>RV64</strong> 上，<code>ld</code> 可以一步到位。</li>
+</ul>
+<p><strong>(3) 数组访问的另一种写法（更高效）</strong></p>
+<p>其实在循环里，我们不需要每次都从 <code>a0</code> 开始算地址，可以直接“移动指针”：</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>loop_optimized:
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    beq  a1, zero, end      # 如果长度为0直接结束
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    ld   t3, 0(a0)          # 直接读取 a0 指向的数据
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    add  a2, a2, t3         # 累加
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    addi a0, a0, 8          # 指针直接向后挪 8 字节
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    addi a1, a1, -1         # 长度 n--
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    bne  a1, zero, loop_optimized
+</span></code></pre></div>
+<p>这种写法减少了循环内的指令数量，是性能优化的常用手段。</p>
+<hr />
+<h3 id="5">5. 使用栈来保护和恢复</h3>
+<p>理解函数调用中的栈操作，关键在于理解<strong>“租房协议”</strong>：你租用了 CPU 寄存器这段空间，但在退租（函数返回）时，必须把里面的家具摆回原样。</p>
+<p>我们通过一个简单的场景演示：函数 A 调用函数 B。</p>
+<p>假设函数 A 正在使用 s1 寄存器存一个重要数据，而函数 B 进来后也要用 s1</p>
+<p><strong>第一阶段：开辟空间与保存 (Prologue)</strong></p>
+<p>函数 B 开始时，先在栈上“挖个坑”，把 A 的数据埋进去。</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># 函数 B 开始
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>func_b:
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    addi sp, sp, -16    # 1. 栈指针下移，分配 16 字节空间（必须是16的倍数）
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    sw   ra, 12(sp)     # 2. 保存返回地址（如果不存，你就回不去函数 A 了）
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    sw   s1, 8(sp)      # 3. 保存调用者 A 正在使用的 s1
+</span></code></pre></div>
+<p><strong>第二阶段：执行任务</strong></p>
+<p>现在函数 B 可以放心地“蹂躏” <code>s1</code> 了。</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>    li   s1, 100        # B 随意修改 s1 的值
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    add  a0, a0, s1     # 做一些计算
+</span></code></pre></div>
+<p><strong>第三阶段：恢复与释放 (Epilogue)</strong></p>
+<p>函数 B 结束前，必须把 A 的东西挖出来还回去。</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>    lw   s1, 8(sp)      # 1. 把 A 之前存的旧 s1 读回来，覆盖掉 B 的值
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    lw   ra, 12(sp)     # 2. 把 A 的返回地址读回来
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    addi sp, sp, 16     # 3. 栈指针上移，释放空间（还掉内存）
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    ret                 # 4. 跳回到 ra 指向的地方（即回到 A）
+</span></code></pre></div>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">为什么一定要存 <code>ra</code> 和 <code>s</code> 寄存器？</p>
+<p>这是 RISC-V 的 <strong>ABI (应用程序二进制接口)</strong> 规定的义务：</p>
+<p><strong><code>ra</code> (Return Address):</strong></p>
+<ul>
+<li>
+<p>如果你在函数 B 里又调用了函数 C，执行 <code>jal</code> 指令时硬件会自动把当前地址覆盖到 <code>ra</code>。</p>
+</li>
+<li>
+<p><strong>后果：</strong> 如果你不先存起旧的 <code>ra</code>，函数 B 执行完 <code>ret</code> 时，会直接跳回 B 的中间，而不是跳回 A，导致<strong>死循环</strong>。</p>
+</li>
+</ul>
+<p><strong><code>s0 - s11</code> (Saved Registers):</strong></p>
+<ul>
+<li>
+<p>这些被称为“被调用者保存”寄存器。</p>
+</li>
+<li>
+<p><strong>义务：</strong> 谁弄乱的，谁负责打扫。</p>
+</li>
+</ul>
+<p><strong><code>t0 - t6</code> (Temporary Registers):</strong></p>
+<ul>
+<li>
+<p>这些不需要在函数开头保存。</p>
+</li>
+<li>
+<p><strong>逻辑：</strong> 默认它们是“易碎品”。函数 A 调用 B 时，A 应该默认 B 会弄坏 <code>t</code> 寄存器。如果 A 觉得 <code>t0</code> 里的数很重要，A 得在调用 B 之前自己把它存到栈里。</p>
+</li>
+</ul>
+</div>
+<hr />
+<p><strong>完整的对比示例</strong></p>
+<p>假设我们要实现：<span class="arithmatex">\(f(x, y) = (x + y) \times (x - y)\)</span>。</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># 主函数调用 test(5, 3)
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>main:
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    li a0, 5
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    li a1, 3
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    jal ra, test
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    # 此时 a0 应该等于 16
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a># --- 函数开始 ---
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>test:
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    # --- 准备阶段 ---
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    addi sp, sp, -16
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    sw   s1, 8(sp)      # 我们打算用 s1 存 (x+y) 的结果
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    sw   s2, 4(sp)      # 我们打算用 s2 存 (x-y) 的结果
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    # --- 核心逻辑 ---
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    add  s1, a0, a1     # s1 = 5 + 3 = 8
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    sub  s2, a0, a1     # s2 = 5 - 3 = 2
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    mul  a0, s1, s2     # a0 = 8 * 2 = 16 (返回值放 a0)
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>    # --- 恢复阶段 ---
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>    lw   s2, 4(sp)      # 还原 s2
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>    lw   s1, 8(sp)      # 还原 s1
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>    addi sp, sp, 16     # 释放栈
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>    ret
+</span></code></pre></div>
+<details class="question">
+<summary><strong>你发现了吗？在上面的 <code>test</code> 函数中，并没有保存 <code>ra</code>。你能猜到为什么这次可以不存 <code>ra</code> 吗？</strong></summary>
+<p>这是因为在test内部没有调用其他的函数，自然就不用担心寄存器的值被破坏</p>
+</details>
+<hr />
+<h3 id="6_1">6. 递归</h3>
+<p>递归是汇编中最难的部分，因为你需要<strong>手动管理栈（Stack）</strong>来保存返回地址 ra。</p>
+<p>逻辑：fib(n) = fib(n-1) + fib(n-2)，基准情况：n &lt; 2 返回 n。</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># 函数输入 n 在 a0，返回值存入 a0
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>fib:
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    # 1. 基准情况判断
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    li t0, 2
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    blt a0, t0, fib_exit   # 如果 n &lt; 2，直接返回 n (a0)
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    # 2. 准备递归：保存现场
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    addi sp, sp, -16       # 在栈上开辟 16 字节空间
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    sw ra, 12(sp)          # 保存返回地址
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    sw s0, 8(sp)           # 保存 s0 (我们要用它存中间结果)
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    sw a0, 4(sp)           # 保存当前的 n
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    # 3. 计算 fib(n-1)
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>    addi a0, a0, -1        # n = n - 1
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>    jal ra, fib            # 递归调用 fib(n-1)
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    mv s0, a0              # 将 fib(n-1) 的结果暂存到 s0
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>    # 4. 计算 fib(n-2)
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>    lw a0, 4(sp)           # 从栈里找回原来的 n
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>    addi a0, a0, -2        # n = n - 2
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>    jal ra, fib            # 递归调用 fib(n-2)
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>    # 5. 合并结果
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>    add a0, s0, a0         # a0 = fib(n-1) + fib(n-2)
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>    # 6. 恢复现场并返回
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>    lw s0, 8(sp)           # 恢复 s0
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>    lw ra, 12(sp)          # 恢复返回地址
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>    addi sp, sp, 16        # 释放栈空间
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>fib_exit:
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>    ret                    # 返回 (等同于 jr ra)
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">为什么递归需要 <code>sw ra, 12(sp)</code>？</p>
+<ol>
+<li>当你执行 <code>jal ra, fib</code> 时，<code>ra</code> 会被覆盖为当前指令的下一条地址。</li>
+<li>如果你不先把原来的 <code>ra</code> 存到内存（栈）里，当你执行完子函数想回到“上一层”时，你会发现原来的地址找不到了，程序会陷入死循环。</li>
+<li>这就像进入森林时沿途撒下的小石子（栈），没有它你就找不到回家的路。</li>
+</ol>
+</div>
+<h3 id="7-16">7. 为什么用栈保存的时候要用16的倍数？</h3>
+<p>在很多 RISC-V 汇编代码里，即使只存一个 4 字节的数据，程序员也会写 <code>addi sp, sp, -16</code>，而不是 <code>-4</code>。</p>
+<p>这并不是因为硬件强制要求（硬件其实能处理），而是为了遵守 <strong>RISC-V 调用规范（ABI, Application Binary Interface）</strong>。以下是必须是 16 字节倍数的三个核心原因：</p>
+<hr />
+<p><strong>数据对齐的性能需求</strong></p>
+<p>现代处理器访问内存时，并不是一个字节一个字节读的，而是以“块”为单位（比如 128 位，即 16 字节）。</p>
+<ul>
+<li><strong>对齐访问：</strong> 如果一个 16 字节的数据（比如复杂的浮点数或向量数据）正好存储在 16 字节对齐的地址上，CPU 只需要<strong>一次</strong>内存访问就能取到。</li>
+<li><strong>跨行访问：</strong> 如果 <code>sp</code> 指向了一个奇怪的地方（比如 0x1004），那么一个 16 字节的数据就会跨越两个内存管理单元。CPU 必须读两次，然后再把它们拼接起来。这会大幅降低性能。</li>
+</ul>
+<p><strong>软硬件的“契约”</strong></p>
+<p>在 RISC-V 的标准 ABI 规范中，明确规定了 <strong><code>sp</code> 在任何时候（特别是函数调用时）都必须保持 16 字节对齐</strong>。</p>
+<ul>
+<li><strong>编译器信任：</strong> 编写 C 语言编译器的工程师默认 <code>sp</code> 是对齐的。如果你在写汇编时破坏了这个对齐（比如只移动了 4 字节），当你调用 C 语言编写的库函数时，那个函数可能会直接崩溃或者产生难以排查的 Bug。</li>
+<li><strong>SIMD 指令支持：</strong> 许多高级指令集（如 RISC-V 的 V 向量扩展）要求操作的数据必须是对齐的。保持 16 字节对齐为这些高性能指令预留了空间。</li>
+</ul>
+<hr />
+<p><strong>为什么是 16，不是 4 或 8？</strong></p>
+<p>你可能会问：既然 RV32 一个字才 4 字节，为什么不按 4 对齐？</p>
+<ul>
+<li><strong>兼容性：</strong> 16 字节（128 位）是目前主流架构（如 ARM64, x86_64）公认的黄金对齐标准。它足以容纳绝大多数复杂数据类型。</li>
+<li><strong>RV64 兼容：</strong> 在 64 位 RISC-V 中，寄存器本身就是 8 字节。如果只按 8 字节对齐，面对某些 128 位的数据类型（如 <code>long double</code> 或向量数据）依然不够用。所以统一规定为 16 字节，可以通杀 32 位和 64 位系统。</li>
+</ul>
+<hr />
+<p><strong>如果我不遵守会怎样？</strong></p>
+<p>如果你写的是完全独立的裸机（Bare-metal）程序，且不调用任何外部库，你确实可以 <code>addi sp, sp, -4</code>。</p>
+<p>但一旦你的程序变大：</p>
+<ol>
+<li><strong>调试极其痛苦：</strong> 某些调试工具可能会因为 <code>sp</code> 不对齐而无法正确回溯调用栈。</li>
+<li><strong>调用 C 函数崩溃：</strong> 比如 C 库里的 <code>printf</code> 可能会在内部使用需要对齐的指令，导致你的程序触发“非法指令”或“对齐异常”。</li>
+</ol>
+<h2 id="7">7 其他细节</h2>
+<h3 id="lui-addi-32">lui 和 addi 加载32位立即数</h3>
+<p>简单来说，<code>lui</code> 和 <code>addi</code> 配合使用是为了解决一个物理限制：<strong>在 32 位的固定长度指令中，无法直接塞下一个 32 位的立即数。</strong></p>
+<p>而 <code>li</code>（Load Immediate）伪指令的存在，就是为了让程序员不需要去算这些复杂的位移和符号位补偿，把这个脏活累活交给编译器。</p>
+<p>在 RISC-V 中，所有的基础指令都是 <strong>32 位</strong>长。</p>
+<ul>
+<li>一条指令里必须包含：<strong>Opcode（操作码）</strong>、<strong>rd（目标寄存器号）</strong>、<strong>rs1（源寄存器号）</strong> 等。</li>
+<li>留给“立即数（常数）”的空间通常只有 <strong>12 位</strong>（I-type 指令，如 <code>addi</code>）。如果你想把一个 32 位的常数（比如 <code>0x12345678</code>）存入寄存器，12 位的空间显然放不下。</li>
+</ul>
+<hr />
+<p><strong>解决方案：拆分加载 (LUI + ADDI)</strong></p>
+<p>为了拼凑出一个 32 位数，RISC-V 采用了“高 20 位 + 低 12 位”的策略：</p>
+<ol>
+<li>lui (Load Upper Immediate)：</li>
+</ol>
+<p>加载立即数到目标寄存器的 高 20 位，并将低 12 位置零。</p>
+<ol>
+<li>addi (Add Immediate)：</li>
+</ol>
+<p>将一个 12 位的立即数 加 到寄存器上，从而填满低 12 位。</p>
+<hr />
+<p><strong>为什么需要 <code>li</code> 伪指令处理“坑”？</strong></p>
+<p>加载一个大常数看似简单（拼起来就行），但实际操作中有两个棘手的问题：</p>
+<p>坑 A：符号位扩展 (Sign Extension)</p>
+<p>这是最麻烦的地方。RISC-V 的 <code>addi</code> 里的 12 位立即数是<strong>有符号数</strong>。</p>
+<ul>
+<li>如果第 11 位（低 12 位的最高位）是 <strong>1</strong>，<code>addi</code> 会认为这是一个负数。</li>
+<li>在执行加法时，它会先进行符号扩展，导致高 20 位原本加载好的数值被破坏。</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title"><strong>例子：</strong> 加载 <code>0x00002800</code></p>
+<ul>
+<li>高 20 位是 <code>0x00002</code>，低 12 位是 <code>0x800</code>。</li>
+<li><code>0x800</code> 的最高位是 1。如果你直接 <code>lui a0, 2</code> 然后 <code>addi a0, a0, 0x800</code>，</li>
+<li><code>addi</code> 会把 <code>0x800</code> 扩展成 <code>0xFFFFF800</code> 再进行加法。</li>
+<li>结果变成了：<code>0x00002000 + 0xFFFFF800 = 0x00001800</code>（出错了！）。</li>
+</ul>
+<p><strong><code>li</code> 的作用：</strong> 汇编器会自动检测低 12 位。如果发现会触发符号扩展，它会自动给 <code>lui</code> 的值 <strong>加 1</strong>，来抵消加法带来的减法效应。</p>
+</div>
+<p>坑 B：代码精简</p>
+<p>并不是所有数都需要两条指令。</p>
+<ul>
+<li>如果数很小（-2048 到 2047），<code>li</code> 会自动只用一条 <code>addi</code>。</li>
+<li>如果数刚好低 12 位全是 0，<code>li</code> 会自动只用一条 <code>lui</code>。</li>
+</ul>
+<hr />
+<h3 id="_6">符号扩展</h3>
+<p>在 RISC-V 汇编中，<strong>符号扩展（Sign Extension）</strong>是一个让初学者非常头疼的“物理特性”。它源于一个矛盾：硬件需要用固定长度（如 32 位）进行运算，但指令里给出的数字（立即数）往往只有 12 位。</p>
+<p>当硬件把一个 <strong>12 位</strong> 的立即数（存放在指令码中）取出来，准备加到一个 <strong>32 位</strong> 的寄存器上时，它必须先把这 12 位“拉长”到 32 位。</p>
+<ul>
+<li><strong>规则</strong>：看这 12 位数的<strong>最高位（即第 11 位）</strong>。</li>
+<li>如果是 <strong>0</strong>（正数）：高 20 位全部补 0。</li>
+<li>如果是 <strong>1</strong>（负数）：高 20 位全部补 1（即 <code>0xFFFFF</code>）。</li>
+</ul>
+<hr />
+<p><strong>为什么它会破坏 <code>LUI</code> 的结果？</strong></p>
+<p>我们来看一个具体的例子。假设你想把 <code>0x00012800</code> 加载到寄存器 <code>a0</code>。</p>
+<p>理想的逻辑（如果你不考虑符号扩展）：</p>
+<p><strong>第一步</strong>：<code>lui a0, 0x00012</code></p>
+<p>此时 <code>a0 = 0x00012000</code>（低 12 位自动补 0）。</p>
+<p><strong>第二步</strong>：<code>addi a0, a0, 0x800</code></p>
+<p>你希望结果是 <code>0x00012000 + 0x800 = 0x00012800</code>。</p>
+<p>硬件的真实行为：</p>
+<ol>
+<li>执行 <code>addi a0, a0, 0x800</code> 时，硬件检查立即数 <code>0x800</code>。</li>
+<li><code>0x800</code> 的二进制是 <code>1000 0000 0000</code>。<strong>最高位是 1！</strong></li>
+<li>硬件认为这是一个<strong>负数</strong>，于是进行符号扩展，将其变成了 <code>0xFFFFF800</code>（这其实是十进制的 -2048）。</li>
+<li>计算发生：</li>
+</ol>
+<div class="arithmatex">\[0x00012000 + 0xFFFFF800 = 0x00011800\]</div>
+<p>结果错了！ 比你预想的小了 0x1000。</p>
+<hr />
+<p><strong>汇编器（伪指令 <code>li</code>）是如何“暗箱操作”的？</strong></p>
+<p>当你写 <code>li a0, 0x00012800</code> 时，汇编器非常聪明。它通过预判，发现低 12 位的最高位是 1，会导致结果变小，所以它会<strong>提前给高位加 1</strong>。</p>
+<p>它会把你的代码翻译成：</p>
+<p>代码段</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>lui  a0, 0x00013      # 注意：这里变成了 13，而不是 12！
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>addi a0, a0, 0x800    # 虽然 addi 依然会加上 0xFFFFF800
+</span></code></pre></div>
+<p>数学上的奇迹发生了：</p>
+<div class="arithmatex">\[0x00013000 + 0xFFFFF800 = 0x00012800\]</div>
+<p>结果完全正确！</p>
+<hr />
+<h3 id="_7">算术右移和逻辑右移</h3>
+<p>逻辑右移 (Logical Right Shift)</p>
+<ul>
+<li><strong>RISC-V 指令</strong>：<code>srl</code> (Shift Right Logical) / <code>srli</code> (Immediate 版)</li>
+<li><strong>规则</strong>：无论原有数值的正负，左侧空出的位<strong>一律补 0</strong>。</li>
+<li><strong>应用场景</strong>：处理<strong>无符号数</strong>或纯二进制位操作（如掩码抽取、颜色通道提取）。</li>
+<li><strong>效果</strong>：如果对负数进行逻辑右移，结果会变成一个很大的正数，因为符号位（1）被移走了。</li>
+</ul>
+<hr />
+<p>算术右移 (Arithmetic Right Shift)</p>
+<ul>
+<li><strong>RISC-V 指令</strong>：<code>sra</code> (Shift Right Arithmetic) / <code>srai</code> (Immediate 版)</li>
+<li><strong>规则</strong>：左侧空出的位<strong>填充原有的符号位</strong>（即 MSB，最高有效位）。</li>
+<li>如果原数是正数（符号位 0），补 0。</li>
+<li>如果原数是负数（符号位 1），补 1。</li>
+<li><strong>应用场景</strong>：处理<strong>有符号数</strong>的数学运算。</li>
+<li><strong>效果</strong>：<strong>保持数值的符号不变</strong>。它是除以 <span class="arithmatex">\(2^n\)</span> 的快速实现（向下取整）。</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+    data-repo="LiHuaMao0810/MkDocsNote"
+    data-repo-id="R_kgDOQP2iHw"
+    data-category="Q&A"
+    data-category-id="DIC_kwDOQP2iH84CxfBk"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+    
+  </body>
+</html>

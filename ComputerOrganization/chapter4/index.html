@@ -1,0 +1,3641 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lihuamao0810.github.io/MkDocsNote/ComputerOrganization/chapter4/">
+      
+      
+        <link rel="prev" href="../chapter3/">
+      
+      
+        <link rel="next" href="../chapter5/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>chapter4 处理器 - LiHuaMao 的小站</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter4" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="LiHuaMao 的小站" class="md-header__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LiHuaMao 的小站
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              chapter4 处理器
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../DiffusionModel/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Diffusion Model
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../experience/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  经验贴整理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PostTraining/RLHF/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  模型后训练
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../UML/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程笔记
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  关于我
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LiHuaMao 的小站" class="md-nav__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    LiHuaMao 的小站
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    归档
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../DiffusionModel/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diffusion Model
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diffusion Model
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/FlowMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    [CFM Overviw] Flow Matching 流匹配
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/ConsistencyModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistency Model 一致性模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/RectifiedFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rectified Flow 修正流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/DistributionMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Matching Distillation 分布匹配蒸馏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/UnderstandingDiffusionModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Understanding Diffusion Models: A Unified Perspective
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/Diff-Instruct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diff-Instruct Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/DreamDiffusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ProlificDream &amp; DreamDiffusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/MeanFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mean Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../DiffusionModel/SelfDistillation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learnig Flow Map via Self Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../experience/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经验贴整理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    经验贴整理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法岗面经
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/cc98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    校内资源贴整理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/softwareEngineer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程经验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐学习资源
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型后训练
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型后训练
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostTraining/RLHF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reforcement Learning from Human Feedback
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../UML/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML建模
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_1" id="__nav_6_1_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UML建模
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/UseCaseDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 用例图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/SequenceDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 序列图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../UML/CommunicationDiagram/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UML 通信图（协作图）
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机系统原理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机系统原理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter2 计算机的算数运算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 RISC-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chapter4 处理器
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chapter4 处理器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 总览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1 总览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据通路的核心组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是控制信号？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五级流水线结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五级流水线结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-instruction-fetch-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IF (Instruction Fetch) - 取指阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-instruction-decode-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ID (Instruction Decode) - 译码阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ex-execute-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EX (Execute) - 执行阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mem-memory-access-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MEM (Memory Access) - 访存阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wb-write-back-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WB (Write Back) - 写回阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 CPU 结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 CPU 结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I-type（计算指令）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-type-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I-type Load
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jalr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JALR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#j-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        J-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        U-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么要使用流水线？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三大冒险 (Hazards)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据冒险
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制冒险
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4流水线中的控制信号
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4流水线中的控制信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        前推的控制信号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load Use控制信号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分支中的冒险
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-exception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 Exception
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter5 Cache/Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../SoftwareTest/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件测试与质量保证
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_3" id="__nav_6_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    软件测试与质量保证
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestPlan/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试计划
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestCase/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试用例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../SoftwareTest/TestExcute/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    测试执行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关于我
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1 总览
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1 总览">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据通路的核心组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        什么是控制信号？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        五级流水线结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五级流水线结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-instruction-fetch-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IF (Instruction Fetch) - 取指阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#id-instruction-decode-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ID (Instruction Decode) - 译码阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ex-execute-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EX (Execute) - 执行阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mem-memory-access-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MEM (Memory Access) - 访存阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wb-write-back-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WB (Write Back) - 写回阶段
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2 CPU 结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2 CPU 结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#r-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        R-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I-type（计算指令）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#i-type-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I-type Load
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jalr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JALR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#j-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        J-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#u-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        U-type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3 Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3 Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么要使用流水线？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hazards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        三大冒险 (Hazards)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        数据冒险
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        控制冒险
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4流水线中的控制信号
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4流水线中的控制信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        前推的控制信号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load Use控制信号
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        分支中的冒险
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-exception" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5 Exception
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter4">chapter4 处理器</h1>
+<p>这章主要分为两部分，第一部分是单周期cpu为了执行指令，如何构建DataPath。第二部分是如何用流水线提升性能</p>
+<h2 id="1">1 总览</h2>
+<p>学习 CPU 的构造，最核心的切入点就是<strong>数据通路 (Datapath)</strong>。如果把 CPU 比作一个工厂，数据通路就是生产线上的传送带和加工机器，而<strong>控制信号 (Control Signals)</strong> 就是指挥中心发出的调度指令。</p>
+<p>在 RISC-V 架构中，一个基础的单周期 CPU 数据通路主要由以下几个部分组成：</p>
+<hr />
+<h3 id="_1">数据通路的核心组件</h3>
+<p>数据通路是指指令执行过程中，数据所流经的路径及处理单元。</p>
+<ul>
+<li>程序计数器 (PC, Program Counter)：</li>
+</ul>
+<p>一个寄存器，存放当前正在执行指令的地址。</p>
+<ul>
+<li>指令存储器 (Instruction Memory)：</li>
+</ul>
+<p>根据 PC 提供的地址，读出对应的指令机器码。</p>
+<ul>
+<li>寄存器堆 (Register File)：</li>
+</ul>
+<p>包含 x0~x31 寄存器。它有两个读端口和一个写端口，负责存放运算的操作数和中间结果。</p>
+<ul>
+<li>立即数生成单元 (Imm Gen)：</li>
+</ul>
+<p>负责将指令中分散的立即数位（如 addi 中的 12 位）提取并扩展成 32 位或 64 位。</p>
+<ul>
+<li>算术逻辑单元 (ALU)：</li>
+</ul>
+<p>数据通路的核心加工厂，负责执行加、减、与、或等实际运算。</p>
+<ul>
+<li>数据存储器 (Data Memory)：</li>
+</ul>
+<p>用于执行访存指令（如 lw, sw），读写内存中的数据。</p>
+<p><img alt="image-20260101170043259" src="../assets/image-20260101170043259.png" /></p>
+<hr />
+<h3 id="_2">什么是控制信号？</h3>
+<p>控制信号是控制单元 (Control Unit) 根据指令的 <strong>Opcode (操作码)</strong> 和 <strong>Funct (功能位)</strong> 生成的电平信号。它们决定了数据通路中各组件的“动作”。</p>
+<p>你可以把控制信号想象成一组开关。常见的关键信号包括：</p>
+<p><strong>选路类信号 (Multiplexer Selectors)</strong></p>
+<p>这些信号控制多路选择器 (MUX)，决定数据从哪里来：</p>
+<ul>
+<li><strong>ALUSrc</strong>：决定 ALU 的第二个输入是来自寄存器（R-type 指令），还是来自立即数（I-type 指令）。</li>
+<li><strong>MemtoReg</strong>：决定写回寄存器的数据是来自 ALU 的运算结果，还是来自数据存储器的读出结果。</li>
+</ul>
+<p><strong>写使能类信号 (Write Enable)</strong></p>
+<p>这些信号决定是否要修改硬件状态：</p>
+<ul>
+<li><strong>RegWrite</strong>：如果该信号为 1，在时钟上升沿时，数据会被写入目标寄存器。</li>
+<li><strong>MemWrite</strong>：如果为 1，数据会被写入数据存储器（如 <code>sw</code> 指令）。</li>
+<li><strong>MemRead</strong>：是否允许读取数据存储器。</li>
+</ul>
+<p><strong>运算类信号 (ALU Control)</strong></p>
+<ul>
+<li><strong>ALUOp</strong>：告知 ALU 应该执行哪种运算（如加法、减法、异或等）。</li>
+</ul>
+<p><strong>跳转类信号 (Branch/Jump)</strong></p>
+<ul>
+<li><strong>Branch</strong>：指示当前是否是一条分支指令。它会结合 ALU 的比较结果（如 Zero 位）来决定 PC 是跳向新地址还是继续顺序执行。</li>
+</ul>
+<p><img alt="image-20260101171736628" src="../assets/image-20260101171736628.png" /></p>
+<hr />
+<div class="admonition example">
+<p class="admonition-title">举例：执行一条 <code>add x1, x2, x3</code> 指令</p>
+<p>当这条指令进入 CPU 时，控制信号会进行如下编排：</p>
+<ol>
+<li><strong>RegWrite = 1</strong>：因为我们需要把结果存入 x1。</li>
+<li><strong>ALUSrc = 0</strong>：选择寄存器 x3 作为输入，而不是立即数。</li>
+<li><strong>ALUOp = "Add"</strong>：指挥 ALU 做加法运算。</li>
+<li><strong>MemWrite = 0</strong>：不写内存。</li>
+<li><strong>MemtoReg = 0</strong>：写回寄存器的数据来源于 ALU 结果。</li>
+</ol>
+</div>
+<p><img alt="image-20260101170058187" src="../assets/image-20260101170058187.png" /></p>
+<hr />
+<h3 id="_3">五级流水线结构</h3>
+<p>这部分是后面的内容，但是可以感受一下在单周期CPU中对指令的处理分别对应哪部分</p>
+<h4 id="if-instruction-fetch-">IF (Instruction Fetch) - 取指阶段</h4>
+<ul>
+<li><strong>核心任务</strong>：根据程序计数器（PC）中的地址，从指令存储器中取出机器码。</li>
+<li><strong>主要部件</strong>：PC 寄存器、指令存储器、加法器（用于 PC+4）。</li>
+<li><strong>控制信号</strong>：</li>
+<li><strong>PCSrc</strong>：决定下一条指令的地址。是顺序执行（PC+4），还是跳转执行（Branch/Jump 目标地址）。</li>
+</ul>
+<h4 id="id-instruction-decode-">ID (Instruction Decode) - 译码阶段</h4>
+<ul>
+<li><strong>核心任务</strong>：翻译指令的意思；从寄存器堆（Register File）中读取操作数；扩展立即数。</li>
+<li><strong>主要部件</strong>：控制单元（Control Unit）、寄存器堆、立即数生成单元（Imm Gen）。</li>
+<li><strong>控制信号</strong>：</li>
+<li>这个阶段是<strong>控制信号的产源地</strong>。控制单元根据指令的 <code>Opcode</code> 产生本条指令后续阶段所需的所有信号。</li>
+</ul>
+<h4 id="ex-execute-">EX (Execute) - 执行阶段</h4>
+<ul>
+<li><strong>核心任务</strong>：进行实际的算术逻辑运算、计算访存地址或计算分支跳转目标。</li>
+<li><strong>主要部件</strong>：ALU、分支地址加法器。</li>
+<li><strong>关键控制信号</strong>：</li>
+<li><strong>ALUSrc</strong>：选择 ALU 的第二个输入是寄存器数据还是立即数。</li>
+<li><strong>ALUOp</strong>：决定 ALU 具体做什么动作（加、减、与、或等）。</li>
+</ul>
+<h4 id="mem-memory-access-">MEM (Memory Access) - 访存阶段</h4>
+<ul>
+<li><strong>核心任务</strong>：如果是加载指令（Load），则从内存读数据；如果是存储指令（Store），则向内存写数据。</li>
+<li><strong>主要部件</strong>：数据存储器（Data Memory）。</li>
+<li><strong>关键控制信号</strong>：</li>
+<li><strong>MemRead</strong>：是否读取内存。</li>
+<li><strong>MemWrite</strong>：是否写入内存。</li>
+<li><strong>Branch</strong>：结合 ALU 的比较结果，最终触发跳转逻辑。</li>
+</ul>
+<h4 id="wb-write-back-">WB (Write Back) - 写回阶段</h4>
+<ul>
+<li><strong>核心任务</strong>：将计算结果或从内存读出的数据写回到寄存器堆中。</li>
+<li><strong>主要部件</strong>：寄存器堆。</li>
+<li><strong>关键控制信号</strong>：</li>
+<li><strong>RegWrite</strong>：允许将数据写回目标寄存器（rd）。</li>
+<li><strong>MemtoReg</strong>：选择写回的数据来源（是来自 ALU 的运算结果，还是来自内存的读出数据）。</li>
+</ul>
+<hr />
+<p><strong>为什么要把 CPU 拆成这五部分？</strong></p>
+<p>这种拆分最大的好处就是<strong>并行化（Parallelism）</strong>。 就像工厂流水线一样：</p>
+<ul>
+<li>当第一条指令在 <strong>WB</strong> 级写回时；</li>
+<li>第二条指令可以在 <strong>MEM</strong> 级访存；</li>
+<li>第三条指令可以在 <strong>EX</strong> 级运算；</li>
+<li>第四条指令可以在 <strong>ID</strong> 级译码；</li>
+<li>第五条指令可以在 <strong>IF</strong> 级取指。</li>
+</ul>
+<p><strong>理想情况下，每个时钟周期都能完成一条指令</strong></p>
+<h2 id="2-cpu">2 CPU 结构</h2>
+<p>这部分我感觉按照cs61c逐步添加部件更好理解</p>
+<p>这一段将从支持R型指令的电路开始，为了支持新的指令，逐渐加入新的组件，以及对应的控制信号。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>为了兼容多种指令，我们一般使用添加一个多路选择器MUX，以及添加对应控制信号的方法</p>
+</div>
+<h3 id="r-type">R-type</h3>
+<p><img alt="image-20260101171114018" src="../assets/image-20260101171114018.png" /></p>
+<p>要完成一条 <strong>R指令</strong>（以add为例），CPU 的数据通路需要经历一个完整的闭环过程：从获取指令地址开始，到最后将计算结果存回寄存器。</p>
+<p>完成 R 型指令主要涉及以下五个关键部分：</p>
+<hr />
+<p><strong>程序计数器 (PC) 与取指逻辑</strong></p>
+<ul>
+<li><strong>PC 寄存器</strong>：保存当前 <code>add</code> 指令在内存中的地址。</li>
+<li><strong>PC + 4 加法器</strong>：由于单条指令占用 4 个字节，计算出下一条指令的地址（<code>pc+4</code>）并传回 PC，为下一次取指做准备。</li>
+</ul>
+<p><strong>指令存储器 (IMEM)</strong></p>
+<ul>
+<li><strong>输入</strong>：由 PC 提供的地址。</li>
+<li><strong>输出</strong>：读出 <code>add</code> 指令的 32 位机器码（即底部的 <code>funct7 | rs2 | rs1 | funct3 | rd | opcode</code>）并传送给控制逻辑和寄存器堆。</li>
+</ul>
+<p><strong>控制逻辑 (Control Logic)</strong></p>
+<ul>
+<li><strong>译码</strong>：识别出这是一条 R 型指令（通过 <code>opcode</code>）且具体操作是加法（通过 <code>funct3</code> 和 <code>funct7</code>）。</li>
+<li><strong>信号生成</strong>：产生关键的控制信号，例如将 <strong>RegWriteEnable (课本上叫RegWrite)</strong> 置为 <strong>1</strong>，允许最终结果写入寄存器。</li>
+</ul>
+<p><strong>寄存器堆 (Register File / Reg[])</strong></p>
+<ul>
+<li><strong>读取操作数</strong>：</li>
+</ul>
+<p>根据指令中的 <code>Inst[19:15]</code> (rs1) 地址，从 <strong>AddrA</strong> 读出第一个操作数到 <strong>DataA</strong>。</p>
+<p>根据指令中的 <code>Inst[24:20]</code> (rs2) 地址，从 <strong>AddrB</strong> 读出第二个操作数到 <strong>DataB</strong>。</p>
+<ul>
+<li><strong>准备写入地址</strong>：指令中的 <code>Inst[11:7]</code> 指定了目标寄存器 <strong>rd</strong> 的地址，用于最后阶段存放结果。</li>
+</ul>
+<p><strong>算术逻辑单元 (ALU)</strong></p>
+<ul>
+<li><strong>核心运算</strong>：接收来自寄存器堆的两个操作数（<code>Reg[rs1]</code> 和 <code>Reg[rs2]</code>），并根据控制逻辑的指令执行“加法”运算。</li>
+<li><strong>结果写回</strong>：计算出的结果（<code>alu</code> 输出端）通过数据总线直接绕回到寄存器堆的 <strong>DataD</strong> 输入端口。在时钟上升沿（clk），由于 <code>RegWEn=1</code>，该结果被正式写入到 <code>Reg[rd]</code> 中。</li>
+</ul>
+<hr />
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>对于 R 型指令，数据通路是一个<strong>纯粹的寄存器到寄存器</strong>的过程：</p>
+<p><strong>PC</strong> <span class="arithmatex">\(\rightarrow\)</span> <strong>IMEM</strong> (取指) <span class="arithmatex">\(\rightarrow\)</span> <strong>Reg[]</strong> (读 <span class="arithmatex">\(rs1, rs2\)</span>) <span class="arithmatex">\(\rightarrow\)</span> <strong>ALU</strong> (计算) <span class="arithmatex">\(\rightarrow\)</span> <strong>Reg[]</strong> (写回 <span class="arithmatex">\(rd\)</span>)</p>
+</div>
+<hr />
+<h3 id="i-type">I-type（计算指令）</h3>
+<p><img alt="image-20260101174227261" src="../assets/image-20260101174227261.png" /></p>
+<p>为了能够处理 <code>addi</code> 这类 <strong>I型指令</strong>（Immediate Type），我们需要在原本支持 R型指令的数据通路上进行扩展。核心挑战在于：I型指令的操作数不再是两个寄存器，而是一个<strong>寄存器</strong>和一个嵌入在指令中的<strong>立即数</strong>。</p>
+<p><strong>立即数生成器 (Imm. Gen)</strong></p>
+<p>这是 I型指令数据通路中最重要的变化。</p>
+<ul>
+<li><strong>功能</strong>：由于 I型指令的机器码（如 <code>Inst[31:20]</code>）中只包含 12 位的立即数，<strong>立即数生成器</strong>负责提取这些片段，并将其扩展为 32 位（或 64 位）的完整数据，以便 ALU 进行运算。</li>
+<li><strong>输入/输出</strong>：它接收完整的 32 位指令作为输入，并根据指令类型输出扩展后的立即数 <code>Imm[31:0]</code>。</li>
+</ul>
+<p><strong>控制逻辑信号</strong></p>
+<p>为了指挥硬件在“寄存器模式”和“立即数模式”之间切换，控制逻辑需要增加以下信号：</p>
+<ul>
+<li>
+<p><strong>ImmSel (Immediate Select，课本上忽略了此信号)</strong>：告知立即数生成器当前指令的类型（例如 I型），以便它从正确的位置提取位段。</p>
+</li>
+<li>
+<p><strong>BSel (ALU Source B Select， 课本上称为ALUSrc)</strong>：这是一个关键的<strong>多路选择器（MUX）信号</strong>。</p>
+</li>
+</ul>
+<p>当 <code>BSel = 0</code> 时，ALU 的第二个输入来自寄存器 <code>rs2</code>（对应 R型指令）。</p>
+<p>当 <code>BSel = 1</code> 时，ALU 的第二个输入来自扩展后的<strong>立即数 Imm</strong>（对应 I型指令）。</p>
+<hr />
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>以 <code>addi x1, x2, 10</code> 为例，数据流转如下：</p>
+<ol>
+<li>
+<p><strong>取指与译码</strong>：从 IMEM 取出指令，控制逻辑识别出这是 I型指令，将 <code>ImmSel</code> 设为 I，并将 <code>BSel</code> 设为 1。</p>
+</li>
+<li>
+<p><strong>操作数准备</strong>：</p>
+</li>
+</ol>
+<p>从寄存器堆读出 <code>x2</code> 的值（<code>Reg[rs1]</code>）。</p>
+<p><strong>Imm. Gen</strong> 同步产生立即数 <code>10</code> 的扩展值。</p>
+<ol>
+<li>
+<p><strong>ALU 运算</strong>：由于 <code>BSel = 1</code>，ALU 接收的是 <code>Reg[rs1]</code> 和 <code>Imm[31:0]</code>。</p>
+</li>
+<li>
+<p><strong>写回</strong>：计算结果 <code>Reg[rs1] + Imm</code> 通过 <code>DataD</code> 写回到目标寄存器 <code>rd</code>（即 <code>x1</code>），此时 <code>RegWEn = 1</code>。</p>
+</li>
+</ol>
+</div>
+<hr />
+<h3 id="i-type-load">I-type Load</h3>
+<p><img alt="image-20260101174112444" src="../assets/image-20260101174112444.png" /></p>
+<p>为了支持 I-Type 指令中的 <code>load</code>（例如 <code>lw</code> 指令），我们必须在计算类指令（如 <code>addi</code>）的基础上，打通从 <strong>ALU 计算地址</strong> 到 <strong>内存读取数据</strong>，再到 <strong>写回寄存器</strong> 的完整路径。</p>
+<p>我们需要增加以下组件和控制信号：</p>
+<p><strong>数据存储器 (DMEM)</strong></p>
+<p>在 I-Type 计算指令中，数据流在 ALU 之后直接返回寄存器。但对于 <code>load</code> 指令，ALU 的结果被视为<strong>内存地址</strong>。</p>
+<ul>
+<li><strong>数据存储器 (Data Memory / DMEM)</strong>：这是 CPU 访问外部数据的接口。</li>
+<li><strong>连接方式</strong>：ALU 的输出连接到 DMEM 的 <code>addr</code> 输入端。</li>
+<li><strong>功能</strong>：当执行 <code>lw</code> 时，CPU 将 ALU 计算出的目标地址传给 DMEM，DMEM 从该地址读出 32 位数据并从 <code>DataR</code> 端口输出。</li>
+</ul>
+<p><strong>写回选择器 (WB Mux)</strong></p>
+<p>寄存器堆（Reg File）的写入端口 <code>DataD</code> 现在面临两个选择：是写入 ALU 的计算结果，还是写入内存读出的数据？</p>
+<ul>
+<li><strong>WB Mux</strong>：在 ALU 和 DMEM 之后增加一个多路选择器。</li>
+<li><strong>功能</strong>：它决定了最终写回寄存器的数据源。</li>
+</ul>
+<hr />
+<p><strong>控制信号</strong></p>
+<p><strong>MemRW (Memory Read/Write)</strong>：</p>
+<ul>
+<li>当执行 <code>load</code> 指令时，该信号设为 <strong>Read</strong>，指示 DMEM 进行读取操作。</li>
+<li>当执行 <code>store</code> 指令时，设为 <strong>Write</strong>；而对于普通的 <code>addi</code>，该信号通常设为无效或读取（取决于设计）。</li>
+</ul>
+<p><strong>WBSel (Write Back Select)</strong>：</p>
+<ul>
+<li>这是一个关键的选择信号。</li>
+<li>对于 <code>addi</code> 指令，<code>WBSel = 1</code>（选择 ALU 结果）。</li>
+<li>对于 <code>lw</code> 指令，<strong><code>WBSel = 0</code></strong>（选择从 DMEM 读出的数据）。</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title"><strong><code>lw</code> 指令下的完整数据流 (Load Word)</strong></p>
+<p>执行 <code>lw x1, 4(x2)</code> 的通路如下：</p>
+<ol>
+<li><strong>地址计算</strong>：ALU 接收 <code>Reg[x2]</code> 和立即数 <code>4</code>，计算出<strong>内存有效地址</strong>。</li>
+<li><strong>内存访问</strong>：<code>MemRW = Read</code>，DMEM 根据地址取出数据。</li>
+<li><strong>结果写回</strong>：<code>WBSel = 0</code> 使得内存数据通过 Mux 传向 <code>DataD</code>。</li>
+<li><strong>保存</strong>：由于 <code>RegWEn = 1</code>，数据在时钟上升沿被存入 <code>Reg[x1]</code>。</li>
+</ol>
+</div>
+<p>支持 <code>load</code> 指令的本质是：<strong>增加了一个存储器（DMEM）并用一个新的 Mux 重新定义了“写回寄存器”的数据来源。</strong></p>
+<hr />
+<h3 id="s-type">S-type</h3>
+<p><img alt="image-20260101174157224" src="../assets/image-20260101174157224.png" /></p>
+<p>为了支持 S型指令（如 <code>sw</code>，即 Store Word），我们需要在原有的加载指令（<code>lw</code>）数据通路基础上，打通从<strong>寄存器到内存</strong>的数据传输路径。</p>
+<p>支持 <code>sw</code> 指令需要进行以下调整：</p>
+<p><strong>数据通路的物理连接：DataB 到 DataW</strong></p>
+<p>在执行 <code>sw</code> 指令时，我们需要将寄存器中的数据写入内存，因此必须建立一条从<strong>寄存器堆（Reg File）</strong>到<strong>数据存储器（DMEM）</strong>的通路。</p>
+<ul>
+<li><strong>物理连接</strong>：寄存器堆的 <code>DataB</code> 端口（输出 <code>Reg[rs2]</code>）连接到 DMEM 的 <code>DataW</code> 输入端口。</li>
+<li><strong>作用</strong>：<code>rs1</code> 和立即数经过 ALU 计算出内存的<strong>写入地址</strong>（<code>addr</code>），而 <code>rs2</code> 中的实际数据则通过这条新通路送到内存的<strong>待写入数据端</strong>。</li>
+</ul>
+<hr />
+<p><strong>控制信号的改变</strong></p>
+<p>为了指挥硬件执行存储操作而不是读取操作，控制逻辑需要发出不同的指令：</p>
+<p><strong>MemRW = Write</strong>：</p>
+<ul>
+<li>这是执行 <code>sw</code> 指令的核心信号。</li>
+<li>它通知 DMEM 这是一个<strong>写周期</strong>，将 <code>DataW</code> 上的数据存入 <code>addr</code> 指定的地址。</li>
+</ul>
+<p><strong>RegWEn = 0</strong>：</p>
+<ul>
+<li>不同于加载或计算指令，<code>sw</code> 指令<strong>不修改寄存器</strong>。</li>
+<li>因此，必须将寄存器写使能信号设为 <code>0</code>，防止数据意外写回寄存器堆。</li>
+</ul>
+<p><strong>ImmSel = S</strong>：</p>
+<ul>
+<li>S型指令的立即数在机器码中的位置与 I型不同。</li>
+<li>控制信号 <code>ImmSel</code> 设为 <code>S</code>，指挥立即数生成器（Imm. Gen）按照 S型格式拼接立即数（偏移量）。</li>
+</ul>
+<p><code>WBSel</code> 的特殊性</p>
+<p>在执行 <code>sw</code> 时，由于 <code>RegWEn = 0</code>，数据通路末端的 WB Mux 选哪一路都无所谓（Don't Care），因为数据根本不会被写进寄存器。</p>
+<hr />
+<p><strong><code>sw</code> 指令下的完整流向</strong></p>
+<ol>
+<li><strong>取指与译码</strong>：从 IMEM 取指令，控制逻辑识别出 <code>sw</code>，将 <code>RegWEn</code> 关掉，并将 <code>MemRW</code> 开向 <strong>Write</strong>。</li>
+<li><strong>地址计算</strong>：ALU 接收 <code>Reg[rs1]</code> 和立即数（S型扩展），计算出<strong>目标内存地址</strong>。</li>
+<li><strong>数据传输</strong>：寄存器 <code>Reg[rs2]</code> 的数据通过 <code>DataB</code> 支线，直接送达 DMEM 的 <strong>DataW</strong>。</li>
+<li><strong>存储动作</strong>：在时钟上升沿，数据正式写入内存地址，指令执行完毕。</li>
+</ol>
+<hr />
+<h3 id="b-type">B-type</h3>
+<p><img alt="image-20260101173912121" src="../assets/image-20260101173912121.png" /></p>
+<p>为了支持 <strong>B-Type 指令</strong>（如 <code>beq</code>, <code>bne</code>），数据通路面临最大的挑战是：指令不再是单纯地顺序执行（PC+4），而是要根据<strong>比较结果</strong>来决定 PC 是跳转到某个目标地址，还是继续执行下一条。</p>
+<p>为了实现 B-Type 指令，我们需要增加以下核心组件和控制信号：</p>
+<p><strong>核心组件</strong></p>
+<p><strong>分支比较器 (Branch Comp / Branch Comparator)</strong>：</p>
+<ul>
+<li><strong>输入</strong>：直接接收来自寄存器堆的两个操作数 <code>R[rs1]</code> 和 <code>R[rs2]</code>。</li>
+<li><strong>功能</strong>：在不经过 ALU 的情况下，快速判断两个数是否相等（Eq）、是否小于（LT）等条件。</li>
+</ul>
+<p><strong>PC 选择多路选择器 (PC Mux)</strong>：</p>
+<ul>
+<li>位于 PC 寄存器的输入端。</li>
+<li><strong>作用</strong>：在“PC+4”和“ALU 计算出的跳转目标地址”之间做出选择。</li>
+</ul>
+<p><strong>ALU 输入 A 选择器 (Asel Mux)</strong>：</p>
+<ul>
+<li><strong>改变</strong>：在 B-Type 指令中，跳转地址是相对于当前 PC 的偏移量（PC-relative），因此 ALU 的第一个输入需要从 <code>Reg[rs1]</code> 切换为 <strong>PC</strong>。</li>
+</ul>
+<hr />
+<p><strong>新增的控制信号</strong></p>
+<p>控制单元需要通过一套复杂的信号组合来管理跳转逻辑：</p>
+<ul>
+<li><strong>PCSel (taken/not taken)</strong>：这是最核心的信号。如果分支条件达成（taken），则选择跳转地址；否则选择 PC+4。</li>
+<li><strong>BrUn (Branch Unsigned)</strong>：告知比较器当前进行的是有符号比较还是无符号比较。</li>
+<li><strong>Asel = 1</strong>：强制 ALU 选择 <strong>PC</strong> 作为第一个操作数，以便计算 <code>PC + Offset</code>。</li>
+<li><strong>Bsel = 1</strong>：选择立即数生成器产生的 <strong>B-Type 立即数</strong> 作为 ALU 的第二个操作数。</li>
+<li><strong>ImmSel = B</strong>：指挥立即数生成器按照 B-Type 格式提取并扩展指令中的 12 位跳转偏移量。</li>
+</ul>
+<p><strong>B-Type 指令的具体执行流 (以 <code>beq</code> 为例)</strong></p>
+<ol>
+<li>
+<p><strong>比较逻辑</strong>：<code>Branch Comp</code> 接收 <code>rs1</code> 和 <code>rs2</code>，产生 <code>BrEq</code> 信号给控制逻辑。</p>
+</li>
+<li>
+<p><strong>地址计算</strong>：同时，ALU 执行 <code>PC + Imm</code>（此时 <code>Asel=1</code>, <code>Bsel=1</code>），算出潜在的跳转目标地址。</p>
+</li>
+<li>
+<p><strong>决策触发</strong>：控制逻辑检查 <code>BrEq</code>。</p>
+</li>
+</ol>
+<p>若相等，设置 <strong>PCSel = 1 (taken)</strong>，PC 在下一个周期变为跳转地址。</p>
+<p>若不相等，设置 <strong>PCSel = 0 (not taken)</strong>，PC 变为正常的 PC+4。</p>
+<ol>
+<li><strong>状态保护</strong>：设置 <strong>RegWEn = 0</strong> 和 <strong>MemRW = read</strong>，确保跳转指令不会意外修改寄存器或内存数据。</li>
+</ol>
+<p>B-Type 指令的引入使数据通路从“直线型”变为了“带分支的环型”。它通过 <strong>Branch Comp</strong> 进行决策，通过 <strong>ALU</strong> 计算目标，最后通过 <strong>PCSel</strong> 改变整个程序的执行流。</p>
+<hr />
+<h3 id="jalr">JALR</h3>
+<p><img alt="image-20260101174612850" src="../assets/image-20260101174612850.png" /></p>
+<p>为了支持 <code>jalr</code>（Jump and Link Register）指令，我们需要让 CPU 具备“跳得远”且“能跳回来”的能力。与 <code>beq</code> 指令不同，<code>jalr</code> 的跳转目标不是基于 PC 的相对偏移，而是基于<strong>寄存器的绝对地址</strong>。</p>
+<p>支持 <code>jalr</code> 需要添加或调整以下组件和信号：</p>
+<p><strong>核心功能的改变：计算跳转目标</strong></p>
+<p><code>jalr rd, offset(rs1)</code> 的功能是将 PC 设置为 <code>Reg[rs1] + offset</code>。</p>
+<p><strong>数据通路调整</strong>：</p>
+<ul>
+<li><strong>ALU 的输入 A</strong>：必须选回 <strong>Reg[rs1]</strong>（即 <code>Asel = 0</code>）。</li>
+<li><strong>ALU 的输入 B</strong>：选择扩展后的<strong>立即数</strong>（即 <code>Bsel = 1</code>）。</li>
+<li><strong>最终目标</strong>：ALU 计算出的结果（<code>Reg[rs1] + offset</code>）会被直接送往 <strong>PC Mux</strong>，用于更新 PC。</li>
+</ul>
+<p><strong>“Link”功能的实现：保存返回地址</strong></p>
+<p><code>jalr</code> 中的 "Link" 意味着我们需要把“下一条指令的地址”（即 <strong>PC + 4</strong>）存入目标寄存器 <code>rd</code>（通常是 <code>ra</code> 寄存器），以便函数执行完后能跳回来。</p>
+<ul>
+<li><strong>新增组件/连接</strong>：我们需要建立一条从 <strong>PC + 4 加法器</strong> 到 <strong>WB Mux（写回选择器）</strong> 的通路。</li>
+<li><strong>WB Mux 扩展</strong>：原本的 WB Mux 只有两个输入（ALU 结果和 Memory 结果），现在需要增加第三个输入端，专门接收 <strong>PC + 4</strong>。</li>
+</ul>
+<hr />
+<p><strong>新增/调整的控制信号</strong></p>
+<p>为了指挥这一系列复杂的动作，控制逻辑需要做出如下配置：</p>
+<ul>
+<li><strong>WBSel = 2 (或相应索引)</strong>：指挥 WB Mux 选择 <strong>PC + 4</strong> 作为写回数据。这样，虽然 ALU 在算跳转地址，但最后写进寄存器堆的数据是返回地址。</li>
+<li><strong>PCSel = 1 (Jump)</strong>：强制 PC 选择来自 ALU 输出的跳转地址，而不是 PC + 4。</li>
+<li><strong>ImmSel = I</strong>：jalr` 虽然是跳转指令，但它的编码格式其实是 <strong>I-Type</strong>（因为它需要一个 rs1 和一个 12 位立即数）。</li>
+<li><strong>RegWEn = 1</strong>：因为要保存返回地址到 <code>rd</code>，所以寄存器写使能必须开启。</li>
+</ul>
+<p><strong><code>jalr</code> 执行流总结</strong></p>
+<ol>
+<li><strong>算目标</strong>：ALU 计算 <code>Reg[rs1] + Imm</code>，并将此值通过 <code>PCSel</code> 信号拨给 PC。</li>
+<li><strong>存返回</strong>：此时 <code>PC + 4</code> 的值顺着新加的通路，通过 <code>WBSel</code> 选择器。</li>
+<li><strong>写寄存器</strong>：由于 <code>RegWEn = 1</code>，<code>PC + 4</code> 被存入目标寄存器 <code>rd</code>。</li>
+</ol>
+<hr />
+<p><strong><code>jal</code> 与 <code>jalr</code> 的微小区别</strong></p>
+<ul>
+<li><strong><code>jal</code> (J-Type)</strong>：跳转目标是 <code>PC + Offset</code>。</li>
+<li><strong><code>jalr</code> (I-Type)</strong>：跳转目标是 <code>Reg[rs1] + Offset</code>。</li>
+<li><strong>共同点</strong>：都要通过 WB Mux 把 <strong>PC + 4</strong> 塞回寄存器堆。</li>
+</ul>
+<h3 id="j-type">J-type</h3>
+<p><img alt="image-20260101174933394" src="../assets/image-20260101174933394.png" /></p>
+<p>为了支持 <strong>JAL (Jump and Link)</strong> 指令，数据通路需要在 B-Type 分支指令的基础上进行关键调整，以实现“无条件远程跳转”并“保存返回地址”的双重功能。</p>
+<p>支持 <code>jal</code> 指令主要进行了以下改变：</p>
+<p><strong>核心功能的改变：计算跳转目标</strong></p>
+<p><code>jal rd, offset</code> 指令会将 PC 设置为当前 <code>PC + offset</code>。</p>
+<ul>
+<li><strong>ALU 输入 A 的调整</strong>：与 B-Type 指令一致，ALU 的第一个输入端需要通过 <strong>Asel Mux</strong> 选择 <strong>PC</strong>（即 <code>Asel = 1</code>）。</li>
+<li><strong>ALU 输入 B 的调整</strong>：通过 <strong>Bsel Mux</strong> 选择来自立即数生成器（Imm. Gen）的跳转偏移量（即 <code>Bsel = 1</code>）。</li>
+<li><strong>立即数扩展</strong>：控制信号 <strong>ImmSel</strong> 设置为 <strong>J</strong>，指挥立即数生成器按照 J-Type 格式拼接 20 位的跳转偏移量。</li>
+</ul>
+<p><strong>“Link”功能的实现：保存返回地址</strong></p>
+<p>这是 <code>jal</code> 与分支指令最大的区别——它必须把跳转后的“返回地址”（即当前指令的下一条地址 <strong>PC + 4</strong>）存入目标寄存器 <code>rd</code>。</p>
+<ul>
+<li><strong>建立 PC+4 路径</strong>：数据通路中建立了一条从 <strong>PC + 4 加法器</strong> 直接连向 <strong>WB Mux（写回选择器）</strong> 的支线（JALR图中橙色高亮线路）。</li>
+<li><strong>WB Mux 扩展</strong>：写回多路选择器增加了一个输入端口（输入端 2），专门接收这个 <strong>PC + 4</strong> 的值。</li>
+</ul>
+<p><strong>控制信号的配置</strong></p>
+<p>为了完成上述逻辑，控制单元（Control Logic）发出了以下指令：</p>
+<ul>
+<li><strong>PCSel = taken</strong>：无条件强制 PC 选择来自 ALU 计算出的跳转目标地址。</li>
+<li><strong>RegWEn = 1</strong>：开启寄存器写使能，因为需要将返回地址写入寄存器堆。</li>
+<li><strong>WBSel = 2</strong>：指挥 WB Mux 忽略 ALU 的运算结果，而是选择输入端 2 上的 <strong>PC + 4</strong> 写回寄存器 <code>rd</code>。</li>
+<li><strong>MemRW = Read</strong>：保持内存为读取状态（不修改内存）。</li>
+</ul>
+<p><strong><code>jal</code> 执行流总结</strong></p>
+<ol>
+<li><strong>跳转目标</strong>：ALU 计算 <code>PC + Offset</code>，结果直接传给 PC。</li>
+<li><strong>保存现场</strong>：同时，<code>PC + 4</code> 的值顺着橙色路径传到 WB Mux。</li>
+<li><strong>写回 Link</strong>：由于 <code>WBSel = 2</code> 且 <code>RegWEn = 1</code>，这个返回地址在时钟上升沿被存入目标寄存器（通常是 <code>ra</code>），完成函数调用的准备工作。</li>
+</ol>
+<p>支持 <code>jal</code> 的关键在于：<strong>复用 ALU 计算 PC 相对地址</strong>，并<strong>新增一条将 PC+4 绕回寄存器堆的“快速通道”</strong>。</p>
+<hr />
+<h3 id="u-type">U-type</h3>
+<p>没啥好说，把立即数生成器添加一个U-type模式</p>
+<h2 id="3-pipeline">3 Pipeline</h2>
+<p>进入流水线（Pipelining）的学习，意味着我们从“原理”跨向了“性能优化”。流水线的五个部分在前面已经有介绍，包括IF,ID,EX,MEM,WB。</p>
+<h3 id="_4">为什么要使用流水线？</h3>
+<p>在单周期 CPU 中，时钟周期由<strong>最慢的一条指令</strong>（通常是 <code>lw</code>）决定。无论简单的 <code>add</code> 还是复杂的 <code>lw</code>，都必须等一整个周期，这导致了严重的硬件闲置。</p>
+<p><strong>流水线的核心目标是提高吞吐量（Throughput）</strong>，即单位时间内完成的指令数。</p>
+<ul>
+<li><strong>并行工作</strong>：将指令处理分为多个阶段（如 IF, ID, EX, MEM, WB），让不同的硬件部分同时处理不同的指令。</li>
+<li><strong>缩短周期</strong>：由于每个阶段的电路变得简单，时钟频率可以大幅提升。</li>
+<li><strong>类比</strong>：就像洗衣服。与其等一桶衣服洗完、烘干、叠好再洗下一桶，流水线方式是第一桶进烘干机时，第二桶就进洗衣机。</li>
+</ul>
+<hr />
+<h3 id="hazards">三大冒险 (Hazards)</h3>
+<p>流水线虽然快，但由于多条指令同时在跑，会产生各种冲突，这些冲突被称为<strong>冒险</strong>。</p>
+<p><strong>A. 结构冒险 (Structural Hazards)</strong></p>
+<ul>
+<li><strong>原因</strong>：多条指令在同一时刻争抢<strong>同一个物理硬件资源</strong>。</li>
+<li><strong>例子</strong>：如果指令存储器（IMEM）和数据存储器（DMEM）合二为一。取指阶段（IF）要读它，访存阶段（MEM）也要读它，此时就会撞车。</li>
+<li><strong>解决方法</strong>：增加资源。例如采用哈佛架构，将指令和数据存储器分开。</li>
+</ul>
+<p><strong>B. 数据冒险 (Data Hazards)</strong></p>
+<ul>
+<li><strong>原因</strong>：指令需要的数据还没有被前面的指令写回寄存器。</li>
+<li><strong>例子</strong>：</li>
+<li><code>add x1, x2, x3</code> （在第 5 阶段 WB 才会写回 x1）</li>
+<li><code>sub x4, x1, x5</code> （在第 2 阶段 ID 就需要读 x1）</li>
+<li><strong>解决方法</strong>：</li>
+<li><strong>旁路/前推 (Forwarding/Bypassing)</strong>：不等写回寄存器，直接从 EX 或 MEM 阶段把结果“拉”到后面指令的输入端。</li>
+<li><strong>阻塞 (Stall)</strong>：如果数据还没算出来（如 <code>lw</code> 后紧跟 <code>add</code>），硬件必须停一拍，产生一个“空泡”（Bubble）。</li>
+</ul>
+<p><strong>C. 控制冒险 (Control Hazards)</strong></p>
+<ul>
+<li><strong>原因</strong>：处理器在还没确定分支跳转（如 <code>beq</code>）是否成功前，就已经把后面的指令取进来了。</li>
+<li><strong>后果</strong>：如果最后发现要跳转，那么已经取进来的后续指令就是错的，必须全部作废（Flush）。</li>
+<li><strong>解决方法</strong>：</li>
+<li><strong>分支预测 (Branch Prediction)</strong>：预测跳还是不跳。</li>
+<li><strong>延迟分支 (Delayed Branch)</strong>：编译器调整指令顺序，放一条总是需要执行的指令在跳转后面。</li>
+</ul>
+<hr />
+<h3 id="_5">数据冒险</h3>
+<p>在流水线设计中，<strong>数据冒险（Data Hazard）</strong>是最常见的性能瓶颈。当一条指令依赖于前面尚未完成写回指令的结果时，冒险就会发生。</p>
+<p><strong>什么是数据冒险？</strong></p>
+<p>数据冒险源于指令间的数据依赖。例如：</p>
+<ol>
+<li>
+<p><code>add x19, x0, x1</code>：在第5阶段（WB）才将结果写入 <code>x19</code>。</p>
+</li>
+<li>
+<p>sub x2, x19, x3：在第2阶段（ID）就需要读取 x19。</p>
+</li>
+</ol>
+<p>如果不加处理，sub 指令会读到 x19 的旧值，导致逻辑错误。</p>
+<p><img alt="image-20260101201539686" src="../assets/image-20260101201539686.png" /></p>
+<p><strong>使用前推（Forwarding/Bypassing）解决</strong></p>
+<p><strong>前推</strong>的核心思想是：<strong>一旦结果被计算出来，就立即投入使用，而不必等待它存入寄存器</strong>。</p>
+<ul>
+<li><strong>实现原理</strong>：在数据通路中增加额外的连接。</li>
+<li><strong>具体路径</strong>：</li>
+<li><strong>EX到EX前推</strong>：将 <code>add</code> 指令在 EX 阶段计算出的结果，直接拉回到下一条指令的 ALU 输入端。</li>
+<li><strong>MEM到EX前推</strong>：如果依赖项隔了一条指令，则从 MEM 阶段的结果前推回 EX 阶段。</li>
+</ul>
+<p><img alt="image-20260101201637836" src="../assets/image-20260101201637836.png" /></p>
+<p><strong>前推的局限性：Load-Use 冒险</strong></p>
+<p>前推并不能解决所有数据冒险，典型的例外是 <strong>Load-Use 数据冒险</strong>。</p>
+<ul>
+<li>
+<p><strong>冲突点</strong>：<code>ld x1, 0(x2)</code> 指令的数据直到 <strong>MEM 阶段结束</strong>才从内存中取回。</p>
+</li>
+<li>
+<p><strong>无法前推的原因</strong>：如果紧跟的指令 <code>sub x4, x1, x5</code> 在 EX 阶段就需要这个值，那么前推线必须“穿越时空”回到过去，这在物理上是不可能的。</p>
+</li>
+<li>
+<p>硬件对策：阻塞（Stall/Bubble）：</p>
+</li>
+</ul>
+<p>硬件会自动检测到这种冲突，并强行让 sub 指令及其后的指令停止一拍，产生一个“空泡（Bubble）”，直到 ld 结果可用。</p>
+<p><img alt="image-20260101201658952" src="../assets/image-20260101201658952.png" /></p>
+<p><strong>通过代码调度（Code Scheduling）消除阻塞</strong></p>
+<p>除了硬件上的努力，编译器或程序员可以通过<strong>重排指令顺序</strong>来避免阻塞，从而提高程序运行效率。</p>
+<ul>
+<li><strong>策略</strong>：在 <code>load</code> 指令和使用该结果的指令之间插入不相关的指令。</li>
+<li><strong>实例对比</strong>：</li>
+<li><strong>未优化代码</strong>：指令紧跟依赖项，触发 2 次阻塞（Stall），共消耗 <strong>13 个周期</strong>。</li>
+<li><strong>优化后的代码</strong>：将其他的 <code>ld</code> 指令穿插在计算指令中间，消除了所有阻塞，仅需 <strong>11 个周期</strong> 即可完成相同任务。</li>
+</ul>
+<p><img alt="image-20260101201716785" src="../assets/image-20260101201716785.png" /></p>
+<hr />
+<p><strong>总结</strong>：前推解决了大部分运算指令间的冒险，但对于 <code>load</code> 指令，硬件必须通过阻塞来等待数据。而最极致的优化方案是利用代码调度，让流水线始终保持满载。</p>
+<hr />
+<h3 id="_6">控制冒险</h3>
+<p>在流水线中，<strong>控制冒险（Control Hazard）</strong>是指处理器在根据分支指令（如 <code>beq</code>, <code>bne</code>, <code>jal</code>）确定下一条指令的地址之前，就已经将后续指令取入流水线的现象。如果分支跳转成功，那么已经进入流水线的指令就是错误的，必须被废弃，这会导致性能损失。</p>
+<p><strong>为什么会产生控制冒险？</strong></p>
+<p>在五级流水线中，分支决策通常在 <strong>ID（译码）</strong> 或 <strong>EX（执行）</strong> 阶段才能做出。</p>
+<ul>
+<li><strong>延迟效应</strong>：当 <code>beq</code> 指令在执行时，由于流水线的重叠，后续的一到两条指令可能已经处于取指（IF）或译码（ID）阶段了。</li>
+<li><strong>路径错误</strong>：如果最终决定跳转，流水线里这些“不该出现”的指令就会造成错误执行。</li>
+</ul>
+<hr />
+<p><strong>解决方案：硬件与软件的配合</strong></p>
+<p>针对控制冒险，业界主要有以下几种解决方法：</p>
+<p>A. 流水线阻塞 (Stalling / Bubble)</p>
+<ul>
+<li><strong>原理</strong>：最简单粗暴的方法。一旦检测到分支指令，流水线立刻“停一拍”或“停两拍”，直到分支结果确定。</li>
+<li><strong>缺点</strong>：这会产生明显的“空泡”（Bubble），降低了流水线的吞吐量。</li>
+</ul>
+<p>B. 分支预测 (Branch Prediction)</p>
+<p>这是现代 CPU 提高效率的核心技术：</p>
+<ul>
+<li><strong>静态预测</strong>：简单假设。例如，假设所有的分支都“不跳转”（Predict Not Taken）。如果猜对了，流水线全速前进；如果猜错了，则丢弃（Flush）错误指令并重新取指。</li>
+<li><strong>动态预测</strong>：硬件维护一个“分支历史表”。根据该指令过去跳没跳，来预测这次跳不跳。</li>
+</ul>
+<p>C. 缩短分支延迟 (Reducing Branch Delay)</p>
+<ul>
+<li><strong>优化策略</strong>：将分支结果的判断逻辑从 <strong>EX 阶段</strong>提前到 <strong>ID 阶段</strong>。</li>
+<li><strong>效果</strong>：这样可以将猜错时的损失从 2 个周期减少到 1 个周期。</li>
+</ul>
+<p>D. 延迟分支 (Delayed Branch)</p>
+<ul>
+<li><strong>原理</strong>：这是一种软件/编译器方案。编译器会在分支指令后面放置一条<strong>无论跳转与否都要执行</strong>的有用指令（Slot）。</li>
+<li><strong>现状</strong>：这种方法在早期的 MIPS 架构中很流行，但在追求超深流水线的现代处理器中已不多见。</li>
+</ul>
+<hr />
+<p><strong>指令清除 (Flushing)</strong></p>
+<p>当预测失败时，硬件必须执行“清除”动作：</p>
+<ul>
+<li>将 IF、ID 阶段中由于错误预测而取进来的指令控制信号全部置为 0（变成 <code>nop</code> 指令）。</li>
+<li>重新根据正确的目标地址更新 PC 值。</li>
+</ul>
+<hr />
+<h2 id="4">4流水线中的控制信号</h2>
+<p>在流水线（Pipeline）架构中，处理不同指令具有不同控制信号问题的核心方法是：<strong>将控制信号随指令一起“流动”，并利用流水线寄存器（Pipeline Registers）进行同步。</strong></p>
+<p>以下是详细的实现逻辑：</p>
+<p><strong>控制信号的集中生成</strong></p>
+<p>在五级流水线中，控制信号是在 <strong>ID（译码）阶段</strong> 一次性生成的。</p>
+<ul>
+<li><strong>译码器（Control Unit）</strong> 根据指令的操作码（Opcode）和功能位（Funct），生成该指令在后续所有阶段（EX, MEM, WB）所需的全部开关信号。</li>
+<li>由于每一时刻流水线里有 5 条不同的指令，如果直接全局控制，信号就会互相打架。</li>
+</ul>
+<p><strong>控制信号的“随存随行”</strong></p>
+<p>为了解决不同指令信号不同的问题，硬件在每一级流水线之间加入了<strong>流水线寄存器</strong>（如 IF/ID, ID/EX, EX/MEM, MEM/WB）。</p>
+<ul>
+<li><strong>数据通路与控制通路并行</strong>：流水线寄存器不仅存储数据（如寄存器值、地址），还专门开辟了空间来存储<strong>控制信号总线</strong>。</li>
+<li><strong>同步移动</strong>：当一条指令从 ID 进入 EX 阶段时，它所属的控制信号也会从 ID/EX 寄存器同步搬移到 EX/MEM 寄存器。这确保了信号与指令在物理位置上始终对齐。</li>
+</ul>
+<p><img alt="image-20260101202704025" src="../assets/image-20260101202704025.png" /></p>
+<p><strong>按阶段“拆包”使用</strong></p>
+<p>控制信号并不是在某一瞬间全部起作用，而是根据指令所处的阶段<strong>按需取用</strong>：</p>
+<table>
+<thead>
+<tr>
+<th><strong>流水线阶段</strong></th>
+<th><strong>使用的控制信号示例</strong></th>
+<th><strong>信号去向</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EX (执行)</strong></td>
+<td><strong>ALUSrc</strong>, <strong>ALUOp</strong></td>
+<td>驱动 ALU 及其输入多路选择器</td>
+</tr>
+<tr>
+<td><strong>MEM (访存)</strong></td>
+<td><strong>MemRead</strong>, <strong>MemWrite</strong>, <strong>Branch</strong></td>
+<td>驱动数据存储器和分支跳转逻辑</td>
+</tr>
+<tr>
+<td><strong>WB (写回)</strong></td>
+<td><strong>RegWrite</strong>, <strong>MemtoReg</strong></td>
+<td>传递到流水线最末端，控制结果写回寄存器堆</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="image-20260101205403105" src="../assets/image-20260101205403105.png" /></p>
+<p><strong>解决“写回阶段”的特殊挑战</strong></p>
+<p><strong>WB 信号</strong>是处理中最特殊的一环。</p>
+<ul>
+<li><strong>问题</strong>：指令在 WB 阶段才需要修改寄存器，但此时该指令已经运行到流水线的最后一级，而控制单元还在第一级忙着译码新指令。</li>
+<li><strong>解法</strong>：WB 级的信号（如 <code>RegWrite</code>）必须一直存放在流水线寄存器中，伴随指令走完 EX 和 MEM，最后才在 WB 阶段释放，控制目标寄存器的写入。</li>
+</ul>
+<p><strong>异常情况处理：信号清零（Flush）</strong></p>
+<p>当发生<strong>控制冒险</strong>（如分支预测失败）时，流水线需要清除错误的指令：</p>
+<ul>
+<li>硬件会将 ID/EX 寄存器中的所有控制信号强制置为 <strong>0</strong>。</li>
+<li>这本质上是将这条指令变成了一条 <strong>nop（空操作）</strong>，因为它不再具有任何写内存（MemWrite=0）或写寄存器（RegWrite=0）的能力，从而保护了状态不被破坏。</li>
+</ul>
+<hr />
+<h3 id="_7">前推的控制信号</h3>
+<p>前推（Forwarding）逻辑的本质，其实是一个实时运行的<strong>“地址比对器”</strong>。它的任务是在每一条指令执行时，观察后面阶段的指令是否会产生它现在需要的数据。</p>
+<p>为了实现自动化前推，我们需要引入一个专门的硬件单元：<strong>前推单元（Forwarding Unit）</strong>。</p>
+<p><strong>比对逻辑：谁需要？谁拥有</strong></p>
+<p>前推单元通过不断比对<strong>寄存器编号</strong>来做出决策：</p>
+<ul>
+<li><strong>需求方</strong>：当前处于 <strong>EX阶段</strong> 的指令，其操作数寄存器编号为 <code>rs1</code> 和 <code>rs2</code>。</li>
+<li><strong>供给方</strong>：</li>
+<li>处于 <strong>MEM阶段</strong> 的指令，其目标寄存器编号为 <code>EX/MEM.RegisterRd</code>。</li>
+<li>处于 <strong>WB阶段</strong> 的指令，其目标寄存器编号为 <code>MEM/WB.RegisterRd</code>。</li>
+</ul>
+<p><strong>触发前推的条件</strong></p>
+<p>前推单元会检查以下条件。如果成立，就立刻拨动 ALU 前端的多路选择器（MUX）：</p>
+<p>情况 A：从 MEM 阶段前推（最快路径）</p>
+<p>如果 <code>EX/MEM.RegWrite</code> 为真（说明前序指令要写回），且 <code>EX/MEM.RegisterRd</code> 等于当前指令的 <code>rs1</code> 或 <code>rs2</code>，则触发前推。</p>
+<blockquote>
+<p><strong>逻辑</strong>：数据还没进内存或寄存器，直接从 ALU 输出口拉回输入口。</p>
+</blockquote>
+<p>情况 B：从 WB 阶段前推（稍远的路径）</p>
+<p><code>MEM/WB.RegWrite</code> 为真，且 <code>MEM/WB.RegisterRd</code> 等于当前指令的 <code>rs1</code> 或 <code>rs2</code>。</p>
+<blockquote>
+<p><strong>逻辑</strong>：数据刚从内存读出或刚从 ALU 传到写回级，赶在写进寄存器堆之前截获它。</p>
+</blockquote>
+<hr />
+<p><strong>修改 Mux 信号：三选一</strong></p>
+<p>为了支持前推，ALU 的两个输入端（A 和 B）各自增加了一个 <strong>3 选 1 多路选择器</strong>。其控制信号（如 <code>ForwardA</code>）的取值含义如下：</p>
+<ul>
+<li><strong>00</strong>：<strong>正常路径</strong>。使用从寄存器堆读出的原始值。</li>
+<li><strong>10</strong>：<strong>来自 MEM 级的前推</strong>。使用前一条指令在 ALU 算出的结果。</li>
+<li><strong>01</strong>：<strong>来自 WB 级的前推</strong>。使用前前条指令的结果。</li>
+</ul>
+<p><img alt="image-20260101210130321" src="../assets/image-20260101210130321.png" /></p>
+<hr />
+<h3 id="load-use">Load Use控制信号</h3>
+<p>当“前推（Forwarding）”逻辑发现数据无法通过物理连线及时送到时，就需要<strong>冒险检测单元（Hazard Detection Unit）</strong>介入。Load-Use 冒险之所以特殊，是因为数据是从内存中读取的，它在流水线中产生的时刻太晚，无法满足紧随其后的指令在 EX 阶段的需求。</p>
+<p>以下是硬件如何检测并处理这种“即便前推也救不回来”的情况：</p>
+<p><strong>硬件检测的触发逻辑</strong></p>
+<p>冒险检测单元位于 <strong>ID（译码）阶段</strong>。它会像监视器一样，通过对比当前指令和上一条指令的寄存器使用情况来判断是否需要“刹车”。</p>
+<p>检测条件（伪代码逻辑）：</p>
+<p>当满足以下所有条件时，判定为 Load-Use 冒险：</p>
+<ul>
+<li><strong>前一条指令（处于 EX 阶段）是 Load 指令</strong>：其控制信号 <code>ID/EX.MemRead</code> 为真。</li>
+<li><strong>数据存在依赖关系</strong>：前一条指令的目标寄存器 <code>ID/EX.RegisterRd</code> 等于当前指令（处于 ID 阶段）的源寄存器 <code>IF/ID.RegisterRs1</code> 或 <code>IF/ID.RegisterRs2</code>。</li>
+</ul>
+<p><img alt="image-20260101210454067" src="../assets/image-20260101210454067.png" /></p>
+<hr />
+<p><strong>处理冒险的三大动作：阻塞（Stalling）</strong></p>
+<p>一旦检测到上述条件，硬件会强行让流水线进入“待机”状态。为了让 Load 指令能够跑完 MEM 阶段拿到数据，检测单元会同步执行以下三个动作：</p>
+<ol>
+<li>停在原地（IF/ID 保持不变）：</li>
+</ol>
+<p>禁止 IF/ID 流水线寄存器更新。这意味着当前正在译码的指令（需要数据的指令）会在 ID 阶段停留一个周期。</p>
+<ol>
+<li>不取新指（PC 保持不变）：</li>
+</ol>
+<p>禁止程序计数器（PC）自增。这保证了流水线最前端不会取进新的指令。</p>
+<ol>
+<li>注入“空泡”（Bubble/NOP）：</li>
+</ol>
+<p>将 ID/EX 流水线寄存器中的所有控制信号清零（如 RegWrite=0, MemWrite=0）。这相当于在流水线中间插入了一个 NOP（空操作），它会随着时钟周期向后流动，直到自然消失。</p>
+<p><img alt="image-20260101210518407" src="../assets/image-20260101210518407.png" /></p>
+<hr />
+<p><strong>时间轴上的变化</strong></p>
+<ul>
+<li><strong>不阻塞的情况</strong>：指令 2 会尝试在指令 1 的 MEM 阶段之前就使用数据，导致错误。</li>
+<li><strong>阻塞之后</strong>：指令 2 被向后推迟了一个时钟周期。此时，指令 1 已经完成了 MEM 阶段（数据已准备好），现在可以通过正常的<strong>前推逻辑</strong>将数据直接送到指令 2 的 ALU 输入端了。</li>
+</ul>
+<hr />
+<h3 id="_8">分支中的冒险</h3>
+<p>在分支指令（B-Type）中，数据冒险和控制冒险往往是交织在一起的。由于分支指令需要比较两个寄存器的值来决定是否跳转，如果这两个寄存器的值还没有被前面的指令写回，就会产生数据冒险。</p>
+<p><strong>分支指令中的数据冒险 (Data Hazard in Branches)</strong></p>
+<p>为了减少控制冒险带来的损失，现代流水线通常将分支比较逻辑（Branch Comparator）提前到 <strong>ID（译码）阶段</strong>。但这会带来更严峻的数据依赖问题：</p>
+<ul>
+<li><strong>冲突点</strong>：分支指令在 ID 阶段就需要寄存器的值进行比较，而前序指令可能还在 EX 或 MEM 阶段。</li>
+<li><strong>解决方案</strong>：</li>
+<li><strong>前推 (Forwarding)</strong>：如果前序指令是 ALU 运算，数据可以从 EX/MEM 或 MEM/WB 级前推到 ID 级的比较器输入端。</li>
+<li><strong>阻塞 (Stall)</strong>：如果前序指令是 <code>load</code> 且紧跟分支，或者前序 ALU 指令的结果还没算出来，流水线必须在 ID 阶段阻塞，直到数据就绪。</li>
+</ul>
+<hr />
+<p><strong>分支预测 (Branch Prediction)</strong></p>
+<p>为了不让流水线频繁阻塞，CPU 会“猜测”分支是否跳转。</p>
+<p>1-bit 动态分支预测 (1-bit Predictor)</p>
+<p>这是最简单的动态预测机制，它使用一个位（Bit）来记录该分支上一次执行的情况。</p>
+<ul>
+<li><strong>逻辑</strong>：如果上次跳了（Taken），这次就猜跳；如果上次没跳（Not Taken），这次就猜不跳。</li>
+<li><strong>缺点</strong>：在循环（Loop）结构中表现不佳。例如，一个执行 10 次的循环，在最后一次退出循环和下一次重新进入循环时，它都会猜错。这种“双倍错误”会导致流水线频繁清空。</li>
+</ul>
+<p>动态分支预测 (2-bit Predictor)</p>
+<p>为了解决 1-bit 预测器的灵敏度过高问题，引入了 2-bit 饱和计数器。它像是一个有“记性”的开关，只有当分支连续两次改变方向时，预测器才会改变它的预测倾向。</p>
+<p>它有四个状态：</p>
+<ol>
+<li><strong>Strongly Taken (11)</strong>：极力预测跳转。</li>
+<li><strong>Weakly Taken (10)</strong>：倾向跳转，如果错一次，转为弱不跳。</li>
+<li><strong>Weakly Not Taken (01)</strong>：倾向不跳转。</li>
+<li>
+<p><strong>Strongly Not Taken (00)</strong>：极力预测不跳转。</p>
+</li>
+<li>
+<p><strong>优势</strong>：它能够容忍偶尔的反向操作。例如在循环结束时，它只会猜错一次，而不会立即改变对下一次循环启动时的预测倾向。</p>
+</li>
+</ol>
+<hr />
+<p><strong>预测失败后的处理：Flush</strong></p>
+<p>无论预测器多么聪明，总会有猜错的时候。一旦在 ID 或 EX 阶段发现实际结果与预测不符，控制逻辑必须：</p>
+<ul>
+<li><strong>清空流水线 (Flush)</strong>：将 IF、ID 级中错误的指令变成 <code>nop</code>（空操作）。</li>
+<li><strong>修正路径</strong>：从正确的分支目标地址重新取指。</li>
+</ul>
+<hr />
+<h2 id="5-exception">5 Exception</h2>
+<p>在流水线中处理<strong>异常（Exception）</strong>或<strong>中断（Interrupt）</strong>是非常棘手的，因为它打破了指令顺序执行的平滑性。你可以把异常看作是一种特殊的“硬件触发的分支”。</p>
+<p>处理流水线异常的核心挑战在于<strong>精确异常（Precise Exception）</strong>：即使多条指令在并行，也要保证在异常指令之前的指令全部执行完，而之后的指令好像从未发生过一样。</p>
+<hr />
+<p><strong>异常的检测与保存</strong></p>
+<p>异常可能发生在流水线的任何一个阶段。流水线并不会在检测到异常时立刻停下所有动作，而是采取“<strong>标记并后传</strong>”的策略：</p>
+<ul>
+<li><strong>IF 阶段</strong>：发生访存错误（如指令地址越界、页故障）。</li>
+<li><strong>ID 阶段</strong>：检测到非法指令。</li>
+<li><strong>EX 阶段</strong>：发生算术溢出。</li>
+<li><strong>MEM 阶段</strong>：数据访存错误（如 <code>lw</code> 读取了非法地址）。</li>
+</ul>
+<p><strong>处理方式</strong>：硬件会在该指令对应的<strong>流水线寄存器</strong>中添加一个“异常状态位”（Exception Status Register），记录发生了什么异常。这条指令会带着这个“地雷”标记继续向后流动。</p>
+<hr />
+<p><strong>异常的正式处理</strong></p>
+<p>只有当这条带有异常标记的指令到达 <strong>WB（写回）阶段</strong>（或在某些设计中是 MEM 阶段）时，控制逻辑才会正式触发异常处理程序。</p>
+<p>为什么要等？</p>
+<p>为了防止“误杀”。比如指令 A 发生了溢出异常，但它前面有一条指令 B 还没执行完。如果我们立刻处理异常，可能会破坏 B 的执行。只有等到 A 成为流水线中最老的那条指令时，处理它才是安全的。</p>
+<hr />
+<p><strong>处理异常的三大动作：Flush, Save, Jump</strong></p>
+<p>一旦决定处理异常，控制逻辑会执行以下操作：</p>
+<ol>
+<li><strong>清空流水线 (Flush)</strong>：</li>
+<li>将异常指令及其后面所有指令（处于 IF, ID, EX, MEM 阶段的）的控制信号全部清零。</li>
+<li>这保证了发生错误的指令不会修改寄存器或内存。</li>
+<li><strong>保存状态 (Save Context)</strong>：</li>
+<li>将被中断指令的地址存入特殊的寄存器（在 RISC-V 中通常是 <strong>sepc</strong>）。</li>
+<li>记录异常原因（存入 <strong>scause</strong>）。</li>
+<li><strong>跳转到异常向量表 (Jump to Vector Table)</strong>：</li>
+<li>将 PC 设置为异常处理程序（Handler）的起始地址，开始执行操作系统定义的错误处理逻辑。</li>
+</ol>
+<hr />
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>异常与控制冒险的相似性</p>
+<p>你会发现，处理异常的逻辑和处理<strong>分支预测失败</strong>（控制冒险）极其相似：</p>
+<ul>
+<li>都需要 <strong>Flush</strong> 掉后续指令。</li>
+<li>都需要 <strong>改变 PC 的流向</strong>。</li>
+<li>区别在于：分支是程序主动的跳转，而异常是被动、突发的“意外”。</li>
+</ul>
+</div>
+<hr />
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+  <h2 id="__comments">评论</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+    data-repo="LiHuaMao0810/MkDocsNote"
+    data-repo-id="R_kgDOQP2iHw"
+    data-category="Q&A"
+    data-category-id="DIC_kwDOQP2iH84CxfBk"
+    data-mapping="url"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+    
+  </body>
+</html>
