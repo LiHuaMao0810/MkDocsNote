@@ -4,9 +4,10 @@
 
 
 
-## 📚 模块内容
+
 
 ### 核心概念
+
 - **[Flow Matching 流匹配](FlowMatching.md)** - 流匹配的基本原理、目标函数和实现方法
 - **[Consistency Model 一致性模型](ConsistencyModel.md)** - 一致性模型的理论基础和训练过程
 - **[Rectified Flow](./RectifiedFlow.md)** - 修正流的思想和公式推导
@@ -31,4 +32,4 @@
 
 ---
 
-*最后更新：2025年11月*
+*最后更新：2026年1月*

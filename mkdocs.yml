@@ -27,23 +27,23 @@ nav:
      - experience/others.md
   - 模型后训练:
      - PostTraining/RLHF.md
+  - 大模型面试准备:
+     - Interview/index.md
+     - 模型架构:
+        - Interview/ModelArchitecture/index.md
+     - 工程与优化:
+        - Interview/Engineering/index.md
+     - 多模态与生成理论:
+        - Interview/MultimodalGeneration/index.md
+     - 面经总结:
+        - Interview/ExperienceSummary/index.md
   - 课程笔记:
-    - UML建模:
-      - UML/index.md
-      - UML/UseCaseDiagram.md
-      - UML/SequenceDiagram.md
-      - UML/CommunicationDiagram.md
     - 计算机系统原理:
       - ComputerOrganization/chapter1.md
       - ComputerOrganization/chapter2.md
       - ComputerOrganization/chapter3.md
       - ComputerOrganization/chapter4.md
       - ComputerOrganization/chapter5.md
-    - 软件测试与质量保证:
-      - SoftwareTest/index.md
-      - SoftwareTest/TestPlan.md
-      - SoftwareTest/TestCase.md
-      - SoftwareTest/TestExcute.md
   - 关于我: about.md
 
 theme:
