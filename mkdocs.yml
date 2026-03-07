@@ -38,6 +38,8 @@ nav:
         - Interview/Engineering/index.md
      - 多模态与生成理论:
         - Interview/MultimodalGeneration/index.md
+        - Interview/MultimodalGeneration/Basic.md
+        - Interview/MultimodalGeneration/Alignment.md
      - 面经总结:
         - Interview/ExperienceSummary/index.md
   - 课程笔记:
