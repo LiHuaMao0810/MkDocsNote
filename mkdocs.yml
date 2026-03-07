@@ -31,6 +31,9 @@ nav:
      - Interview/index.md
      - 模型架构:
         - Interview/ModelArchitecture/index.md
+        - Interview/ModelArchitecture/Transformer.md
+        - Interview/ModelArchitecture/Classic.md
+        - Interview/ModelArchitecture/improvement.md
      - 工程与优化:
         - Interview/Engineering/index.md
      - 多模态与生成理论:
