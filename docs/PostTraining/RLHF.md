@@ -5,23 +5,20 @@ tags:
 
 ---
 
-# **Reforcement Learning from Human Feedback**
+# **RLHF**
 
 > [!INFO] 文档信息
 >
 > 创建时间：2025-12-17 | 更新时间：2026-2-11
 >
-> 本文基于**[A Survey of Reinforcement Learning from Human Feedback](https://openreview.net/forum?id=f7OkIurx4b)** 做笔记
+> 论文链接 **[A Survey of Reinforcement Learning from Human Feedback](https://openreview.net/forum?id=f7OkIurx4b)** 
 >
-> 主要是一边看综述一边和AI问答
-
-[TOC]
-
-
 
 ## Section 1 RLHF基础
 
-RLHF (Reinforcement Learning from Human Feedback) 是一种利用人类偏好来优化模型输出的技术，旨在让模型的回答更“有用、诚实且无害”。   它的成功应用是 InstructGPT 和 ChatGPT 等模型能力大幅提升的关键。   RLHF 的过程通常非常复杂，分为三个核心步骤：
+RLHF (是一种利用人类偏好来优化模型输出的技术，旨在让模型的回答更“有用、诚实且无害”。   它的成功应用是 InstructGPT 和 ChatGPT 等模型能力大幅提升的关键。
+
+RLHF 的过程通常非常复杂，分为三个核心步骤：
 
 **预训练/监督微调（SFT）**： 先训练一个“有基本能力”的模型。它虽然懂知识，但可能说话不礼貌，或者不知道如何按指令办事。
 

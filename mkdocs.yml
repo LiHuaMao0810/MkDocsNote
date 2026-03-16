@@ -27,6 +27,8 @@ nav:
      - experience/others.md
   - 模型后训练:
      - PostTraining/RLHF.md
+     - PostTraining/DPO.md
+     - PostTraining/PPO.md
   - 大模型面试准备:
      - Interview/index.md
      - 模型架构:
@@ -43,6 +45,7 @@ nav:
         - Interview/MultimodalGeneration/Generation.md
      - 面经总结:
         - Interview/ExperienceSummary/index.md
+        - Interview/ExperienceSummary/byte.md
   - 课程笔记:
     - 计算机系统原理:
       - ComputerOrganization/chapter1.md
