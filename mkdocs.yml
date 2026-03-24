@@ -9,15 +9,18 @@ nav:
      - blog/index.md
   - Diffusion Model:
      - DiffusionModel/index.md
-     - DiffusionModel/FlowMatching.md
-     - DiffusionModel/ConsistencyModel.md
-     - DiffusionModel/RectifiedFlow.md
-     - DiffusionModel/DistributionMatching.md
      - DiffusionModel/UnderstandingDiffusionModels.md
-     - DiffusionModel/Diff-Instruct.md
+     - DiffusionModel/DDIM.md
+     - DiffusionModel/LDM.md
+     - DiffusionModel/FlowMatching.md
+     - DiffusionModel/RectifiedFlow.md
      - DiffusionModel/DreamDiffusion.md
+     - DiffusionModel/ConsistencyModel.md
+     - DiffusionModel/DistributionMatching.md
+     - DiffusionModel/Diff-Instruct.md
      - DiffusionModel/MeanFlow.md
      - DiffusionModel/SelfDistillation.md
+
   - 经验贴整理:
      - experience/index.md
      - experience/algorithm.md
@@ -43,7 +46,7 @@ nav:
         - Interview/MultimodalGeneration/Basic.md
         - Interview/MultimodalGeneration/Alignment.md
         - Interview/MultimodalGeneration/Generation.md
-     - 面经总结:
+     - 面试复盘:
         - Interview/ExperienceSummary/index.md
         - Interview/ExperienceSummary/byte.md
   - 课程笔记:

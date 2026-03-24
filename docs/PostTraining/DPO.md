@@ -10,7 +10,7 @@ tags:
 
 > [!INFO] 文档信息
 >
-> 创建时间：2026-3-13 | 更新时间：2026-3-13
+> 创建时间：2026-3-13 | 更新时间：2026-3-24
 >
 > 论文链接 [Direct Preference Optimization: Your Language Model is Secretly a Reward Model](https://arxiv.org/abs/2305.18290)
 >
@@ -45,130 +45,180 @@ tags:
 
 
 
-DPO 的损失函数公式如下：
-
-$$L_{DPO}(\pi_\theta; \pi_{ref}) = -\mathbb{E}_{(x, y_w, y_l) \sim D} \left[ \log \sigma \left( \beta \log \frac{\pi_\theta(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_{ref}(y_l|x)} \right) \right]$$
-
-这里有三个关键角色：
-
-1. $\pi_\theta$：你正在训练的**新模型**。
-2. $\pi_{ref}$：冻结住的**原始参考模型**（防止新模型跑偏）。
-3. $\beta$：一个调节杠杆。$\beta$ 越大，模型越在意偏好数据；$\beta$ 越小，模型越倾向于保持原样。
-
-**它的逻辑是：** 如果 $y_w$ 是好答案，那么新模型相对于旧模型的“进步程度”应该远大于坏答案 $y_l$ 的“进步程度”。
-
-------
-
-**论文的结论与贡献**
-
-- **去掉奖励模型：** 节省了大量的计算资源和内存。
-- **性能卓越：** 实验证明，DPO 在摘要生成和对话任务上，表现甚至优于复杂的 PPO。
-- **稳定性：** DPO 是确定的优化过程，不会像 PPO 那样因为采样随机性而产生剧烈波动。
-
-------
-
-
-
 ## 数学推导
 
-**第一步：定义原始的 RL 优化目标**
+------
 
-在标准的 RLHF 中，我们的目标是找到一个策略（模型）$\pi_\theta$，使其在满足“不偏离原始模型 $\pi_{ref}$”的约束下，最大化奖励 $r(x, y)$。
+### RLHF 的原始目标
 
-数学表达式为：
+RLHF 想做的事情是：在一个奖励模型 $r(x, y)$ 的指导下优化策略，同时不让策略跑得离参考模型太远：
 
-$$\max_{\pi} \mathbb{E}_{x \sim \mathcal{D}, y \sim \pi(\cdot|x)} [r(x, y)] - \beta \mathbb{D}_{KL}(\pi(\cdot|x) \| \pi_{ref}(\cdot|x))$$
+$$\max_\pi \mathbb{E}*{x \sim \mathcal{D},, y \sim \pi(\cdot|x)}\left[r(x,y)\right] - \beta, \mathbb{D}*\text{KL}\left[\pi(\cdot|x) ,|, \pi_\text{ref}(\cdot|x)\right]$$
 
-**$x$ 就是 Prompt（提示词/问题）**，来自于我们的训练数据集 $\mathcal{D}$。
-
-**$y$ 就是 Response（回答/输出）**，是由当前正在训练的策略模型 $\pi$ 生成的。
-
-**KL 散度（$\mathbb{D}_{KL}$）是一个正则项（惩罚项）。** 如果没有这个 KL 正则项，模型为了单纯追求奖励 $r(x, y)$ 的最大化，会产生“奖励破解（Reward Hacking）”。比如，它可能会发现只要输出“啊啊啊啊”就能骗过奖励模型拿到高分，从而彻底丧失正常的语言能力。KL 正则项的作用就是把模型“拉住”，强迫它**在尽量不偏离预训练模型（或 SFT 模型） $\pi_{ref}$ 原有概率分布的前提下**，去争取更高的奖励。
+这个 KL 项的作用是防止策略"钻空子"——如果没有它，策略会找到一些 reward 很高但毫无意义的奇怪输出。
 
 ------
 
-**第二步：解出最优策略的解析解**
+### 求解最优策略
 
-为了求出最优的策略 $\pi^*(y|x)$，我们需要解上面那个带有 KL 散度的优化问题。为了书写方便，我们针对一个固定的输入 $x$，省略掉外层的期望，把 KL 散度展开：
+**问题设置**
 
-$$\max_{\pi} \sum_y \pi(y|x) \left[ r(x,y) - \beta \log \frac{\pi(y|x)}{\pi_{ref}(y|x)} \right]$$
+对于固定的输入 $x$，我们想找一个分布 $\pi(\cdot | x)$，使得下面的目标最大：
 
-这是一个典型的带约束优化问题，因为所有的概率加起来必须等于 1，即约束条件为：$\sum_y \pi(y|x) = 1$。
+$$\mathcal{F}[\pi] = \sum_y \pi(y|x), r(x,y) - \beta \sum_y \pi(y|x) \log\frac{\pi(y|x)}{\pi_\text{ref}(y|x)}$$
 
-我们可以使用**拉格朗日乘数法（Lagrange Multipliers）**来求解。构造拉格朗日函数 $L$（引入乘子 $\lambda$）：
+同时满足归一化约束：$\sum_y \pi(y|x) = 1$。
 
-$$L(\pi, \lambda) = \sum_y \pi(y|x) \left[ r(x,y) - \beta \log \frac{\pi(y|x)}{\pi_{ref}(y|x)} \right] + \lambda \left( 1 - \sum_y \pi(y|x) \right)$$
-
-接下来，我们对 $\pi(y|x)$ 求偏导，并令其等于 0，寻找极值点：
-
-$$\frac{\partial L}{\partial \pi(y|x)} = r(x,y) - \beta \left( \log \frac{\pi(y|x)}{\pi_{ref}(y|x)} + 1 \right) - \lambda = 0$$
-
-通过简单的移项和代数变形，我们可以解出 $\pi(y|x)$：
-
-$$\log \frac{\pi(y|x)}{\pi_{ref}(y|x)} = \frac{1}{\beta} r(x,y) - 1 - \frac{\lambda}{\beta}$$
-
-两边同时取指数（$\exp$）：
-
-$$\pi(y|x) = \pi_{ref}(y|x) \exp\left(\frac{1}{\beta} r(x,y)\right) \exp\left(-1 - \frac{\lambda}{\beta}\right)$$
-
-因为概率的总和必须为 1（$\sum_y \pi(y|x) = 1$），所以后面那一坨与 $y$ 无关的常数 $\exp(-1 - \frac{\lambda}{\beta})$ 实际上就扮演了**归一化常数**的倒数。我们把它记为 $\frac{1}{Z(x)}$。
-
-
-
-于是，我们就得到了最优策略的闭式解：
-
-$$\pi^*(y|x) = \frac{1}{Z(x)} \pi_{ref}(y|x) \exp \left( \frac{1}{\beta} r(x, y) \right)$$
-
-**关键转折点来了：**
-
-如果我们把上面的公式反过来写，用 $\pi_r$ 和 $\pi_{ref}$ 来表示奖励函数 $r(x, y)$，会得到：
-
-$$r(x, y) = \beta \log \frac{\pi_r(y|x)}{\pi_{ref}(y|x)} + \beta \log Z(x)$$
-
-> **这就是 DPO 的核心直觉：** 奖励函数可以用“当前模型”与“参考模型”的概率对数比来完美表达。
+注意这里的优化变量是**整个分布** $\pi(\cdot|x)$，也就是对每个可能的输出 $y$，我们要决定分配多少概率质量。
 
 ------
 
-**第三步：代入 Bradley-Terry 偏好模型**
+**用 Lagrange 乘数法求解**
 
-现在我们有了奖励的表达式，但我们依然不知道具体的奖励值是多少。这时，论文引入了处理人类偏好的经典模型——**Bradley-Terry (BT) 模型**。
+加入归一化约束，构造 Lagrangian：
 
-BT 模型认为，人类在两个回答 $(y_w, y_l)$ 中选择 $y_w$ 的概率取决于它们的奖励差：
+$$\mathcal{L}[\pi, \lambda] = \sum_y \pi(y|x)r(x,y) - \beta \sum_y \pi(y|x) \log\frac{\pi(y|x)}{\pi_\text{ref}(y|x)} - \lambda\left(\sum_y \pi(y|x) - 1\right)$$
 
-$$P(y_w \succ y_l | x) = \sigma(r(x, y_w) - r(x, y_l))$$
+**对每个特定的 $y$ 取偏导，令其为零：**
 
-*(注：$\sigma$ 是 Sigmoid 函数)*
+$$\frac{\partial \mathcal{L}}{\partial \pi(y|x)} = r(x,y) - \beta\left(\log\frac{\pi(y|x)}{\pi_\text{ref}(y|x)} + 1\right) - \lambda = 0$$
 
+这里出现了三项。现在就是三个条件发挥作用的地方。
 
+---
 
-根据上面的推导，归一化常数（也叫配分函数 Partition Function）$Z(x)$ 的数学定义是：
+**条件①：优化变量是整个分布，可以逐点取变分**
 
-$$Z(x) = \sum_y \pi_{ref}(y|x) \exp \left( \frac{1}{\beta} r(x, y) \right)$$
+上面对 $\pi(y|x)$ 求偏导，隐含的假设是：改变某个 $y$ 处的概率值，**不会直接影响目标函数里其他 $y'$ 处的项**。换句话说，$\pi(y|x)$ 和 $\pi(y'|x)$ 是独立的自由变量（归一化约束单独用 $\lambda$ 处理）。
 
-**它的物理意义是：** 对于给定的问题 $x$，模型**所有可能的输出序列 $y$** 的某种指数奖励的加权总和。
+如果优化变量是神经网络参数 $\theta$，那么改变 $\theta$ 会同时影响所有 $y$ 的概率，各 $y$ 之间通过参数耦合，就**不能逐点求导**，这个解析解就不存在了。
 
-**为什么它是个大麻烦，必须被消去？**
-
-在语言模型中，$y$ 是一整个句子。假设词表大小是 50,000，生成一个长度为 100 个 Token 的句子，那么“所有可能的输出序列”的数量是 $50000^{100}$。
-
-这是一个天文数字！我们根本**不可能**穷举所有的句子去计算它们的奖励 $r(x,y)$ 然后求和。因此，$Z(x)$ 在计算上是不可解（Intractable）的。传统的强化学习（如 PPO）通过极其复杂的采样和动态规划来绕过这个问题。
-
-而 DPO 的伟大之处，就是通过 Bradley-Terry 模型的减法机制，让这个不可计算的 $Z(x)$ 像魔法一样自己抵消掉了：
-
-$$r(x, y_w) - r(x, y_l) = \left( \beta \log \frac{\pi(y_w|x)}{\pi_{ref}(y_w|x)} + \beta \log Z(x) \right) - \left( \beta \log \frac{\pi(y_l|x)}{\pi_{ref}(y_l|x)} + \beta \log Z(x) \right)$$
-
-$Z(x)$ 被减没后，我们就彻底摆脱了这个计算上的黑洞，可以直接用现成的模型概率来进行反向传播了。
-
-最终剩下的部分就是 DPO 的损失函数项：
-
-$$P(y_w \succ y_l | x) = \sigma \left( \beta \log \frac{\pi(y_w|x)}{\pi_{ref}(y_w|x)} - \beta \log \frac{\pi(y_l|x)}{\pi_{ref}(y_l|x)} \right)$$
+所以这个条件保证了：我们在做的是**函数空间上的优化**，而不是参数空间上的优化。
 
 ------
 
-**总结**
+**条件②：reward 只是 $(x,y)$ 的函数，与策略无关**
 
-1. **避开了 $Z(x)$：** 在传统的强化学习里，计算配分函数 $Z(x)$ 需要对整个输出空间求和，这在 LLM 里是不可能的。DPO 通过减法巧妙地消去了它。
-2. **无需奖励模型：** 我们不再需要显式地训练一个 $r(x, y)$，而是直接让策略模型 $\pi$ 去拟合人类的偏好概率。
-3. **确定性优化：** 现在的损失函数变成了负对数似然（Negative Log-Likelihood），本质上就是一个二分类任务。
+对 $\pi(y|x)$ 求导时，$r(x,y)$ 那一项直接给出：
 
-**这就解释了为什么 DPO 比 PPO 稳定得多：** 它把一个复杂的动态博弈过程（策略更新带动奖励更新，奖励更新反过来再指导策略）变成了一个静态的、目标明确的单步优化。
+$$\frac{\partial}{\partial \pi(y|x)}\left[\pi(y|x)\cdot r(x,y)\right] = r(x,y)$$
+
+这成立的前提是 $r(x,y)$ 是个**常数**，与 $\pi(y|x)$ 无关。
+
+如果 $r$ 依赖于策略——比如 SAPO 里 advantage 是当前这批采样归一化的结果——那么求导时还会多出一项 $\frac{\partial r}{\partial \pi(y|x)}$，方程变成：
+
+$$r(x,y) + \pi(y|x)\frac{\partial r}{\partial \pi(y|x)} - \beta\left(\log\frac{\pi(y|x)}{\pi_\text{ref}(y|x)} + 1\right) - \lambda = 0$$
+
+这个方程对 $\pi(y|x)$ 不再有干净的解析解，因为左边两项都含有 $\pi(y|x)$，无法分离。
+
+------
+
+**条件③：$\pi_\text{ref}$ 固定不变**
+
+KL 散度展开后，对 $\pi(y|x)$ 求导给出：
+
+$$\frac{\partial}{\partial \pi(y|x)}\left[-\beta,\pi(y|x)\log\frac{\pi(y|x)}{\pi_\text{ref}(y|x)}\right] = -\beta\left(\log\frac{\pi(y|x)}{\pi_\text{ref}(y|x)} + 1\right)$$
+
+这里用到了乘积法则：
+
+$$\frac{\partial}{\partial \pi}\left[\pi \log\frac{\pi}{\pi_\text{ref}}\right] = \log\frac{\pi}{\pi_\text{ref}} + \pi \cdot \frac{1}{\pi} = \log\frac{\pi}{\pi_\text{ref}} + 1$$
+
+这个计算成立的关键是：求导时 $\pi_\text{ref}(y|x)$ 是**常数**，所以 $\frac{\partial \pi_\text{ref}}{\partial \pi} = 0$。
+
+如果 $\pi_\text{ref}$ 也依赖于 $\pi$（比如它就是 $\pi$ 本身的某个历史版本，且我们把这种依赖计入图中），那么求导时还需要考虑 $\pi_\text{ref}$ 对 $\pi$ 的导数，整个 KL 项的导数形式就变了，方程无法干净求解。
+
+------
+
+三个条件都满足，偏导数方程是：
+
+$$r(x,y) - \beta\log\frac{\pi(y|x)}{\pi_\text{ref}(y|x)} - \beta - \lambda = 0$$
+
+把含 $\pi(y|x)$ 的项移到一边：
+
+$$\beta\log\frac{\pi(y|x)}{\pi_\text{ref}(y|x)} = r(x,y) - \beta - \lambda$$
+
+两边除以 $\beta$，取指数：
+
+$$\frac{\pi(y|x)}{\pi_\text{ref}(y|x)} = \exp\left(\frac{r(x,y) - \beta - \lambda}{\beta}\right) = \exp\left(\frac{r(x,y)}{\beta}\right)\cdot\exp\left(\frac{-\beta-\lambda}{\beta}\right)$$
+
+后面那个因子不含 $y$，记作常数 $C$：
+
+$$\pi^*(y|x) = C \cdot \pi_\text{ref}(y|x)\cdot\exp\left(\frac{r(x,y)}{\beta}\right)$$
+
+最后用归一化条件 $\sum_y \pi^*(y|x) = 1$ 确定 $C$：
+
+$$C = \frac{1}{\sum_y \pi_\text{ref}(y|x)\exp\left(\frac{r(x,y)}{\beta}\right)} = \frac{1}{Z(x)}$$
+
+得到最终结果：
+
+$$\boxed{\pi^*(y|x) = \frac{1}{Z(x)}\pi_\text{ref}(y|x)\exp\left(\frac{r(x,y)}{\beta}\right)}$$
+
+------
+
+**直觉理解**
+
+![image-20260324104452929](./assets/image-20260324104452929.png)
+
+直觉上，最优策略做的事情非常简单：**把 $\pi_\text{ref}$ 作为基底，按照 $\exp(r/\beta)$ 对每个 $y$ 重新加权，再归一化**。
+
+- $\beta$ 大：$\exp(r/\beta)$ 接近 1，最优策略接近 $\pi_\text{ref}$，KL 惩罚主导
+- $\beta$ 小：$\exp(r/\beta)$ 差异悬殊，最优策略几乎把所有质量压到 reward 最高的 $y$ 上，reward 主导
+
+这个结构之所以这么干净，完全是因为三个条件保证了求导方程里每个 $y$ 之间互不干扰——方程对每个 $y$ 独立成立，于是解也对每个 $y$ 独立写出来，最后只需一个归一化常数 $Z(x)$ 收尾。
+
+------
+
+### 反解 reward
+
+从上面的解析解，两边取对数，把 $r(x,y)$ 解出来：
+
+$$r(x,y) = \beta\log\frac{\pi^*(y|x)}{\pi_\text{ref}(y|x)} + \beta\log Z(x)$$
+
+这一步是**纯代数变换**，没有任何额外假设。它的意思是：如果我们知道最优策略长什么样，就可以反推出对应的 reward。
+
+------
+
+### 引入 Bradley-Terry 偏好模型
+
+RLHF 的另一半是：我们没有直接的 reward 标注，只有人类的**成对偏好**数据 $y_w \succ y_l$。BT 模型假设：
+
+$$p(y_w \succ y_l \mid x) = \sigma\left(r(x, y_w) - r(x, y_l)\right)$$
+
+现在把第三步的 $r$ 代入：
+
+$$p(y_w \succ y_l \mid x) = \sigma\left(\beta\log\frac{\pi^*(y_w|x)}{\pi_\text{ref}(y_w|x)} + \beta\log Z(x) - \beta\log\frac{\pi^*(y_l|x)}{\pi_\text{ref}(y_l|x)} - \beta\log Z(x)\right)$$
+
+**关键时刻**：$\beta \log Z(x)$ 在两项里符号相反，直接消掉：
+
+$$p(y_w \succ y_l \mid x) = \sigma\left(\beta\log\frac{\pi^*(y_w|x)}{\pi_\text{ref}(y_w|x)} - \beta\log\frac{\pi^*(y_l|x)}{\pi_\text{ref}(y_l|x)}\right)$$
+
+$Z(x)$ 能消掉，是因为它**只依赖于 $x$，与 $y$ 无关**，在成对比较里自然抵消。这是整个推导里最关键的一步。
+
+------
+
+## DPO Loss
+
+用参数化的 $\pi_\theta$ 替换 $\pi^*$，对偏好数据做最大似然估计，取负对数得到：
+
+$$\boxed{\mathcal{L}*\text{DPO}(\theta) = -\mathbb{E}*{(x,y_w,y_l)}\left[\log\sigma!\left(\beta\log\frac{\pi_\theta(y_w|x)}{\pi_\text{ref}(y_w|x)} - \beta\log\frac{\pi_\theta(y_l|x)}{\pi_\text{ref}(y_l|x)}\right)\right]}$$
+
+---
+
+### 推导成立的关键点
+
+![image-20260324104111464](./assets/image-20260324104111464.png)
+
+三个关键条件展开说：
+
+**条件①：$\pi_\text{ref}$ 固定不变** 变分求解的过程中，我们把 $\pi_\text{ref}$ 当作常数处理。如果参考点在训练中移动（比如 SAPO 里的 $\pi_{\theta_\text{old}}$），那么"最优策略"本身就是一个移动靶，解析解在下一步就失效了。
+
+**条件②：reward 与策略无关** RLHF 假设 $r(x,y)$ 是人类偏好的固有属性，和当前策略是谁无关。这保证了变分法里对 $\pi$ 求导时，$r$ 是个常数，整个最优化问题是凸的，解析解才能干净地写出来。SAPO 的 advantage 是 group 内归一化的，依赖于当前这批采样，不满足这一条。
+
+**条件③：成对比较让 $Z(x)$ 消去** 这是整个推导最精妙的地方。$Z(x)$ 是个关于 $x$ 的求和，根本无法计算（词表指数级大）。但因为 BT 模型用的是**差值** $r_w - r_l$，而 $Z(x)$ 对 $y_w$ 和 $y_l$ 完全相同，一减就没了。这个消去不是凑巧，而是成对比较结构的必然结果
+
+
+
+
+
+
+
