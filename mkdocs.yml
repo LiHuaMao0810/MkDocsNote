@@ -12,12 +12,15 @@ nav:
      - DiffusionModel/UnderstandingDiffusionModels.md
      - DiffusionModel/DDIM.md
      - DiffusionModel/LDM.md
+     - DiffusionModel/EDM.md
      - DiffusionModel/FlowMatching.md
      - DiffusionModel/RectifiedFlow.md
+     - DiffusionModel/ScalingRectified.md
      - DiffusionModel/DreamDiffusion.md
      - DiffusionModel/ConsistencyModel.md
      - DiffusionModel/DistributionMatching.md
      - DiffusionModel/Diff-Instruct.md
+
      - DiffusionModel/MeanFlow.md
      - DiffusionModel/SelfDistillation.md
 
