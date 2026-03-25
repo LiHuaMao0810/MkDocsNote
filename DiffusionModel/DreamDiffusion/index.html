@@ -1,0 +1,3157 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://lihuamao0810.github.io/MkDocsNote/DiffusionModel/DreamDiffusion/">
+      
+      
+        <link rel="prev" href="../ScalingRectified/">
+      
+      
+        <link rel="next" href="../ConsistencyModel/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SDS & VSD - LiHuaMao 的小站</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sds-vsd" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="LiHuaMao 的小站" class="md-header__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LiHuaMao 的小站
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SDS &amp; VSD
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="deep-purple"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="deep-orange"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../.." class="md-tabs__link">
+          
+  
+  
+    
+  
+  Home
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Diffusion Model
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../experience/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  经验贴整理
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../PostTraining/RLHF/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  模型后训练
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Interview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  大模型面试准备
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ComputerOrganization/chapter1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  课程笔记
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  关于我
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="LiHuaMao 的小站" class="md-nav__button md-logo" aria-label="LiHuaMao 的小站" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    LiHuaMao 的小站
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_1" id="__nav_1_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Home
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Blog
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    归档
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    归档
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2026/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2026
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diffusion Model
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diffusion Model
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../UnderstandingDiffusionModels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ELBO,VAE,Diffusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DDIM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DDIM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../LDM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LDM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../EDM/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Space of Diffusion Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FlowMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Flow Matching 流匹配
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../RectifiedFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rectified Flow 修正流
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ScalingRectified/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Stable Diffusion 3
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDS &amp; VSD
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDS &amp; VSD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDS 要解决的根本问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练损失
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="训练损失">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#u-net-jacobian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么 U-Net Jacobian 是致命的
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sds_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDS 的核心推导
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dreamfusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DreamFusion 的完整架构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        几个关键的工程决策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sds-vsd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDS 与 VSD 的承接关系
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sds_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 SDS 的问题出发
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从点优化到分布优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="从点优化到分布优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        粒子化变分推断
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epsilon_phi-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\epsilon_\phi\) 是什么，为什么用 LoRA 实现
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练的交替结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sds-vsd_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDS 是 VSD 的特例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vsd-cfg75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么 VSD 可以用 CFG=7.5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VSD 的完整架构
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ConsistencyModel/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Consistency Model 一致性模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DistributionMatching/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Distribution Matching Distillation 分布匹配蒸馏
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Diff-Instruct/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diff-Instruct Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../MeanFlow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mean Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SelfDistillation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Learnig Flow Map via Self Distillation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../experience/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经验贴整理
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    经验贴整理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/algorithm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    算法岗面经
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/cc98/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    校内资源贴整理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/softwareEngineer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程经验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/resources/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    推荐学习资源
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../experience/others/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    其他
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型后训练
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型后训练
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostTraining/RLHF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RLHF
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostTraining/DPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DPO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../PostTraining/PPO/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    PPO
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Interview/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    大模型面试准备
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    大模型面试准备
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Interview/ModelArchitecture/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    模型架构
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    模型架构
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Interview/ModelArchitecture/Transformer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transformer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Interview/ModelArchitecture/Classic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    经典模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Interview/ModelArchitecture/improvement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    架构改进
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Interview/Engineering/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工程与优化
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    工程与优化
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Interview/MultimodalGeneration/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    多模态与生成理论
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    多模态与生成理论
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Interview/MultimodalGeneration/Basic/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    视觉表征基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Interview/MultimodalGeneration/Alignment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    对齐技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Interview/MultimodalGeneration/Generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    生成架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Interview/ExperienceSummary/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    面试复盘
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    面试复盘
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Interview/ExperienceSummary/byte/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    字节一面
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    课程笔记
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    课程笔记
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机系统原理
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    计算机系统原理
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter2 计算机的算数运算
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 3 RISC-V
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    chapter4 处理器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ComputerOrganization/chapter5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter5 Cache/Memory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    关于我
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDS 要解决的根本问题
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练损失
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="训练损失">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#u-net-jacobian" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么 U-Net Jacobian 是致命的
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练流程
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sds_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDS 的核心推导
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dreamfusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DreamFusion 的完整架构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        几个关键的工程决策
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sds-vsd_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDS 与 VSD 的承接关系
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sds_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从 SDS 的问题出发
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        从点优化到分布优化
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="从点优化到分布优化">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        粒子化变分推断
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#epsilon_phi-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        \(\epsilon_\phi\) 是什么，为什么用 LoRA 实现
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        训练的交替结构
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sds-vsd_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SDS 是 VSD 的特例
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vsd-cfg75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        为什么 VSD 可以用 CFG=7.5
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vsd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VSD 的完整架构
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../tags/#tag:分数匹配" class="md-tag">分数匹配</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../tags/#tag:扩散模型" class="md-tag">扩散模型</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../tags/#tag:蒸馏" class="md-tag">蒸馏</a>
+      
+    
+  </nav>
+
+
+
+<h1 id="sds-vsd">SDS &amp; VSD</h1>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>创建时间：2025-12-16 | 更新时间：2026-3-23</p>
+<p>本文基于<strong><a href="https://arxiv.org/abs/2305.16213">Prolific Dreamer</a></strong>  和 <strong><a href="https://arxiv.org/abs/2209.14988">Dream Diffusion</a></strong> 做笔记</p>
+</div>
+<h2 id="sds">SDS 要解决的根本问题</h2>
+<p>出发点很简单：我们有一个预训练的 2D text-to-image 扩散模型，想用它来生成 3D 内容。但扩散模型只能在像素空间里采样，而我们想要的是 NeRF 的参数空间里的一个点 θ，使得从任意角度渲染出来的图像都"看起来像真实图像"。</p>
+<p>这就是<strong>可微图像参数化（DIP）</strong>的框架：用一个可微渲染函数 g(θ) 把 3D 参数映射到图像，然后设计一个损失函数，让这个图像在扩散模型眼中是高似然的。</p>
+<hr />
+<h2 id="_1">训练损失</h2>
+<p>最自然的想法是直接最小化扩散模型的训练损失：</p>
+<div class="arithmatex">\[\mathcal{L}_{\text{Diff}}(\phi, \mathbf{x} = g(\theta)) = \mathbb{E}_{t,\varepsilon}\left[w(t)\|\hat{\varepsilon}_\phi(\mathbf{z}_t; y, t) - \varepsilon\|^2_2\right]\]</div>
+<p>对 θ 求梯度展开后得到：</p>
+<div class="arithmatex">\[\nabla_\theta \mathcal{L}_{\text{Diff}} = \mathbb{E}_{t,\varepsilon}\left[w(t)\underbrace{(\hat{\varepsilon}_\phi - \varepsilon)}_{\text{噪声残差}} \cdot \underbrace{\frac{\partial \hat{\varepsilon}_\phi}{\partial \mathbf{z}_t}}_{\text{U-Net Jacobian}} \cdot \underbrace{\frac{\partial \mathbf{x}}{\partial \theta}}_{\text{渲染 Jacobian}}\right]\]</div>
+<p>中间那项 <strong>U-Net Jacobian</strong> 是致命问题：计算代价极高，而且在小噪声水平下条件极差（它近似于边缘密度的 scaled Hessian），实验中根本无法产生合理结果。</p>
+<h3 id="u-net-jacobian">为什么 U-Net Jacobian 是致命的</h3>
+<p>先把完整梯度写清楚，明确每一项的来源。从扩散训练损失出发：
+$$
+\mathcal{L}<em t_varepsilon="t,\varepsilon">{\text{Diff}}(\phi, \mathbf{x}) = \mathbb{E}</em>_t; y, t) - \varepsilon|^2_2\right]
+$$
+其中 $\mathbf{z}_t = \alpha_t \mathbf{x} + \sigma_t \varepsilon }\left[w(t)|\hat{\varepsilon}_\phi(\mathbf{z<span class="arithmatex">\(，\)</span>\mathbf{x} = g(\theta) $。对 θ 求梯度，链式法则展开有三层：</p>
+<div class="arithmatex">\[\nabla_\theta \mathcal{L}_{\text{Diff}} = \mathbb{E}_{t,\varepsilon}\left[w(t) \cdot \underbrace{2(\hat{\varepsilon}_\phi - \varepsilon)^\top}_{\text{①噪声残差}} \cdot \underbrace{\frac{\partial \hat{\varepsilon}_\phi}{\partial \mathbf{z}_t}}_{\text{②U-Net Jacobian}} \cdot \underbrace{\frac{\partial \mathbf{z}_t}{\partial \mathbf{x}} \cdot \frac{\partial \mathbf{x}}{\partial \theta}}_{\text{③渲染链}}\right]\]</div>
+<p>注意 $\frac{\partial \mathbf{z}_t}{\partial \mathbf{x}} = \alpha_t \mathbf{I} $，可以并入 $w(t) $，所以问题完全集中在第②项。</p>
+<p><strong>问题一：维度爆炸。</strong> 设图像维度 $d = H \times W \times C $（64×64×3 = 12288），U-Net 的输入输出都是 $\mathbb{R}^d $，则这个 Jacobian 是 $d \times d $ 的矩阵，存储需要约 $12288^2 \times 4\,\text{bytes} \approx 600\,\text{MB} $，每次迭代都需要对整个 U-Net 做完整反传来填满它，代价与预训练扩散模型的一步训练相当。</p>
+<p><strong>问题二：数值病态。</strong> 这是更本质的问题。利用 Tweedie 公式，扩散模型的 score function 满足：
+$$
+\nabla_{\mathbf{z}<em>t} \log p_t(\mathbf{z}_t) = -\frac{\hat{\varepsilon}</em>\phi(\mathbf{z}<em>t, t)}{\sigma_t}
+$$
+对两边再关于 $\mathbf{z}_t $ 求导，得到 Hessian：
+$$
+\frac{\partial^2 \log p_t}{\partial \mathbf{z}_t^2} = -\frac{1}{\sigma_t} \frac{\partial \hat{\varepsilon}</em>\phi}{\partial \mathbf{z}<em>t}
+$$
+因此：
+$$
+\frac{\partial \hat{\varepsilon}</em>\phi}{\partial \mathbf{z}<em _mathbf_z="\mathbf{z">t} = -\sigma_t \cdot \nabla^2</em>_t)
+$$
+这个 Jacobian }_t} \log p_t(\mathbf{z<strong>就是对数密度的 Hessian（乘以 $-\sigma_t $）</strong> 。当 $t \to 0 $ 时，$p_t $ 趋向于尖锐的数据分布，Hessian 在数据流形法方向上特征值趋向负无穷，而在流形切方向上趋向零——条件数发散，矩阵极度病态，梯度方向完全不可信。</p>
+<p><img alt="image-20260323212228764" src="../assets/image-20260323212228764.png" /></p>
+<hr />
+<h2 id="_2">训练流程</h2>
+<p><span class="arithmatex">\(z_t\)</span> <strong>不是</strong> 3D 模型本身，而是"3D 模型渲染出的图像，再加上噪声"。整个流程分两步：</p>
+<p><strong>第一步：渲染</strong> — NeRF 参数 θ 在相机位姿 c 下，通过可微渲染函数 g 得到一张 2D 图像：</p>
+<div class="arithmatex">\[\mathbf{x} = g(\theta, c) \quad \in \mathbb{R}^{H \times W \times 3}\]</div>
+<p><strong>第二步：扩散前向加噪</strong> — 对这张图像加入高斯噪声，模拟扩散过程的第 t 步：</p>
+<div class="arithmatex">\[\mathbf{z}_t = \alpha_t \mathbf{x} + \sigma_t \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, I)\]</div>
+<p>所以 z_t 本质上是一张<strong>被噪声污染的渲染图</strong>，噪声程度由时间步 t 控制。</p>
+<p>用伪代码把采样过程写清楚：</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 每次迭代</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># ① 三个独立采样</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">t</span>   <span class="o">=</span> <span class="n">uniform</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">)</span>          <span class="c1"># 随机时间步</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">ε</span>   <span class="o">=</span> <span class="n">randn</span><span class="p">(</span><span class="n">image_shape</span><span class="p">)</span>           <span class="c1"># 随机高斯噪声</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">c</span>   <span class="o">=</span> <span class="n">sample_camera</span><span class="p">()</span>              <span class="c1"># 随机相机位姿</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># ② 渲染：3D → 2D</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">x</span>   <span class="o">=</span> <span class="n">nerf_render</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>            <span class="c1"># x = g(θ, c)，干净图像</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># ③ 扩散前向加噪：2D → 噪声空间</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">α_t</span><span class="p">,</span> <span class="n">σ_t</span> <span class="o">=</span> <span class="n">get_noise_schedule</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="n">z_t</span> <span class="o">=</span> <span class="n">α_t</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">σ_t</span> <span class="o">*</span> <span class="n">ε</span>           <span class="c1"># z_t，加噪渲染图</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="c1"># ④ 冻结扩散模型预测噪声</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="n">ε_hat</span> <span class="o">=</span> <span class="n">frozen_diffusion</span><span class="p">(</span><span class="n">z_t</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>   <span class="c1"># 无梯度</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1"># ⑤ 计算更新方向并反传</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="n">update_dir</span> <span class="o">=</span> <span class="n">stop_grad</span><span class="p">(</span><span class="n">ε_hat</span> <span class="o">-</span> <span class="n">ε</span><span class="p">)</span>     <span class="c1"># 方向信号，无需反传扩散模型</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="n">grad_θ</span> <span class="o">=</span> <span class="n">w</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">update_dir</span> <span class="err">·</span> <span class="err">∂</span><span class="n">x</span><span class="o">/</span><span class="err">∂</span><span class="n">θ</span>   <span class="c1"># 反传只走 NeRF 渲染路径</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="c1"># ⑥ 更新 NeRF 参数</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="n">θ</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span> <span class="n">grad_θ</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>(εhat − ε)</code> 这个差值的含义非常直观：εhat 是扩散模型"认为图像里应该有的噪声结构"，ε 是我们实际加进去的纯随机噪声。两者之差就是扩散模型在说<strong>"你渲染出的图像，应该往这个方向改"</strong>。</p>
+<p>当 t 较大时，图像被大量噪声掩盖，扩散模型给出的是粗粒度的整体形状方向；当 t 较小时，图像接近干净，扩散模型关注的是细节纹理。对所有 t 加权期望，就同时优化了从粗到细的所有层次，这是 SDS 相比直接优化像素更稳定的核心原因。</p>
+</div>
+<hr />
+<h2 id="sds_1">SDS 的核心推导</h2>
+<p>既然 U-Net Jacobian 不可用，DreamFusion 的洞察是：<strong>直接去掉这一项</strong>，只保留噪声残差乘以渲染 Jacobian：</p>
+<div class="arithmatex">\[\nabla_\theta \mathcal{L}_{\text{SDS}} \triangleq \mathbb{E}_{t,\varepsilon}\left[w(t)\underbrace{(\hat{\varepsilon}_\phi(\mathbf{z}_t; y, t) - \varepsilon)}_{\text{update direction}}\frac{\partial \mathbf{x}}{\partial \theta}\right]\]</div>
+<p>这看起来像是凑出来的工程技巧，但论文 Appendix A.4 证明了它有严格的理论基础——它恰好是一个<strong>加权概率密度蒸馏损失</strong>的梯度：</p>
+<div class="arithmatex">\[\nabla_\theta \mathcal{L}_{\text{SDS}} = \nabla_\theta \mathbb{E}_t\left[\frac{\sigma_t}{\alpha_t}w(t)\,\text{KL}\!\left(q(\mathbf{z}_t \mid g(\theta);\,y,t) \;\big\|\; p_\phi(\mathbf{z}_t;\,y,t)\right)\right]\]</div>
+<p><img alt="image-20260323204734000" src="../assets/image-20260323204734000.png" /></p>
+<p>Appendix A.4 的推导要点值得细说一下。对单个 KL 项展开梯度时会出现两部分：</p>
+<ul>
+<li><strong>(A) 前向过程的熵梯度</strong>：由于前向过程方差固定，熵对参数的梯度为零。但可以用"Sticking-the-Landing"技巧保留路径导数项，它与 (B) 项高度相关，作为控制变量能显著降低方差。</li>
+<li><strong>(B) log p_φ 的梯度</strong>：通过 Tweedie 公式连接到 score function，最终化简为 −(α_t/σ_t)·εhat·(∂x/∂θ)。</li>
+</ul>
+<p>两项合并，正好消掉 U-Net Jacobian，得到最终的 SDS 梯度。</p>
+<hr />
+<h2 id="dreamfusion">DreamFusion 的完整架构</h2>
+<p>SDS 的架构本质上只有<strong>三个独立模块</strong>：NeRF、可微渲染器、冻结扩散模型。训练时这三个模块串联成一条前向路径，梯度只从扩散模型的输出反传回 NeRF，扩散模型本身完全不参与反传。</p>
+<p><img alt="image-20260323215527861" src="../assets/image-20260323215527861.png" /></p>
+<p>图里有一条需要特别注意的界限：εhat 和 ε 用虚线红箭头接入梯度计算，表示它们只提供方向数值，不传递梯度。实线红箭头才是真正的反传路径，它只走渲染器这一条路回到 θ。</p>
+<p>几个容易混淆的点说清楚：</p>
+<p><strong>为什么扩散模型不参与反传？</strong> 因为计算 εhat 这一步用了 <code>stop_gradient</code>。扩散模型只是一个"冻结的评论家"，每次迭代告诉渲染图像"应该往哪个方向改"，但它的内部权重和中间计算完全不进入计算图。这也是 SDS 在工程上可行的关键原因——否则每步都要对一个十亿参数的 U-Net 做反传，内存和计算都不可接受。</p>
+<p><strong>t、ε、c 三个采样是完全独立的。</strong> 每次迭代重新采，互不依赖。t 决定加多少噪声，ε 是具体的噪声实例，c 决定从哪个角度看 NeRF。</p>
+<p><strong>梯度真正流过的路径只有一条</strong>：扩散模型输出 → 减去 ε → 乘 w(t) → 乘渲染器 Jacobian ∂x/∂θ → 更新 NeRF 权重。整个系统里唯一被训练的是 NeRF 的 MLP 参数。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>y 是<strong>文本 prompt 的嵌入向量</strong>，是扩散模型的条件输入。具体来说，在 DreamFusion 里 y 是用 T5-XXL 文本编码器把用户输入的文字（比如 "a DSLR photo of a peacock on a surfboard"）编码成的向量，这个向量在整个训练过程中<strong>固定不变</strong>，每次迭代都原样传给扩散模型。</p>
+</div>
+<hr />
+<h2 id="_3">几个关键的工程决策</h2>
+<p><strong>视角相关 prompt</strong> 是 DreamFusion 能生成一致 3D 几何的重要原因之一。文本往往描述的是正面视角，如果不加视角信息，模型会把内容"画"在每个面上形成多面 Janus 问题。论文的做法是根据相机仰角和方位角动态拼接 "front view / side view / back view / overhead view"。</p>
+<p><strong>着色 + 无纹理渲染</strong> 是几何质量的保障。如果只优化有颜色的渲染，模型倾向于把内容"贴"在平面上而不是真正建立 3D 几何。引入随机光源着色，并有 50% 概率渲染无纹理（albedo 全白）的结果，迫使几何本身也必须正确。</p>
+<p><strong>CFG=100 的必要性</strong> 来自 SDS 的众数搜索本质。SDS 最小化的是 reverse KL，具有 mode-seeking 性质——它会坍缩到最高概率密度的单一模式。这意味着必须用极大的引导权重来"逼"它走向足够清晰的结果，代价是多样性极差、不同随机种子几乎产生相似结果。这正是 VSD 后来重点解决的问题。</p>
+<hr />
+<h2 id="sds-vsd_1">SDS 与 VSD 的承接关系</h2>
+<p>至此可以清楚地看到 SDS 遗留的核心问题是什么：它用固定的高斯噪声 ε 作为 q 的 score 估计，相当于假设当前渲染图像服从 Dirac delta 分布。这个估计太粗糙——在低密度区域几乎没有方向信息，只能靠 CFG=100 强行放大信号，结果过饱和、过平滑、多样性低。VSD 做的事情，就是把这个粗糙的 ε 换成一个真正学过渲染图像分布的 LoRA 网络 εφ，彻底解决了这个估计误差的根源。</p>
+<p>好，现在有了 SDS 的完整基础，我们来看 VSD 如何在每个环节上做出改进。</p>
+<hr />
+<h2 id="sds_2">从 SDS 的问题出发</h2>
+<p>SDS 有一个根本性的假设：把 3D 参数 θ 当成一个<strong>固定的点</strong>来优化，其变分分布是 Dirac delta：</p>
+<div class="arithmatex">\[\mu(\theta|y) \approx \delta(\theta - \theta^{(1)})\]</div>
+<p>这导致 score 的估计极度粗糙。回顾 SDS 梯度：</p>
+<div class="arithmatex">\[\nabla_\theta \mathcal{L}_{\text{SDS}} = \mathbb{E}\left[w(t)\underbrace{(\hat{\varepsilon}_\text{pretrain} - \varepsilon)}_{\text{方向信号}}\frac{\partial \mathbf{x}}{\partial\theta}\right]\]</div>
+<p>第二项 ε 是纯随机高斯噪声，它对当前渲染图像的分布<strong>一无所知</strong>。这意味着梯度方向只有第一项在提供信息，必须靠 CFG=100 强行放大才能得到清晰结果，代价是过饱和、过平滑、多样性极低。</p>
+<p>VSD 的核心问题是：<strong>能不能用一个真正了解当前渲染分布的网络来替代这个无信息的 ε？</strong></p>
+<hr />
+<h2 id="_4">从点优化到分布优化</h2>
+<p>VSD 把 θ 从常量变成随机变量，优化目标从找一个好的 θ，变成找一个好的<strong>分布</strong> μ(θ|y)：</p>
+<div class="arithmatex">\[\mu^* = \arg\min_\mu \;\mathbb{E}_{t,c}\left[\frac{\sigma_t}{\alpha_t}\omega(t)\,D_{\text{KL}}\!\left(q_t^\mu(\mathbf{x}_t|c,y)\;\|\;p_t(\mathbf{x}_t|y^c)\right)\right]\]</div>
+<p>这是在<strong>函数空间</strong> <span class="arithmatex">\(\mathcal{W}_2(\Theta)\)</span>（Wasserstein 空间）上的优化，不再是参数空间里的点优化。它自然容纳了"同一个 prompt 可以对应多个合理 3D 场景"这个事实。</p>
+<p><img alt="image-20260323220521579" src="../assets/image-20260323220521579.png" /></p>
+<h3 id="_5">粒子化变分推断</h3>
+<p>直接在函数空间优化 μ 是不可行的。VSD 采用<strong>粒子化变分推断（Particle-based VI）</strong>：用 n 个具体的 3D 参数 <span class="arithmatex">\({\theta^{(i)}}_{i=1}^n\)</span> 来代表分布 μ，每个粒子就是一个独立的 NeRF 或 Mesh。</p>
+<p>优化目标变成让这些粒子的分布沿 Wasserstein 梯度流演化，理论上当优化收敛时，粒子就是从最优分布 μ* 中采出的样本（Theorem 2）。</p>
+<p>由此推导出每个粒子的更新规则（ODE）：</p>
+<div class="arithmatex">\[\frac{d\theta_\tau}{d\tau} = -\mathbb{E}_{t,\varepsilon,c}\left[\omega(t)\left(\underbrace{-\sigma_t\nabla_{\mathbf{x}_t}\log p_t}_{\approx\,\varepsilon_\text{pretrain}} - \underbrace{(-\sigma_t\nabla_{\mathbf{x}_t}\log q_t^\mu)}_{\approx\,\varepsilon_\phi}\right)\frac{\partial g(\theta,c)}{\partial\theta}\right]\]</div>
+<p>整理后得到 VSD 梯度：</p>
+<div class="arithmatex">\[\nabla_\theta \mathcal{L}_{\text{VSD}} = \mathbb{E}_{t,\varepsilon,c}\left[\omega(t)\underbrace{\left(\varepsilon_\text{pretrain}(\mathbf{x}_t,t,y^c) - \varepsilon_\phi(\mathbf{x}_t,t,c,y)\right)}_{\text{关键：用 εφ 替代 ε}}\frac{\partial g(\theta,c)}{\partial\theta}\right]\]</div>
+<p>与 SDS 对比，唯一的差异就是把无信息的 ε 换成了 εφ。但这一换，意义完全不同。</p>
+<hr />
+<h2 id="epsilon_phi-lora"><span class="arithmatex">\(\epsilon_\phi\)</span> 是什么，为什么用 LoRA 实现</h2>
+<p>εφ 需要估计的是当前<strong>渲染图像分布</strong> <span class="arithmatex">\(q_t^\mu\)</span> 的 score function，即：</p>
+<div class="arithmatex">\[\varepsilon_\phi \approx -\sigma_t \nabla_{\mathbf{x}_t} \log q_t^\mu(\mathbf{x}_t|c,y)\]</div>
+<p>它的训练目标是：给定当前所有粒子的渲染图像，学会预测加在这些图像上的噪声：</p>
+<div class="arithmatex">\[\min_\phi \sum_{i=1}^n \mathbb{E}_{t,\varepsilon,c}\left[\left\|\varepsilon_\phi\!\left(\alpha_t g(\theta^{(i)},c)+\sigma_t\varepsilon,\;t,\;c,\;y\right)-\varepsilon\right\|^2_2\right]\]</div>
+<p>这就是标准的扩散去噪目标，只不过训练数据是 NeRF 的渲染图，而不是真实图像。</p>
+<p>选择 LoRA 而不是从头训练一个小网络，原因有两个：第一，LoRA 建立在预训练扩散模型权重之上，天然继承了对自然图像的理解，以及对文本 y 的语义对齐能力。第二，当前渲染图像数量极少（只有 n 个粒子，n≤4），独立小网络根本没有足够数据拟合，而 LoRA 的低秩微调只需要极少数据就能收敛。</p>
+<hr />
+<h2 id="_6">训练的交替结构</h2>
+<p>VSD 有两套参数需要更新，它们<strong>交替进行</strong>：</p>
+<p><img alt="image-20260323222438095" src="../assets/image-20260323222438095.png" /></p>
+<h2 id="sds-vsd_2">SDS 是 VSD 的特例</h2>
+<p>这是论文的一个优雅结论，值得单独说清楚。</p>
+<p>当 VSD 退化为 n=1 个粒子，并且不训练 LoRA、直接用高斯 δ 分布近似 <span class="arithmatex">\(q_t^\mu\)</span> 时：</p>
+<div class="arithmatex">\[q_t^\mu(\mathbf{x}_t|c,y) \approx \mathcal{N}(\mathbf{x}_t;\alpha_t g(\theta^{(1)},c),\sigma_t^2\mathbf{I})\]</div>
+<p>此时 score 估计退化为：</p>
+<div class="arithmatex">\[-\sigma_t \nabla_{\mathbf{x}_t} \log q_t^\mu = \frac{\mathbf{x}_t - \alpha_t g(\theta^{(1)},c)}{\sigma_t} = \varepsilon\]</div>
+<p>εφ 变成了 ε，VSD 梯度完全变回 SDS 梯度。这说明 SDS 的本质缺陷不是公式本身写错了，而是对渲染分布的 score 估计太过粗糙——用 Dirac delta 近似一个复杂分布，score 估计在低密度区域几乎没有有效信息。</p>
+<hr />
+<h2 id="vsd-cfg75">为什么 VSD 可以用 CFG=7.5</h2>
+<p>这是 VSD 相对 SDS 最直观的优势之一。SDS 本质是 mode-seeking，只找密度最高的单一模式，需要 CFG=100 来放大信号才能得到清晰结果。VSD 则是<strong>从分布 μ* 中采样</strong>，这在数学上等价于从预训练扩散模型做祖先采样（ancestral sampling）。</p>
+<p>祖先采样在 CFG=7.5 时工作得很好，这是有大量实验验证的先验知识。VSD 继承了这个性质，所以同样可以在 CFG=7.5 下得到高质量、多样的结果——不再需要用极端的 CFG 来补偿估计误差。</p>
+<hr />
+<h2 id="vsd">VSD 的完整架构</h2>
+<p>现在可以把所有模块画进一张干净的架构图：</p>
+<p><img alt="image-20260323222455519" src="../assets/image-20260323222455519.png" /></p>
+<p>对比 SDS 的架构，VSD 只多了一个模块：LoRA εφ。但这一个模块解决了 SDS 的根本问题——渲染分布的 score 现在被真正估计出来了，而不是用无信息的随机噪声凑数。其他所有东西：NeRF、可微渲染、冻结扩散模型、加噪声、CFG——结构完全相同，只是 εφ 替换了 ε，以及 CFG 从 100 降到了 7.5。</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.indexes", "navigation.tabs", "navigation.sections", "navigation.top", "content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+      
+        <script src="../../javascripts/katex.js"></script>
+      
+    
+  </body>
+</html>
