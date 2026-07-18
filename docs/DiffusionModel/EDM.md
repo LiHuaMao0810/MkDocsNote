@@ -116,11 +116,11 @@ $$\mathcal{L} = \mathbb{E}_{y \sim p_\text{data}} \mathbb{E}_{n \sim \mathcal{N}
 
 **关键技巧**：对每个固定的 x，可以独立求最优的 D(x; σ)。把期望展开写成对 x 的积分：
 
-$$\mathcal{L} = \int \underbrace{\sum_i \mathcal{N}(x; y_i,\sigma^2 I) \cdot \|D(x;\sigma) - y_i\|^2}_{\text{对每个 x 独立最小化}} , dx$$
+$$\mathcal{L} = \int \underbrace{\sum_i \mathcal{N}(x; y_i,\sigma^2 I) \cdot \|D(x;\sigma) - y_i\|^2}_{\text{对每个 x 独立最小化}}  dx$$
 
 对固定 x，对 D(x;σ) 求导并令其为零：
 
-$$0 = \sum_i \mathcal{N}(x;, y_i,, \sigma^2 I) \cdot 2\bigl(D(x;\sigma) - y_i\bigr)$$
+$$0 = \sum_i \mathcal{N}(x;y_i,\sigma^2 I) \cdot 2\bigl(D(x;\sigma) - y_i\bigr)$$
 
 解出来：
 
@@ -142,7 +142,7 @@ $$\nabla_x \log p(x;\sigma) = \frac{\nabla_x p(x;\sigma)}{p(x;\sigma)} = \frac{\
 
 把分子分母整理，把 $\frac{-x}{\sigma^2}$ 提出来：
 
-$$= \frac{\sum_i \mathcal{N}(\cdot), y_i}{\sum_i \mathcal{N}(\cdot)} \cdot \frac{1}{\sigma^2} ;-; \frac{x}{\sigma^2} = \frac{D^*(x;\sigma) - x}{\sigma^2}$$
+$$= \frac{\sum_i \mathcal{N}(\cdot) y_i}{\sum_i \mathcal{N}(\cdot)} \cdot \frac{1}{\sigma^2} - \frac{x}{\sigma^2} = \frac{D^*(x;\sigma) - x}{\sigma^2}$$
 
 这就得到了那个关键等式：**几何直觉**：score = (D*(x;σ) − x) / σ² 中，分子 D*(x;σ) − x 就是"去噪方向"，即从当前带噪点指向去噪后目标点的向量。除以 σ² 是归一化。所以 score 就是"以 σ² 缩放的去噪方向"。
 
@@ -273,7 +273,7 @@ $$\boxed{c_\text{in}(\sigma) = \frac{1}{\sqrt{\sigma^2 + \sigma_\text{data}^2}}}
 
 把 $D_\theta$ 的定义代入训练损失，网络 $F_\theta$ 实际在学的目标是：
 
-$$F_\text{target} = \frac{y - c_\text{skip}(\sigma)\cdot x}{c_\text{out}(\sigma)} = \frac{(1 - c_\text{skip}),y - c_\text{skip}\cdot n}{c_\text{out}}$$
+$$F_\text{target} = \frac{y - c_\text{skip}(\sigma)\cdot x}{c_\text{out}(\sigma)} = \frac{(1 - c_\text{skip})y - c_\text{skip}\cdot n}{c_\text{out}}$$
 
 要让这个目标方差为 1：
 

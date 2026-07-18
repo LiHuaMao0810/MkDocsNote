@@ -42,6 +42,9 @@ nav:
         - Interview/ModelArchitecture/Transformer.md
         - Interview/ModelArchitecture/Classic.md
         - Interview/ModelArchitecture/improvement.md
+        - Interview/ModelArchitecture/text-encoder.md
+        - Interview/ModelArchitecture/positional-encoding.md
+        - Interview/ModelArchitecture/U-Net.md
      - 工程与优化:
         - Interview/Engineering/index.md
      - 多模态与生成理论:
@@ -49,9 +52,6 @@ nav:
         - Interview/MultimodalGeneration/Basic.md
         - Interview/MultimodalGeneration/Alignment.md
         - Interview/MultimodalGeneration/Generation.md
-     - 面试复盘:
-        - Interview/ExperienceSummary/index.md
-        - Interview/ExperienceSummary/byte.md
   - 课程笔记:
     - 计算机系统原理:
       - ComputerOrganization/chapter1.md

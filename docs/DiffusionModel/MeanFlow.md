@@ -8,55 +8,110 @@ tags:
 
 > [!INFO] 文档信息
 >
-> 创建时间：2025-12-19 | 更新时间：2025-12-19
+> 创建时间：2025-12-19 | 更新时间：2026-4-19
 >
-> 本文基于**[Mean Flows for One-step Generative Modeling](https://arxiv.org/abs/2505.13447v1)** 做笔记
+> 原文链接**[Mean Flows for One-step Generative Modeling](https://arxiv.org/abs/2505.13447v1)** 
 
+### TL;DR
 
+提出 **average velocity** 场 $u(z_t, r, t)$ 替代 Flow Matching 的 instantaneous velocity $v(z_t, t)$，从定义出发严格推导训练目标（MeanFlow Identity），无需蒸馏/预训练/课程学习，1-NFE 在 ImageNet 256×256 达到 FID 3.43，比此前 SOTA Shortcut 的 10.60 提升约 70%。
 
-## **主要贡献**
+------
 
-从平均速度的角度来蒸馏模型，减少了离散化误差，本质都是多步合成一步，但是本文以平均速度为训练目标，中间没有数学上的误差，且最后采样可能更加平滑。
+### 核心概念：Average Velocity
 
+Flow Matching 建模的是**瞬时速度** $v(z_t, t)$，采样时需要数值积分（多步 ODE）。
 
+MeanFlow 定义**平均速度**：
 
-## 核心公式
+$$u(z_t, r, t) \triangleq \frac{1}{t - r} \int_r^t v(z_\tau, \tau) d\tau$$
 
-![image-20251219114453744](./assets/image-20251219114453744.png)
+**采样**只需一次网络调用：
 
-其中 $z_t$ 为 t 时刻隐状态， $u(z_t,r,t)$ 表示从 r 时刻到 t 时刻的平均速度， $v_{(z_t,t)}$ 表示教师给出的瞬时速度
+$$z_r = z_t - (t - r) u_\theta(z_t, r, t)$$
 
-重新排列得到平均速度的恒等式
+1-step：$z_0 = \epsilon - u_\theta(\epsilon, 0, 1)$，其中 $\epsilon \sim \mathcal{N}(0,I)$。
 
-![image-20251219114922088](./assets/image-20251219114922088.png)
+------
 
-现在计算平均速度对时间的全导数（注意 r 是和 t 无关的参数），得到
+### 训练目标推导：MeanFlow Identity
 
-![image-20251219115006242](./assets/image-20251219115006242.png)
+从定义式 $(t-r)u = \int_r^t v d\tau$ 两边对 $t$ 求全导数（$r$ 视为常数），用乘积法则 + 微积分基本定理：
 
-因为这三个变量对t求导可以解析，或者由模型直接给出，所以接下来可以通过jvp直接得出全导数
+$$\boxed{u(z_t, r, t) = v(z_t, t) - (t - r)\frac{d}{dt}u(z_t, r, t)}$$
 
-> [!note]
->
-> 公式 (7) 本质上描述了多变量函数沿特定方向的演化。根据链式法则：
->
-> $$\frac{d}{dt}u(z_t, r, t) = \nabla u \cdot \mathbf{v}$$
->
-> 其中 $\mathbf{v} = [\frac{dz_t}{dt}, \frac{dr}{dt}, \frac{dt}{dt}]^T$ 是变量随时间演化的速度向量。
->
-> - **JVP 的定义**：给定函数 $f(\mathbf{x})$ 和向量 $\mathbf{v}$，JVP 计算的是 $J \mathbf{v}$，即函数在 $\mathbf{x}$ 处沿方向 $\mathbf{v}$ 的导数。
-> - **对应关系**：在公式 (8) 中，已经解析地知道 $\frac{dz_t}{dt} = v(z_t, t)$，$\frac{dr}{dt} = 0$，以及 $\frac{dt}{dt} = 1$。这三个值正好构成了切向量 $\mathbf{v} = [v, 0, 1]$。
+其中全导数展开（链式法则，$\dot{z}_t = v$）：
 
-> [!tip]
->
-> JVP做的是前向推导，给出输入的变化v，计算输出的变化
->
-> VJP做的是反向传播，给出loss对本层输出的偏导，反向计算对本层输入的偏导
+$$\frac{d}{dt}u = v(z_t, t)\partial_z u + \partial_t u \quad \leftarrow \text{即 JVP}(u;(v, 0, 1))$$
 
-目标函数写作
+------
 
-![image-20251219115331543](./assets/image-20251219115331543.png)
+### 损失函数
 
-对应伪代码，其中 fn 是神经网络预测 u 的j
+$$\mathcal{L}(\theta) = \mathbb{E}\left| u_\theta(z_t, r, t) - \operatorname{sg}(u_{\text{tgt}}) \right|^2$$
 
-![image-20251219142822938](./assets/image-20251219142822938.png)
+$$u_{\text{tgt}} = v_t - (t - r)\underbrace{\left(v_t\partial_z u_\theta + \partial_t u_\theta\right)}_{\text{jvp}(u_\theta,(z,r,t),(v,0,1))}$$
+
+其中 $v_t = \epsilon - x$ 为 conditional velocity（替代不可算的 marginal velocity），$\operatorname{sg}$ 为 stop-gradient（避免二阶梯度）。
+
+**当 $r = t$ 时**，第二项消失，退化为标准 CFM。
+
+------
+
+### 训练流程（伪代码）
+
+```python
+t, r = sample_t_r()               # lognorm(-0.4, 1.0)，25%概率 r≠t
+e = randn_like(x)
+z = (1 - t) * x + t * e           # interpolant
+v = e - x                         # conditional velocity
+u, dudt = jvp(fn, (z, r, t), (v, 0, 1))   # 单次 backward
+u_tgt = v - (t - r) * dudt
+loss = metric(u - stopgrad(u_tgt))  # adaptive weight, p=1.0
+```
+
+JVP 开销仅约 16%（对比纯 FM），因为 `dudt` 被 stop-gradient，不参与 $\theta$-backprop。
+
+------
+
+### CFG 集成（无额外 NFE）
+
+将 CFG 速度场定义在 ground-truth 层面：
+
+$$v^{\text{cfg}}(z_t, t \mid c) \triangleq \omega v(z_t, t \mid c) + (1 - \omega)v(z_t, t)$$
+
+对应的 $u^{\text{cfg}}$ 满足同样的 MeanFlow Identity，训练目标中将 $v_t$ 替换为：
+
+$$\tilde{v}*t = \omega, v_t + (1-\omega), u_\theta^{\text{cfg}}(z_t, t, t)$$
+
+采样时直接用 $u_\theta^{\text{cfg}}(\epsilon, 0, 1)$，保持 1-NFE。
+
+------
+
+### 与相关工作的核心区别
+
+| 方法               | 时间变量                 | 约束来源       | 是否需要预训练 |
+| ------------------ | ------------------------ | -------------- | -------------- |
+| Consistency Models | 单变量 $t$（固定 $r=0$） | 网络行为约束   | CT需要；CD需要 |
+| Shortcut / IMM     | 双变量 $(r,t)$           | 额外自洽性损失 | 需要           |
+| **MeanFlow**       | 双变量 $(r,t)$           | 定义直接推导   | **不需要**     |
+
+MeanFlow Identity 是 $u$ 定义的**必要且充分条件**（Appendix B.3），不依赖网络结构假设。
+
+------
+
+### 关键超参数（ImageNet XL/2 默认）
+
+| 超参                | 取值                                      |
+| ------------------- | ----------------------------------------- |
+| $(r,t)$ 采样        | lognorm$(-0.4, 1.0)$，$r \neq t$ 占 25%   |
+| 网络条件输入        | $(t,, t-r)$ 位置编码                      |
+| 自适应 loss weight  | $w = 1/(|\Delta|^2 + 10^{-3})^p$，$p=1.0$ |
+| CFG scale $\omega'$ | 2.0（XL/2）                               |
+| EMA decay           | 0.9999                                    |
+
+------
+
+### 与你的 GRPO+FM 研究的接口
+
+MeanFlow 的 $u_\theta(\epsilon, 0, 1)$ 本质上是一个**确定性的 one-step generator**，可直接作为你 GRPO 框架中的 student policy：reward 对 $u_\theta$ 求梯度，IS ratio 在 one-step 情形下退化为单点比值，理论上比多步场景更简洁。值得关注。
